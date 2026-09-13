@@ -92,15 +92,30 @@
   }
   .main-btn span { position: relative; z-index: 2; }
 
+  /* ====== КНОПКА НАСТРОЕК — новая иконка ====== */
   .settings-btn {
-    position: fixed; top: 18px; right: 18px;
-    width: 38px; height: 38px; border-radius: 50%;
+    position: fixed; top: 16px; right: 16px;
+    width: 44px; height: 44px; border-radius: 50%;
     background: #2b2b2b; border: none; cursor: pointer; z-index: 20;
     display: flex; align-items: center; justify-content: center;
-    color: #f7f6f3; font-size: 15px; line-height: 1;
-    transition: transform 0.2s;
+    color: #f7f6f3;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .settings-btn:active { transform: scale(0.9); }
+  .settings-btn:active {
+    transform: scale(0.9) rotate(45deg);
+    box-shadow: 0 0 0 6px rgba(229, 35, 27, 0.15);
+  }
+  .settings-btn svg {
+    width: 24px; height: 24px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.6s ease;
+  }
+  .settings-btn:active svg { transform: rotate(90deg); }
 
   .screen {
     position: fixed; inset: 0; z-index: 50;
@@ -150,7 +165,6 @@
   .archive-sub { font-size: 1.1em; color: #999; margin-top: 2px; }
   .archive-arrow { font-size: 1.6em; color: #e5231b; }
 
-  /* КАРТОЧКА ПЕРСОНАЖА */
   .char-header {
     text-align: center;
     margin-bottom: 24px;
@@ -164,22 +178,11 @@
     font-weight: 700;
     text-transform: uppercase;
   }
-  .char-info {
-    font-size: 1.3em;
-    color: #666;
-    margin-top: 8px;
-  }
-  .char-role {
-    font-size: 1.4em;
-    color: #2b2b2b;
-    margin-top: 10px;
-    font-style: italic;
-  }
+  .char-info { font-size: 1.3em; color: #666; margin-top: 8px; }
+  .char-role { font-size: 1.4em; color: #2b2b2b; margin-top: 10px; font-style: italic; }
   .char-body {
-    font-size: 1.35em;
-    line-height: 1.6;
-    color: #2b2b2b;
-    white-space: pre-wrap;
+    font-size: 1.35em; line-height: 1.6;
+    color: #2b2b2b; white-space: pre-wrap;
     margin-bottom: 24px;
   }
   .char-quote {
@@ -191,13 +194,6 @@
     color: #444;
     background: rgba(229, 35, 27, 0.05);
     border-radius: 0 8px 8px 0;
-  }
-  .char-label {
-    font-size: 1.2em;
-    color: #e5231b;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-    text-transform: uppercase;
   }
 
   .setting-row {
@@ -242,6 +238,21 @@
     font-size: 1.4em; cursor: pointer; letter-spacing: 1px;
   }
   .reset-btn:active { background: #e5231b; color: #fff; }
+
+  /* ====== Ссылка на YouTube ====== */
+  .link-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 4px;
+    border-bottom: 2px dashed rgba(229, 35, 27, 0.25);
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .link-row:active { opacity: 0.6; }
+  .link-row .setting-label { color: #e5231b; }
+  .link-row .link-arrow {
+    font-size: 1.6em; color: #e5231b;
+  }
 
   body.screen-open .decor,
   body.screen-open .top-label,
@@ -288,7 +299,13 @@
     <circle cx="30" cy="32" r="1.8" fill="#ef9a1d"/>
   </svg>
 
-  <button class="settings-btn" onclick="openScreen('screen-settings')" aria-label="Настройки">⚙</button>
+  <!-- ====== КНОПКА НАСТРОЕК с новой иконкой ====== -->
+  <button class="settings-btn" onclick="openScreen('screen-settings')" aria-label="Настройки">
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3.2"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </svg>
+  </button>
 
   <button class="main-btn" onclick="openScreen('screen-archives')">
     <svg viewBox="0 0 300 110" preserveAspectRatio="none">
@@ -304,7 +321,6 @@
   <div class="blob blob-orange"></div>
   <div class="blob blob-red"></div>
 
-  <!-- ЭКРАН: СПИСОК РАЗДЕЛОВ АРХИВА -->
   <div class="screen" id="screen-archives">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
     <h2>Архивы</h2>
@@ -319,20 +335,17 @@
     </ul>
   </div>
 
-  <!-- ЭКРАН: СПИСОК ПЕРСОНАЖЕЙ -->
   <div class="screen" id="screen-characters">
     <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
     <h2>Персонажи</h2>
     <ul class="archive-list" id="characterList"></ul>
   </div>
 
-  <!-- ЭКРАН: КАРТОЧКА ПЕРСОНАЖА -->
   <div class="screen" id="screen-character">
     <button class="back-btn" onclick="openScreen('screen-characters')">← назад</button>
     <div id="characterContent"></div>
   </div>
 
-  <!-- ЭКРАН: НАСТРОЙКИ -->
   <div class="screen" id="screen-settings">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
     <h2>Настройки</h2>
@@ -361,60 +374,38 @@
       <div class="toggle on" id="tgl-sound" onclick="toggleSetting('sound', this)"></div>
     </div>
 
+    <!-- ====== ССЫЛКА НА YOUTUBE ====== -->
+    <a class="link-row" href="https://www.youtube.com/@Radproex" target="_blank" rel="noopener">
+      <span class="setting-label">YouTube канал</span>
+      <span class="link-arrow">↗</span>
+    </a>
+
     <button class="reset-btn" onclick="resetSettings()">Сбросить всё</button>
   </div>
 
 <script>
   const CHARACTERS = [
-    {
-      name: "Redpro",
-      age: "32 года",
-      role: "Отец. Муж. Тот, кто потерял всё.",
+    { name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.",
       text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
-      quote: "Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом."
-    },
-    {
-      name: "Пека",
-      age: "25 лет (на 7 лет младше Редпро)",
-      role: "Брат. Адмирал. Тот, кто помнит.",
+      quote: "Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом." },
+    { name: "Пека", age: "25 лет (на 7 лет младше Редпро)", role: "Брат. Адмирал. Тот, кто помнит.",
       text: "Младший брат Редпро. Сорвиголова. Ворвался в гильдию «Меха-Помощник» с криком: «Я нужен вам!» — и не ошибся. Управляет воздухом. Создал из чёрного шприца Линада — свою тёмную половину. Единственный, кто узнает правду в конце. И единственный, кто сохранит её.",
-      quote: "Брат учил меня держать нить. Я держу. Даже когда руки в крови."
-    },
-    {
-      name: "Виталик",
-      age: "64 года",
-      role: "Отец Редпро и Пеки. Легенда. Шпион.",
+      quote: "Брат учил меня держать нить. Я держу. Даже когда руки в крови." },
+    { name: "Виталик", age: "64 года", role: "Отец Редпро и Пеки. Легенда. Шпион.",
       text: "Сильнейший человек гильдии. Прошёл войны, которые не принято вспоминать. Молчалив. Каждый его шаг заставляет дрожать бетон. Ушёл к Взломщикам как шпион под прикрытием. Передавал данные через азбуку Морзе в шуме старых телевизоров. Рисковал собой каждую ночь. И выжил.",
-      quote: "Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час."
-    },
-    {
-      name: "Мелкий",
-      age: "7 лет",
-      role: "Сын. Носитель. Тот, кого спасли.",
-      text: "Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Мелкий жив. Он вырос. И он помнит.",
-      quote: "Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда."
-    },
-    {
-      name: "Манекен",
-      age: "75 лет",
-      role: "Учёный. Создатель. Тот, кто знал.",
-      text: "Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели.",
-      quote: "Я не спасаю мир. Я просто чиню то, что сломали другие."
-    },
-    {
-      name: "Подопытный",
-      age: "10 лет",
-      role: "Сын Манекена. Киборг. Тот, кто вернётся.",
-      text: "Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Он знает это. И не боится.",
-      quote: "Я умирал один раз. Второй — не страшно. Главное, чтобы не зря."
-    },
-    {
-      name: "Лира",
-      age: "31 год (на момент смерти)",
-      role: "Жена. Мать. Свет.",
-      text: "Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа.",
-      quote: "Береги его. Что бы ни случилось — не отпускай его руку."
-    }
+      quote: "Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час." },
+    { name: "Мелкий", age: "7 лет", role: "Сын. Носитель. Тот, кого спасли.",
+      text: "Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Потому что в ту ночь — в дождь и крик — Тревор вытащил его. Мелкий жив. Он вырос. И он помнит.",
+      quote: "Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда." },
+    { name: "Манекен", age: "75 лет", role: "Учёный. Создатель. Тот, кто знал.",
+      text: "Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели. Знал тайну Лиры. Погиб в 6-й главе — но не зря. Его смерть стала ключом к финалу.",
+      quote: "Я не спасаю мир. Я просто чиню то, что сломали другие." },
+    { name: "Подопытный", age: "10 лет", role: "Сын Манекена. Киборг. Тот, кто вернётся.",
+      text: "Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Его роль в финале — ослабить Нуля и дать команде шанс. Он знает это. И не боится.",
+      quote: "Я умирал один раз. Второй — не страшно. Главное, чтобы не зря." },
+    { name: "Лира", age: "31 год (на момент смерти)", role: "Жена. Мать. Свет.",
+      text: "Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа. Тень узнал из газеты. Кофе пролился. Что-то сломалось навсегда.",
+      quote: "Береги его. Что бы ни случилось — не отпускай его руку." }
   ];
 
   function openScreen(id) {
@@ -509,7 +500,6 @@
   body.dark-theme .bottom-label { color: #16161a; text-shadow: none; }
   body.dark-theme .setting-label { color: #eaeaea; }
   body.dark-theme .screen h2,
-  body.dark-theme .reader-title,
   body.dark-theme .char-name { color: #ff5c4d; }
   body.dark-theme .back-btn { color: #ff5c4d; }
   body.dark-theme .main-btn { color: #ff5c4d; }
@@ -533,6 +523,9 @@
   body.dark-theme .char-quote { color: #ccc; background: rgba(255, 92, 77, 0.08); }
   body.dark-theme .char-header { border-bottom-color: rgba(255, 92, 77, 0.3); }
   body.dark-theme .decor { color: #ff5c4d; }
+  body.dark-theme .link-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
+  body.dark-theme .link-row .setting-label { color: #ff5c4d; }
+  body.dark-theme .link-row .link-arrow { color: #ff5c4d; }
 </style>
 
 </body>
