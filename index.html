@@ -15,7 +15,6 @@
     background: #f7f6f3;
   }
 
-  /* ================= ФОН ================= */
   .blob { position: fixed; z-index: 1; pointer-events: none; animation: float 9s ease-in-out infinite; }
   .blob-orange {
     left: -18%; bottom: -12%; width: 65%; height: 48%;
@@ -35,7 +34,6 @@
   }
 
   .decor { position: fixed; z-index: 2; pointer-events: none; color: #e5231b; opacity: 0.9; }
-
   .decor-splat-tl { top: 12%; left: -20px; width: 120px; height: 120px; animation: wobble 7s ease-in-out infinite; }
   .decor-star-tr { top: 15%; right: 22px; width: 60px; height: 60px; animation: wobble 6s ease-in-out infinite reverse; }
   .decor-dots-l { top: 50%; left: 18px; width: 30px; animation: wobble 8s ease-in-out infinite; }
@@ -93,7 +91,6 @@
   }
   .main-btn span { position: relative; z-index: 2; }
 
-  /* ====== КНОПКА НАСТРОЕК ====== */
   .settings-btn {
     position: fixed; top: 16px; right: 16px;
     width: 44px; height: 44px; border-radius: 50%;
@@ -115,7 +112,6 @@
   }
   .settings-btn:active svg { transform: rotate(90deg); }
 
-  /* ================= ЭКРАНЫ ================= */
   .screen {
     position: fixed; inset: 0; z-index: 50;
     background: #f7f6f3;
@@ -124,30 +120,19 @@
     font-family: 'Caveat', cursive;
     overflow-y: auto;
   }
-  .screen.active { display: flex; }
-
-  /* АНИМАЦИЯ ВХОДА ЭКРАНА: мягкое проявление + сдвиг */
-  .screen.active {
-    animation: screenEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  .screen.active { display: flex; animation: screenEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
   @keyframes screenEnter {
     0%   { opacity: 0; transform: translateX(30px) scale(0.98); }
     100% { opacity: 1; transform: translateX(0) scale(1); }
   }
 
-  /* Плавное появление заголовка h2 */
-  .screen.active h2 {
-    animation: titleEnter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
-  }
+  .screen.active h2 { animation: titleEnter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
   @keyframes titleEnter {
     0%   { opacity: 0; transform: translateY(-14px); letter-spacing: 12px; }
     100% { opacity: 1; transform: translateY(0); letter-spacing: 4px; }
   }
 
-  /* Плавное появление кнопки «назад» */
-  .screen.active .back-btn {
-    animation: fadeIn 0.5s ease 0.1s both;
-  }
+  .screen.active .back-btn { animation: fadeIn 0.5s ease 0.1s both; }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateX(-10px); }
     to   { opacity: 1; transform: translateX(0); }
@@ -167,7 +152,6 @@
     cursor: pointer; letter-spacing: 1px;
   }
 
-  /* ================= СПИСОК КАРТОЧЕК ================= */
   .archive-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 
   .archive-item {
@@ -182,10 +166,7 @@
     overflow: hidden;
   }
 
-  /* Появление карточек по очереди */
-  .screen.active .archive-item {
-    animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
+  .screen.active .archive-item { animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
   .screen.active .archive-item:nth-child(1) { animation-delay: 0.10s; }
   .screen.active .archive-item:nth-child(2) { animation-delay: 0.16s; }
   .screen.active .archive-item:nth-child(3) { animation-delay: 0.22s; }
@@ -199,7 +180,6 @@
     100% { opacity: 1; transform: translateX(0); }
   }
 
-  /* Пульсирующее свечение на карточке — фон «дышит» */
   .archive-item::before {
     content: '';
     position: absolute;
@@ -233,25 +213,15 @@
 
   .archive-title { font-size: 1.6em; color: #2b2b2b; letter-spacing: 1px; }
   .archive-sub { font-size: 1.1em; color: #999; margin-top: 2px; }
-  .archive-arrow {
-    font-size: 1.6em; color: #e5231b;
-    transition: transform 0.25s ease;
-  }
+  .archive-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
   .archive-item:active .archive-arrow { transform: translateX(6px); }
 
-  /* ================= КАРТОЧКА ПЕРСОНАЖА ================= */
   .char-header {
     text-align: center;
     margin-bottom: 24px;
     padding-bottom: 20px;
     border-bottom: 2px dashed rgba(229, 35, 27, 0.35);
-    animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  @keyframes charHeaderIn {
-    0%   { opacity: 0; transform: translateY(-16px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
   .char-name {
     font-size: 2.8em; color: #e5231b;
     letter-spacing: 5px; font-weight: 700;
@@ -259,18 +229,7 @@
   }
   .char-info { font-size: 1.3em; color: #666; margin-top: 8px; }
   .char-role { font-size: 1.4em; color: #2b2b2b; margin-top: 10px; font-style: italic; }
-
-  .char-body {
-    font-size: 1.35em; line-height: 1.6;
-    color: #2b2b2b; white-space: pre-wrap;
-    margin-bottom: 24px;
-    animation: charBodyIn 0.7s ease 0.15s both;
-  }
-  @keyframes charBodyIn {
-    0%   { opacity: 0; transform: translateY(12px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
+  .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; }
   .char-quote {
     border-left: 3px solid #e5231b;
     padding: 12px 16px;
@@ -280,26 +239,13 @@
     color: #444;
     background: rgba(229, 35, 27, 0.05);
     border-radius: 0 8px 8px 0;
-    animation: charQuoteIn 0.7s ease 0.3s both;
-  }
-  @keyframes charQuoteIn {
-    0%   { opacity: 0; transform: translateX(-16px); border-left-width: 3px; }
-    100% { opacity: 1; transform: translateX(0); border-left-width: 3px; }
   }
 
-  /* ================= НАСТРОЙКИ ================= */
   .setting-row {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 4px;
     border-bottom: 2px dashed rgba(229, 35, 27, 0.25);
-    animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .screen.active .setting-row:nth-child(2) { animation-delay: 0.10s; }
-  .screen.active .setting-row:nth-child(3) { animation-delay: 0.16s; }
-  .screen.active .setting-row:nth-child(4) { animation-delay: 0.22s; }
-  .screen.active .setting-row:nth-child(5) { animation-delay: 0.28s; }
-  .screen.active .setting-row:nth-child(6) { animation-delay: 0.34s; }
-
   .setting-row:last-of-type { border-bottom: none; }
   .setting-label { font-size: 1.5em; color: #2b2b2b; letter-spacing: 1px; }
 
@@ -335,26 +281,19 @@
     border: 2px solid #e5231b; border-radius: 30px;
     color: #e5231b; font-family: 'Caveat', cursive;
     font-size: 1.4em; cursor: pointer; letter-spacing: 1px;
-    animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
   }
   .reset-btn:active { background: #e5231b; color: #fff; }
 
-  /* ================= ССЫЛКА YOUTUBE ================= */
   .link-row {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 4px;
     border-bottom: 2px dashed rgba(229, 35, 27, 0.25);
-    cursor: pointer;
-    text-decoration: none;
+    cursor: pointer; text-decoration: none;
     transition: opacity 0.2s;
-    animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both;
   }
   .link-row:active { opacity: 0.6; }
   .link-row .setting-label { color: #e5231b; }
-  .link-row .link-arrow {
-    font-size: 1.6em; color: #e5231b;
-    transition: transform 0.25s ease;
-  }
+  .link-row .link-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
   .link-row:active .link-arrow { transform: translateX(6px); }
 
   body.screen-open .decor,
@@ -511,7 +450,6 @@
 
   function openScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    // Форсируем перезапуск анимации — для этого убираем активность, потом добавляем
     const target = document.getElementById(id);
     void target.offsetWidth;
     target.classList.add('active');
@@ -529,3 +467,108 @@
       const li = document.createElement('li');
       li.className = 'archive-item';
       li.onclick = () => openCharacter(i);
+      li.innerHTML =
+        '<div>' +
+          '<div class="archive-title">' + c.name + '</div>' +
+          '<div class="archive-sub">' + c.role + '</div>' +
+        '</div>' +
+        '<div class="archive-arrow">→</div>';
+      list.appendChild(li);
+    });
+  }
+
+  function openCharacter(index) {
+    const c = CHARACTERS[index];
+    document.getElementById('characterContent').innerHTML =
+      '<div class="char-header">' +
+        '<div class="char-name">' + c.name + '</div>' +
+        '<div class="char-info">Возраст: ' + c.age + '</div>' +
+        '<div class="char-role">' + c.role + '</div>' +
+      '</div>' +
+      '<div class="char-body">' + c.text + '</div>' +
+      '<div class="char-quote">«' + c.quote + '»</div>';
+    openScreen('screen-character');
+    document.getElementById('screen-character').scrollTop = 0;
+  }
+
+  let textSize = 100;
+  function changeTextSize(delta) {
+    textSize = Math.max(80, Math.min(140, textSize + delta * 10));
+    document.getElementById('sizeValue').textContent = textSize + '%';
+    document.documentElement.style.fontSize = (textSize / 100) * 16 + 'px';
+    localStorage.setItem('lore_size', textSize);
+  }
+
+  function toggleSetting(key, el) {
+    el.classList.toggle('on');
+    const isOn = el.classList.contains('on');
+    localStorage.setItem('lore_' + key, isOn);
+    if (key === 'dark') document.body.classList.toggle('dark-theme', isOn);
+    if (key === 'anim') {
+      document.querySelectorAll('.blob, .decor').forEach(b => {
+        b.style.animationPlayState = isOn ? 'running' : 'paused';
+      });
+    }
+  }
+
+  function resetSettings() {
+    if (!confirm('Сбросить все настройки?')) return;
+    ['dark', 'anim', 'sound', 'size'].forEach(k => localStorage.removeItem('lore_' + k));
+    location.reload();
+  }
+
+  window.addEventListener('load', () => {
+    buildCharacterList();
+    const size = localStorage.getItem('lore_size');
+    if (size) {
+      textSize = parseInt(size);
+      document.getElementById('sizeValue').textContent = textSize + '%';
+      document.documentElement.style.fontSize = (textSize / 100) * 16 + 'px';
+    }
+    ['dark', 'anim', 'sound'].forEach(k => {
+      const val = localStorage.getItem('lore_' + k);
+      const el = document.getElementById('tgl-' + k);
+      if (val === 'false') el.classList.remove('on');
+      if (val === 'true')  el.classList.add('on');
+      if (k === 'dark' && val === 'true') document.body.classList.add('dark-theme');
+    });
+  });
+</script>
+
+<style>
+  body.dark-theme { background: #16161a; }
+  body.dark-theme .screen { background: #16161a; }
+  body.dark-theme .top-label { color: #555; }
+  body.dark-theme .bottom-label { color: #16161a; text-shadow: none; }
+  body.dark-theme .setting-label { color: #eaeaea; }
+  body.dark-theme .screen h2,
+  body.dark-theme .char-name { color: #ff5c4d; }
+  body.dark-theme .back-btn { color: #ff5c4d; }
+  body.dark-theme .main-btn { color: #ff5c4d; }
+  body.dark-theme .main-btn svg path { stroke: #ff5c4d; }
+  body.dark-theme .settings-btn { background: #eaeaea; color: #16161a; }
+  body.dark-theme .setting-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
+  body.dark-theme .toggle { background: #444; }
+  body.dark-theme .toggle.on { background: #ff5c4d; }
+  body.dark-theme .size-control button { border-color: #ff5c4d; color: #ff5c4d; }
+  body.dark-theme .size-control button:active { background: #ff5c4d; color: #16161a; }
+  body.dark-theme .size-control .size-value { color: #ff5c4d; }
+  body.dark-theme .reset-btn { border-color: #ff5c4d; color: #ff5c4d; }
+  body.dark-theme .reset-btn:active { background: #ff5c4d; color: #16161a; }
+  body.dark-theme .archive-item { background: rgba(40,40,45,0.7); border-color: rgba(255,92,77,0.4); }
+  body.dark-theme .archive-title { color: #eaeaea; }
+  body.dark-theme .archive-sub { color: #888; }
+  body.dark-theme .archive-arrow { color: #ff5c4d; }
+  body.dark-theme .char-body { color: #eaeaea; }
+  body.dark-theme .char-info { color: #999; }
+  body.dark-theme .char-role { color: #eaeaea; }
+  body.dark-theme .char-quote { color: #ccc; background: rgba(255, 92, 77, 0.08); }
+  body.dark-theme .char-header { border-bottom-color: rgba(255, 92, 77, 0.3); }
+  body.dark-theme .decor { color: #ff5c4d; }
+  body.dark-theme .link-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
+  body.dark-theme .link-row .setting-label { color: #ff5c4d; }
+  body.dark-theme .link-row .link-arrow { color: #ff5c4d; }
+</style>
+
+</body>
+ </html>
