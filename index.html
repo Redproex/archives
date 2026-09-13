@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Архивы</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Caveat', cursive;
+    background: #f7f6f3;
+  }
+
+  .blob { position: fixed; z-index: 1; pointer-events: none; animation: float 9s ease-in-out infinite; }
+  .blob-orange {
+    left: -18%; bottom: -12%; width: 65%; height: 48%;
+    background: #ef9a1d;
+    border-radius: 50% 50% 45% 55% / 65% 55% 45% 35%;
+    transform: rotate(-6deg);
+  }
+  .blob-red {
+    right: -22%; bottom: -18%; width: 90%; height: 62%;
+    background: #e5231b;
+    border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%;
+    transform: rotate(4deg); animation-delay: -3s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(-6deg) scale(1); }
+    50%      { transform: translate(-8px, -6px) rotate(-4deg) scale(1.03); }
+  }
+
+  .decor { position: fixed; z-index: 2; pointer-events: none; color: #e5231b; opacity: 0.9; }
+
+  .decor-splat-tl {
+    top: 12%; left: -20px; width: 120px; height: 120px;
+    animation: wobble 7s ease-in-out infinite;
+  }
+  .decor-star-tr {
+    top: 15%; right: 22px; width: 60px; height: 60px;
+    animation: wobble 6s ease-in-out infinite reverse;
+  }
+  .decor-dots-l {
+    top: 50%; left: 18px; width: 30px;
+    animation: wobble 8s ease-in-out infinite;
+  }
+  .decor-swirl-r {
+    top: 55%; right: 10px; width: 80px; height: 80px;
+    animation: wobble 7.5s ease-in-out infinite reverse;
+  }
+  .decor-drops {
+    bottom: 28%; left: 8%; width: 40px;
+    color: #ef9a1d;
+    animation: wobble 6.5s ease-in-out infinite;
+  }
+
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50%      { transform: rotate(3deg) translateY(-4px); }
+  }
+
+  .top-label {
+    position: fixed;
+    top: 32px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+    font-family: 'Caveat', cursive;
+    font-size: 1.15em;
+    letter-spacing: 6px;
+    color: #b0b0b0;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .bottom-label {
+    position: fixed;
+    bottom: 22px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 12;
+    font-family: 'Caveat', cursive;
+    font-size: 1.4em;
+    letter-spacing: 4px;
+    color: #f7f6f3;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    white-space: nowrap;
+    opacity: 0.95;
+  }
+
+  .top-line {
+    position: fixed;
+    top: 52px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+    color: #e5231b;
+    opacity: 0.6;
+    width: 140px;
+    height: 12px;
+  }
+
+  .main-btn {
+    position: fixed; top: 42%; left: 50%;
+    transform: translateX(-50%);
+    z-index: 10; background: none; border: none;
+    cursor: pointer; padding: 22px 46px;
+    font-family: 'Caveat', cursive;
+    font-size: 2.8em; font-weight: 700;
+    color: #e5231b; letter-spacing: 5px; line-height: 1;
+    transition: transform 0.25s ease;
+  }
+  .main-btn:active { transform: translateX(-50%) scale(0.95); }
+  .main-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+  .main-btn svg path {
+    fill: none; stroke: #e5231b;
+    stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .main-btn span { position: relative; z-index: 2; }
+
+  .settings-btn {
+    position: fixed; top: 18px; right: 18px;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #2b2b2b; border: none; cursor: pointer; z-index: 20;
+    display: flex; align-items: center; justify-content: center;
+    color: #f7f6f3; font-size: 15px; line-height: 1;
+    transition: transform 0.2s;
+  }
+  .settings-btn:active { transform: scale(0.9); }
+
+  .screen {
+    position: fixed; inset: 0; z-index: 50;
+    background: #f7f6f3;
+    padding: 60px 24px 30px;
+    display: none; flex-direction: column;
+    font-family: 'Caveat', cursive;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+  }
+  .screen.active { display: flex; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .screen h2 {
+    font-size: 2.6em; color: #e5231b;
+    text-align: center; letter-spacing: 4px;
+    margin-bottom: 30px;
+  }
+
+  .back-btn {
+    position: absolute; top: 18px; left: 18px;
+    background: none; border: none;
+    font-family: 'Caveat', cursive;
+    font-size: 1.6em; color: #e5231b;
+    cursor: pointer; letter-spacing: 1px;
+  }
+
+  .archive-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .archive-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.6);
+    border: 2px dashed rgba(229, 35, 27, 0.35);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .archive-item:active { background: #e5231b; border-color: #e5231b; }
+  .archive-item:active .archive-title,
+  .archive-item:active .archive-arrow { color: #fff; }
+
+  .archive-title { font-size: 1.6em; color: #2b2b2b; letter-spacing: 1px; }
+  .archive-sub { font-size: 1.1em; color: #999; margin-top: 2px; }
+  .archive-arrow { font-size: 1.6em; color: #e5231b; }
+
+  .reader-title { font-size: 2.2em; color: #e5231b; text-align: center; letter-spacing: 3px; margin-bottom: 8px; }
+  .reader-sub { text-align: center; color: #999; font-size: 1.2em; margin-bottom: 26px; }
+  .reader-text { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; }
+
+  .setting-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 4px;
+    border-bottom: 2px dashed rgba(229, 35, 27, 0.25);
+  }
+  .setting-row:last-of-type { border-bottom: none; }
+  .setting-label { font-size: 1.5em; color: #2b2b2b; letter-spacing: 1px; }
+
+  .size-control { display: flex; align-items: center; gap: 12px; }
+  .size-control button {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid #e5231b; background: transparent;
+    color: #e5231b; font-family: 'Caveat', cursive;
+    font-size: 1.6em; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .size-control button:active { background: #e5231b; color: #fff; }
+  .size-control .size-value { font-size: 1.3em; color: #e5231b; min-width: 34px; text-align: center; }
+
+  .toggle {
+    width: 54px; height: 28px; background: #d0d0d0;
+    border-radius: 14px; position: relative; cursor: pointer;
+    transition: 0.3s;
+  }
+  .toggle::after {
+    content: ''; position: absolute;
+    width: 22px; height: 22px; background: #fff;
+    border-radius: 50%; top: 3px; left: 3px;
+    transition: 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .toggle.on { background: #e5231b; }
+  .toggle.on::after { left: 29px; }
+
+  .reset-btn {
+    margin-top: 30px; align-self: center;
+    padding: 12px 28px; background: transparent;
+    border: 2px solid #e5231b; border-radius: 30px;
+    color: #e5231b; font-family: 'Caveat', cursive;
+    font-size: 1.4em; cursor: pointer; letter-spacing: 1px;
+  }
+  .reset-btn:active { background: #e5231b; color: #fff; }
+
+  body.screen-open .decor,
+  body.screen-open .top-label,
+  body.screen-open .top-line,
+  body.screen-open .bottom-label { opacity: 0; transition: opacity 0.2s; }
+</style>
+</head>
+<body>
+
+  <div class="top-label">The Redpro Archives</div>
+  <svg class="top-line" viewBox="0 0 140 12" preserveAspectRatio="none">
+    <path d="M 2,6 Q 30,2 60,6 T 138,6" fill="none" stroke="#e5231b" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+
+  <div class="bottom-label">выбери свою историю</div>
+
+  <svg class="decor decor-splat-tl" viewBox="0 0 120 120">
+    <path d="M 30,40 Q 60,10 80,30 Q 110,40 95,70 Q 100,100 70,95 Q 40,105 30,80 Q 10,70 30,40 Z"
+          fill="#e5231b" opacity="0.12"/>
+    <path d="M 35,45 Q 60,20 78,35" fill="none" stroke="#e5231b" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="decor decor-star-tr" viewBox="0 0 60 60">
+    <path d="M 30,6 L 33,26 L 54,30 L 33,34 L 30,54 L 27,34 L 6,30 L 27,26 Z"
+          fill="none" stroke="#e5231b" stroke-width="2.2" stroke-linejoin="round"/>
+  </svg>
+
+  <svg class="decor decor-dots-l" viewBox="0 0 30 60">
+    <circle cx="6" cy="10" r="2.5" fill="#e5231b"/>
+    <circle cx="18" cy="24" r="2" fill="#e5231b"/>
+    <circle cx="8" cy="38" r="3" fill="#e5231b"/>
+    <circle cx="20" cy="52" r="2" fill="#e5231b"/>
+  </svg>
+
+  <svg class="decor decor-swirl-r" viewBox="0 0 80 80">
+    <path d="M 10,60 Q 10,20 45,20 Q 75,20 70,45 Q 65,68 40,62 Q 20,58 25,45"
+          fill="none" stroke="#e5231b" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="decor decor-drops" viewBox="0 0 40 40">
+    <circle cx="8" cy="8" r="3" fill="#ef9a1d"/>
+    <circle cx="22" cy="18" r="2" fill="#ef9a1d"/>
+    <circle cx="12" cy="28" r="2.5" fill="#ef9a1d"/>
+    <circle cx="30" cy="32" r="1.8" fill="#ef9a1d"/>
+  </svg>
+
+  <button class="settings-btn" onclick="openScreen('screen-settings')" aria-label="Настройки">⚙</button>
+
+  <button class="main-btn" onclick="openScreen('screen-archives')">
+    <svg viewBox="0 0 300 110" preserveAspectRatio="none">
+      <path d="M 38,58
+               C 30,28 90,12 155,14
+               C 220,16 280,26 275,55
+               C 272,82 200,100 140,98
+               C 78,96 44,86 38,58 Z" />
+    </svg>
+    <span>АРХИВЫ</span>
+  </button>
+
+  <div class="blob blob-orange"></div>
+  <div class="blob blob-red"></div>
+
+  <div class="screen" id="screen-archives">
+    <button class="back-btn" onclick="closeScreens()">← назад</button>
+    <h2>Архивы</h2>
+    <ul class="archive-list" id="archiveList"></ul>
+  </div>
+
+  <div class="screen" id="screen-reader">
+    <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
+    <h2 class="reader-title" id="readerTitle"></h2>
+    <p class="reader-sub" id="readerSub"></p>
+    <div class="reader-text" id="readerText"></div>
+  </div>
+
+  <div class="screen" id="screen-settings">
+    <button class="back-btn" onclick="closeScreens()">← назад</button>
+    <h2>Настройки</h2>
+
+    <div class="setting-row">
+      <span class="setting-label">Размер текста</span>
+      <div class="size-control">
+        <button onclick="changeTextSize(-1)">−</button>
+        <span class="size-value" id="sizeValue">100%</span>
+        <button onclick="changeTextSize(1)">+</button>
+      </div>
+    </div>
+
+    <div class="setting-row">
+      <span class="setting-label">Тёмная тема</span>
+      <div class="toggle" id="tgl-dark" onclick="toggleSetting('dark', this)"></div>
+    </div>
+
+    <div class="setting-row">
+      <span class="setting-label">Анимации</span>
+      <div class="toggle on" id="tgl-anim" onclick="toggleSetting('anim', this)"></div>
+    </div>
+
+    <div class="setting-row">
+      <span class="setting-label">Звуки</span>
+      <div class="toggle on" id="tgl-sound" onclick="toggleSetting('sound', this)"></div>
+    </div>
+
+    <button class="reset-btn" onclick="resetSettings()">Сбросить всё</button>
+  </div>
+
+<script>
+  const LORE = [
+    { title: "Redpro", sub: "Персонажи · Главный герой",
+      text: "Обычный человек, у которого была семья.\n\nНо в его жизни произошло ужасное: жена погибла, а сыном завладел злодей, желающий уничтожить мир.\n\nRedpro оказался в заключении у собственного сына. Позже он выбрался, получил силу и начал тренироваться." },
+    { title: "Пека", sub: "Персонажи · Брат Redpro",
+      text: "Брат Redpro.\n\nЗахотел спасти племянника — сына Redpro. Начал тренироваться, позже получил силу." },
+    { title: "Виталик", sub: "Персонажи · Отец Redpro и Пеки",
+      text: "Отец Redpro и Пеки.\n\nСерьёзный мужик, побывавший во многих войнах.\n\nПопал на войну против собственного внука." },
+    { title: "Мелкий", sub: "Персонажи · Сын Redpro",
+      text: "Сын Redpro.\n\nУ него появилась золотая рука — с её помощью злодей овладел Мелким.\n\nЕму пришлось сражаться со своим отцом." },
+    { title: "Манекен", sub: "Персонажи · Учёный",
+      text: "Учёный базы Меха.\n\nСтарый учёный из гильдий. Противник Мелкого." },
+    { title: "Подопотный", sub: "Персонажи · Приёмный сын Манекена",
+      text: "Приёмный сын Манекена." },
+    { title: "Лира", sub: "Персонажи · Жена Redpro",
+      text: "Жена Redpro.\n\nПогибла до начала происшествий." }
+  ];
+
+  function openScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.body.classList.add('screen-open');
+  }
+  function closeScreens() {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.body.classList.remove('screen-open');
+  }
+
+  function buildArchiveList() {
+    const list = document.getElementById('archiveList');
+    list.innerHTML = '';
+    LORE.forEach((entry, i) => {
+      const li = document.createElement('li');
+      li.className = 'archive-item';
+      li.onclick = () => openEntry(i);
+      li.innerHTML =
+        '<div>' +
+          '<div class="archive-title">' + entry.title + '</div>' +
+          (entry.sub ? '<div class="archive-sub">' + entry.sub + '</div>' : '') +
+        '</div>' +
+        '<div class="archive-arrow">→</div>';
+      list.appendChild(li);
+    });
+  }
+
+  function openEntry(index) {
+    const entry = LORE[index];
+    document.getElementById('readerTitle').textContent = entry.title;
+    document.getElementById('readerSub').textContent = entry.sub || '';
+    document.getElementById('readerText').textContent = entry.text;
+    openScreen('screen-reader');
+    document.getElementById('screen-reader').scrollTop = 0;
+  }
+
+  let textSize = 100;
+  function changeTextSize(delta) {
+    textSize = Math.max(80, Math.min(140, textSize + delta * 10));
+    document.getElementById('sizeValue').textContent = textSize + '%';
+    document.documentElement.style.fontSize = (textSize / 100) * 16 + 'px';
+    localStorage.setItem('lore_size', textSize);
+  }
+
+  function toggleSetting(key, el) {
+    el.classList.toggle('on');
+    const isOn = el.classList.contains('on');
+    localStorage.setItem('lore_' + key, isOn);
+    if (key === 'dark') document.body.classList.toggle('dark-theme', isOn);
+    if (key === 'anim') {
+      document.querySelectorAll('.blob, .decor').forEach(b => {
+        b.style.animationPlayState = isOn ? 'running' : 'paused';
+      });
+    }
+  }
+
+  function resetSettings() {
+    if (!confirm('Сбросить все настройки?')) return;
+    ['dark', 'anim', 'sound', 'size'].forEach(k => localStorage.removeItem('lore_' + k));
+    location.reload();
+  }
+
+  window.addEventListener('load', () => {
+    buildArchiveList();
+    const size = localStorage.getItem('lore_size');
+    if (size) {
+      textSize = parseInt(size);
+      document.getElementById('sizeValue').textContent = textSize + '%';
+      document.documentElement.style.fontSize = (textSize / 100) * 16 + 'px';
+    }
+    ['dark', 'anim', 'sound'].forEach(k => {
+      const val = localStorage.getItem('lore_' + k);
+      const el = document.getElementById('tgl-' + k);
+      if (val === 'false') el.classList.remove('on');
+      if (val === 'true')  el.classList.add('on');
+      if (k === 'dark' && val === 'true') document.body.classList.add('dark-theme');
+    });
+  });
+</script>
+
+<style>
+  body.dark-theme { background: #16161a; }
+  body.dark-theme .screen { background: #16161a; }
+  body.dark-theme .top-label { color: #555; }
+  body.dark-theme .bottom-label { color: #16161a; text-shadow: none; }
+  body.dark-theme .setting-label { color: #eaeaea; }
+  body.dark-theme .screen h2,
+  body.dark-theme .reader-title { color: #ff5c4d; }
+  body.dark-theme .back-btn { color: #ff5c4d; }
+  body.dark-theme .main-btn { color: #ff5c4d; }
+  body.dark-theme .main-btn svg path { stroke: #ff5c4d; }
+  body.dark-theme .settings-btn { background: #eaeaea; color: #16161a; }
+  body.dark-theme .setting-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
+  body.dark-theme .toggle { background: #444; }
+  body.dark-theme .toggle.on { background: #ff5c4d; }
+  body.dark-theme .size-control button { border-color: #ff5c4d; color: #ff5c4d; }
+  body.dark-theme .size-control button:active { background: #ff5c4d; color: #16161a; }
+  body.dark-theme .size-control .size-value { color: #ff5c4d; }
+  body.dark-theme .reset-btn { border-color: #ff5c4d; color: #ff5c4d; }
+  body.dark-theme .reset-btn:active { background: #ff5c4d; color: #16161a; }
+  body.dark-theme .archive-item { background: rgba(40,40,45,0.7); border-color: rgba(255,92,77,0.4); }
+  body.dark-theme .archive-title { color: #eaeaea; }
+  body.dark-theme .archive-sub { color: #888; }
+  body.dark-theme .archive-arrow { color: #ff5c4d; }
+  body.dark-theme .reader-text { color: #eaeaea; }
+  body.dark-theme .reader-sub { color: #888; }
+  body.dark-theme .decor { color: #ff5c4d; }
+</style>
+
+</body>
+</html>
