@@ -35,27 +35,11 @@
 
   .decor { position: fixed; z-index: 2; pointer-events: none; color: #e5231b; opacity: 0.9; }
 
-  .decor-splat-tl {
-    top: 12%; left: -20px; width: 120px; height: 120px;
-    animation: wobble 7s ease-in-out infinite;
-  }
-  .decor-star-tr {
-    top: 15%; right: 22px; width: 60px; height: 60px;
-    animation: wobble 6s ease-in-out infinite reverse;
-  }
-  .decor-dots-l {
-    top: 50%; left: 18px; width: 30px;
-    animation: wobble 8s ease-in-out infinite;
-  }
-  .decor-swirl-r {
-    top: 55%; right: 10px; width: 80px; height: 80px;
-    animation: wobble 7.5s ease-in-out infinite reverse;
-  }
-  .decor-drops {
-    bottom: 28%; left: 8%; width: 40px;
-    color: #ef9a1d;
-    animation: wobble 6.5s ease-in-out infinite;
-  }
+  .decor-splat-tl { top: 12%; left: -20px; width: 120px; height: 120px; animation: wobble 7s ease-in-out infinite; }
+  .decor-star-tr { top: 15%; right: 22px; width: 60px; height: 60px; animation: wobble 6s ease-in-out infinite reverse; }
+  .decor-dots-l { top: 50%; left: 18px; width: 30px; animation: wobble 8s ease-in-out infinite; }
+  .decor-swirl-r { top: 55%; right: 10px; width: 80px; height: 80px; animation: wobble 7.5s ease-in-out infinite reverse; }
+  .decor-drops { bottom: 28%; left: 8%; width: 40px; color: #ef9a1d; animation: wobble 6.5s ease-in-out infinite; }
 
   @keyframes wobble {
     0%, 100% { transform: rotate(-3deg) translateY(0); }
@@ -63,41 +47,30 @@
   }
 
   .top-label {
-    position: fixed;
-    top: 32px; left: 50%;
+    position: fixed; top: 32px; left: 50%;
     transform: translateX(-50%);
     z-index: 8;
     font-family: 'Caveat', cursive;
-    font-size: 1.15em;
-    letter-spacing: 6px;
-    color: #b0b0b0;
-    text-transform: uppercase;
-    white-space: nowrap;
+    font-size: 1.15em; letter-spacing: 6px;
+    color: #b0b0b0; text-transform: uppercase; white-space: nowrap;
   }
 
   .bottom-label {
-    position: fixed;
-    bottom: 22px; left: 50%;
+    position: fixed; bottom: 22px; left: 50%;
     transform: translateX(-50%);
     z-index: 12;
     font-family: 'Caveat', cursive;
-    font-size: 1.4em;
-    letter-spacing: 4px;
+    font-size: 1.4em; letter-spacing: 4px;
     color: #f7f6f3;
     text-shadow: 0 1px 4px rgba(0,0,0,0.25);
-    white-space: nowrap;
-    opacity: 0.95;
+    white-space: nowrap; opacity: 0.95;
   }
 
   .top-line {
-    position: fixed;
-    top: 52px; left: 50%;
+    position: fixed; top: 52px; left: 50%;
     transform: translateX(-50%);
-    z-index: 8;
-    color: #e5231b;
-    opacity: 0.6;
-    width: 140px;
-    height: 12px;
+    z-index: 8; color: #e5231b; opacity: 0.6;
+    width: 140px; height: 12px;
   }
 
   .main-btn {
@@ -170,15 +143,62 @@
   }
   .archive-item:active { background: #e5231b; border-color: #e5231b; }
   .archive-item:active .archive-title,
-  .archive-item:active .archive-arrow { color: #fff; }
+  .archive-item:active .archive-arrow,
+  .archive-item:active .archive-sub { color: #fff; }
 
   .archive-title { font-size: 1.6em; color: #2b2b2b; letter-spacing: 1px; }
   .archive-sub { font-size: 1.1em; color: #999; margin-top: 2px; }
   .archive-arrow { font-size: 1.6em; color: #e5231b; }
 
-  .reader-title { font-size: 2.2em; color: #e5231b; text-align: center; letter-spacing: 3px; margin-bottom: 8px; }
-  .reader-sub { text-align: center; color: #999; font-size: 1.2em; margin-bottom: 26px; }
-  .reader-text { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; }
+  /* КАРТОЧКА ПЕРСОНАЖА */
+  .char-header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 2px dashed rgba(229, 35, 27, 0.35);
+  }
+  .char-name {
+    font-size: 2.8em;
+    color: #e5231b;
+    letter-spacing: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .char-info {
+    font-size: 1.3em;
+    color: #666;
+    margin-top: 8px;
+  }
+  .char-role {
+    font-size: 1.4em;
+    color: #2b2b2b;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  .char-body {
+    font-size: 1.35em;
+    line-height: 1.6;
+    color: #2b2b2b;
+    white-space: pre-wrap;
+    margin-bottom: 24px;
+  }
+  .char-quote {
+    border-left: 3px solid #e5231b;
+    padding: 12px 16px;
+    margin: 20px 0;
+    font-size: 1.35em;
+    font-style: italic;
+    color: #444;
+    background: rgba(229, 35, 27, 0.05);
+    border-radius: 0 8px 8px 0;
+  }
+  .char-label {
+    font-size: 1.2em;
+    color: #e5231b;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
 
   .setting-row {
     display: flex; align-items: center; justify-content: space-between;
@@ -284,19 +304,35 @@
   <div class="blob blob-orange"></div>
   <div class="blob blob-red"></div>
 
+  <!-- ЭКРАН: СПИСОК РАЗДЕЛОВ АРХИВА -->
   <div class="screen" id="screen-archives">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
     <h2>Архивы</h2>
-    <ul class="archive-list" id="archiveList"></ul>
+    <ul class="archive-list">
+      <li class="archive-item" onclick="openScreen('screen-characters')">
+        <div>
+          <div class="archive-title">Персонажи</div>
+          <div class="archive-sub">7 записей</div>
+        </div>
+        <div class="archive-arrow">→</div>
+      </li>
+    </ul>
   </div>
 
-  <div class="screen" id="screen-reader">
+  <!-- ЭКРАН: СПИСОК ПЕРСОНАЖЕЙ -->
+  <div class="screen" id="screen-characters">
     <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
-    <h2 class="reader-title" id="readerTitle"></h2>
-    <p class="reader-sub" id="readerSub"></p>
-    <div class="reader-text" id="readerText"></div>
+    <h2>Персонажи</h2>
+    <ul class="archive-list" id="characterList"></ul>
   </div>
 
+  <!-- ЭКРАН: КАРТОЧКА ПЕРСОНАЖА -->
+  <div class="screen" id="screen-character">
+    <button class="back-btn" onclick="openScreen('screen-characters')">← назад</button>
+    <div id="characterContent"></div>
+  </div>
+
+  <!-- ЭКРАН: НАСТРОЙКИ -->
   <div class="screen" id="screen-settings">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
     <h2>Настройки</h2>
@@ -329,21 +365,56 @@
   </div>
 
 <script>
-  const LORE = [
-    { title: "Redpro", sub: "Персонажи · Главный герой",
-      text: "Обычный человек, у которого была семья.\n\nНо в его жизни произошло ужасное: жена погибла, а сыном завладел злодей, желающий уничтожить мир.\n\nRedpro оказался в заключении у собственного сына. Позже он выбрался, получил силу и начал тренироваться." },
-    { title: "Пека", sub: "Персонажи · Брат Redpro",
-      text: "Брат Redpro.\n\nЗахотел спасти племянника — сына Redpro. Начал тренироваться, позже получил силу." },
-    { title: "Виталик", sub: "Персонажи · Отец Redpro и Пеки",
-      text: "Отец Redpro и Пеки.\n\nСерьёзный мужик, побывавший во многих войнах.\n\nПопал на войну против собственного внука." },
-    { title: "Мелкий", sub: "Персонажи · Сын Redpro",
-      text: "Сын Redpro.\n\nУ него появилась золотая рука — с её помощью злодей овладел Мелким.\n\nЕму пришлось сражаться со своим отцом." },
-    { title: "Манекен", sub: "Персонажи · Учёный",
-      text: "Учёный базы Меха.\n\nСтарый учёный из гильдий. Противник Мелкого." },
-    { title: "Подопотный", sub: "Персонажи · Приёмный сын Манекена",
-      text: "Приёмный сын Манекена." },
-    { title: "Лира", sub: "Персонажи · Жена Redpro",
-      text: "Жена Redpro.\n\nПогибла до начала происшествий." }
+  const CHARACTERS = [
+    {
+      name: "Redpro",
+      age: "32 года",
+      role: "Отец. Муж. Тот, кто потерял всё.",
+      text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
+      quote: "Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом."
+    },
+    {
+      name: "Пека",
+      age: "25 лет (на 7 лет младше Редпро)",
+      role: "Брат. Адмирал. Тот, кто помнит.",
+      text: "Младший брат Редпро. Сорвиголова. Ворвался в гильдию «Меха-Помощник» с криком: «Я нужен вам!» — и не ошибся. Управляет воздухом. Создал из чёрного шприца Линада — свою тёмную половину. Единственный, кто узнает правду в конце. И единственный, кто сохранит её.",
+      quote: "Брат учил меня держать нить. Я держу. Даже когда руки в крови."
+    },
+    {
+      name: "Виталик",
+      age: "64 года",
+      role: "Отец Редпро и Пеки. Легенда. Шпион.",
+      text: "Сильнейший человек гильдии. Прошёл войны, которые не принято вспоминать. Молчалив. Каждый его шаг заставляет дрожать бетон. Ушёл к Взломщикам как шпион под прикрытием. Передавал данные через азбуку Морзе в шуме старых телевизоров. Рисковал собой каждую ночь. И выжил.",
+      quote: "Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час."
+    },
+    {
+      name: "Мелкий",
+      age: "7 лет",
+      role: "Сын. Носитель. Тот, кого спасли.",
+      text: "Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Потому что в ту ночь — в дождь и крик — Тревор вытащил его. Мелкий жив. Он вырос. И он помнит.",
+      quote: "Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда."
+    },
+    {
+      name: "Манекен",
+      age: "75 лет",
+      role: "Учёный. Создатель. Тот, кто знал.",
+      text: "Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели. Знал тайну Лиры. Погиб в 6-й главе — но не зря. Его смерть стала ключом к финалу.",
+      quote: "Я не спасаю мир. Я просто чиню то, что сломали другие."
+    },
+    {
+      name: "Подопытный",
+      age: "10 лет",
+      role: "Сын Манекена. Киборг. Тот, кто вернётся.",
+      text: "Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Его роль в финале — ослабить Нуля и дать команде шанс. Он знает это. И не боится.",
+      quote: "Я умирал один раз. Второй — не страшно. Главное, чтобы не зря."
+    },
+    {
+      name: "Лира",
+      age: "31 год (на момент смерти)",
+      role: "Жена. Мать. Свет.",
+      text: "Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа. Тень узнал из газеты. Кофе пролился. Что-то сломалось навсегда.",
+      quote: "Береги его. Что бы ни случилось — не отпускай его руку."
+    }
   ];
 
   function openScreen(id) {
@@ -356,30 +427,35 @@
     document.body.classList.remove('screen-open');
   }
 
-  function buildArchiveList() {
-    const list = document.getElementById('archiveList');
+  function buildCharacterList() {
+    const list = document.getElementById('characterList');
     list.innerHTML = '';
-    LORE.forEach((entry, i) => {
+    CHARACTERS.forEach((c, i) => {
       const li = document.createElement('li');
       li.className = 'archive-item';
-      li.onclick = () => openEntry(i);
+      li.onclick = () => openCharacter(i);
       li.innerHTML =
         '<div>' +
-          '<div class="archive-title">' + entry.title + '</div>' +
-          (entry.sub ? '<div class="archive-sub">' + entry.sub + '</div>' : '') +
+          '<div class="archive-title">' + c.name + '</div>' +
+          '<div class="archive-sub">' + c.role + '</div>' +
         '</div>' +
         '<div class="archive-arrow">→</div>';
       list.appendChild(li);
     });
   }
 
-  function openEntry(index) {
-    const entry = LORE[index];
-    document.getElementById('readerTitle').textContent = entry.title;
-    document.getElementById('readerSub').textContent = entry.sub || '';
-    document.getElementById('readerText').textContent = entry.text;
-    openScreen('screen-reader');
-    document.getElementById('screen-reader').scrollTop = 0;
+  function openCharacter(index) {
+    const c = CHARACTERS[index];
+    document.getElementById('characterContent').innerHTML =
+      '<div class="char-header">' +
+        '<div class="char-name">' + c.name + '</div>' +
+        '<div class="char-info">Возраст: ' + c.age + '</div>' +
+        '<div class="char-role">' + c.role + '</div>' +
+      '</div>' +
+      '<div class="char-body">' + c.text + '</div>' +
+      '<div class="char-quote">«' + c.quote + '»</div>';
+    openScreen('screen-character');
+    document.getElementById('screen-character').scrollTop = 0;
   }
 
   let textSize = 100;
@@ -409,7 +485,7 @@
   }
 
   window.addEventListener('load', () => {
-    buildArchiveList();
+    buildCharacterList();
     const size = localStorage.getItem('lore_size');
     if (size) {
       textSize = parseInt(size);
@@ -433,7 +509,8 @@
   body.dark-theme .bottom-label { color: #16161a; text-shadow: none; }
   body.dark-theme .setting-label { color: #eaeaea; }
   body.dark-theme .screen h2,
-  body.dark-theme .reader-title { color: #ff5c4d; }
+  body.dark-theme .reader-title,
+  body.dark-theme .char-name { color: #ff5c4d; }
   body.dark-theme .back-btn { color: #ff5c4d; }
   body.dark-theme .main-btn { color: #ff5c4d; }
   body.dark-theme .main-btn svg path { stroke: #ff5c4d; }
@@ -450,10 +527,13 @@
   body.dark-theme .archive-title { color: #eaeaea; }
   body.dark-theme .archive-sub { color: #888; }
   body.dark-theme .archive-arrow { color: #ff5c4d; }
-  body.dark-theme .reader-text { color: #eaeaea; }
-  body.dark-theme .reader-sub { color: #888; }
+  body.dark-theme .char-body { color: #eaeaea; }
+  body.dark-theme .char-info { color: #999; }
+  body.dark-theme .char-role { color: #eaeaea; }
+  body.dark-theme .char-quote { color: #ccc; background: rgba(255, 92, 77, 0.08); }
+  body.dark-theme .char-header { border-bottom-color: rgba(255, 92, 77, 0.3); }
   body.dark-theme .decor { color: #ff5c4d; }
 </style>
 
 </body>
-</html>
+ </html>
