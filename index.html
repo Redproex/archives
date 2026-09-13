@@ -39,7 +39,6 @@
   .decor-dots-l { top: 50%; left: 18px; width: 30px; animation: wobble 8s ease-in-out infinite; }
   .decor-swirl-r { top: 55%; right: 10px; width: 80px; height: 80px; animation: wobble 7.5s ease-in-out infinite reverse; }
   .decor-drops { bottom: 28%; left: 8%; width: 40px; color: #ef9a1d; animation: wobble 6.5s ease-in-out infinite; }
-
   @keyframes wobble {
     0%, 100% { transform: rotate(-3deg) translateY(0); }
     50%      { transform: rotate(3deg) translateY(-4px); }
@@ -49,22 +48,18 @@
     position: fixed; top: 32px; left: 50%;
     transform: translateX(-50%);
     z-index: 8;
-    font-family: 'Caveat', cursive;
     font-size: 1.15em; letter-spacing: 6px;
     color: #b0b0b0; text-transform: uppercase; white-space: nowrap;
   }
-
   .bottom-label {
     position: fixed; bottom: 22px; left: 50%;
     transform: translateX(-50%);
     z-index: 12;
-    font-family: 'Caveat', cursive;
     font-size: 1.4em; letter-spacing: 4px;
     color: #f7f6f3;
     text-shadow: 0 1px 4px rgba(0,0,0,0.25);
     white-space: nowrap; opacity: 0.95;
   }
-
   .top-line {
     position: fixed; top: 52px; left: 50%;
     transform: translateX(-50%);
@@ -112,30 +107,19 @@
   }
   .settings-btn:active svg { transform: rotate(90deg); }
 
-  /* ============ ЭКРАНЫ ============ */
   .screen {
     position: fixed; inset: 0; z-index: 50;
     background: #f7f6f3;
     padding: 60px 24px 30px;
     display: flex; flex-direction: column;
-    font-family: 'Caveat', cursive;
     overflow-y: auto;
-    /* Скрыт по умолчанию, но всегда в DOM */
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0; pointer-events: none;
     transform: translateX(30px);
     transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .screen.active {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
-  }
+  .screen.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
 
-  /* Анимация появления заголовка */
-  .screen.active h2 {
-    animation: titleEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
-  }
+  .screen.active h2 { animation: titleEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
   @keyframes titleEnter {
     0%   { opacity: 0; transform: translateY(-14px); letter-spacing: 12px; }
     100% { opacity: 1; transform: translateY(0); letter-spacing: 4px; }
@@ -174,7 +158,6 @@
     position: relative;
     overflow: hidden;
   }
-
   .screen.active .archive-item { animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
   .screen.active .archive-item:nth-child(1) { animation-delay: 0.15s; }
   .screen.active .archive-item:nth-child(2) { animation-delay: 0.21s; }
@@ -191,8 +174,7 @@
 
   .archive-item::before {
     content: '';
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background: radial-gradient(circle at 0% 50%, rgba(229,35,27,0.08), transparent 70%);
     animation: pulseGlow 4s ease-in-out infinite;
     pointer-events: none;
@@ -203,21 +185,18 @@
   .archive-item:nth-child(5)::before { animation-delay: 2.0s; }
   .archive-item:nth-child(6)::before { animation-delay: 2.5s; }
   .archive-item:nth-child(7)::before { animation-delay: 3.0s; }
-
   @keyframes pulseGlow {
     0%, 100% { opacity: 0.4; transform: translateX(-10%); }
     50%      { opacity: 1;   transform: translateX(10%); }
   }
 
   .archive-item:active {
-    background: #e5231b;
-    border-color: #e5231b;
+    background: #e5231b; border-color: #e5231b;
     transform: scale(0.98);
   }
   .archive-item:active .archive-title,
   .archive-item:active .archive-arrow,
   .archive-item:active .archive-sub { color: #fff; }
-
   .archive-item > * { position: relative; z-index: 2; }
 
   .archive-title { font-size: 1.6em; color: #2b2b2b; letter-spacing: 1px; }
@@ -225,20 +204,245 @@
   .archive-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
   .archive-item:active .archive-arrow { transform: translateX(6px); }
 
+  /* ============ КАРТОЧКА ПЕРСОНАЖА ============ */
   .char-header {
     text-align: center;
-    margin-bottom: 24px;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
     border-bottom: 2px dashed rgba(229, 35, 27, 0.35);
+    animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes charHeaderIn {
+    0%   { opacity: 0; transform: translateY(-16px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
   .char-name {
-    font-size: 2.8em; color: #e5231b;
+    font-size: 2.6em; color: #e5231b;
     letter-spacing: 5px; font-weight: 700;
     text-transform: uppercase;
   }
-  .char-info { font-size: 1.3em; color: #666; margin-top: 8px; }
-  .char-role { font-size: 1.4em; color: #2b2b2b; margin-top: 10px; font-style: italic; }
-  .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; }
+  .char-info { font-size: 1.25em; color: #666; margin-top: 6px; }
+  .char-role { font-size: 1.35em; color: #2b2b2b; margin-top: 8px; font-style: italic; }
+
+  /* ============ ПЕРЕКЛЮЧАТЕЛЬ СТАДИЙ ============ */
+  .stage-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 22px 0 8px;
+    padding: 10px 0;
+    animation: stageIn 0.4s ease both;
+  }
+  @keyframes stageIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .stage-arrow {
+    background: none;
+    border: 2px solid #e5231b;
+    color: #e5231b;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    font-family: 'Caveat', cursive;
+    font-size: 1.6em;
+    line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .stage-arrow:active { background: #e5231b; color: #fff; transform: scale(0.92); }
+  .stage-arrow.hidden { visibility: hidden; pointer-events: none; }
+
+  .stage-center {
+    flex: 1;
+    text-align: center;
+    padding: 0 10px;
+  }
+  .stage-name {
+    font-size: 1.6em;
+    color: #e5231b;
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+  .stage-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(229, 35, 27, 0.25);
+    transition: all 0.3s ease;
+  }
+  .dot.active { background: #e5231b; transform: scale(1.3); }
+
+  /* ============ ХАРАКТЕРИСТИКИ ============ */
+  .stats {
+    margin: 18px 0 24px;
+    animation: statsIn 0.45s ease both;
+  }
+  @keyframes statsIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 70px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .stat-label {
+    font-size: 1.15em;
+    color: #2b2b2b;
+    letter-spacing: 0.5px;
+  }
+  .stat-bar {
+    height: 14px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
+  }
+  .stat-bar-fill {
+    height: 100%;
+    background: #e5231b;
+    border-radius: 7px;
+    width: 0;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stat-value {
+    font-size: 1.2em;
+    color: #e5231b;
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* ============ СПЕЦЭФФЕКТЫ ПОЛОСОК (>10) ============ */
+  .stat-bar-fill.effect-redpro {
+    background: linear-gradient(90deg, #e5231b, #2b5cff, #e5231b, #2b5cff, #e5231b);
+    background-size: 300% 100%;
+    animation: shimmerRedpro 3s linear infinite;
+    box-shadow: 0 0 12px rgba(43, 92, 255, 0.7), 0 0 4px rgba(229, 35, 27, 0.8);
+  }
+  @keyframes shimmerRedpro {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  .stat-bar-fill.effect-wind {
+    background: linear-gradient(90deg, #e5231b, #a8e6ff, #7ec8ff, #a8e6ff, #e5231b);
+    background-size: 300% 100%;
+    animation: shimmerWind 2.5s linear infinite;
+    box-shadow: 0 0 10px rgba(126, 200, 255, 0.7);
+  }
+  @keyframes shimmerWind {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  .stat-bar-fill.effect-warrior {
+    background: linear-gradient(90deg, #e5231b, #ff9b1b, #ffce3d, #ff9b1b, #e5231b);
+    background-size: 300% 100%;
+    animation: shimmerWarrior 2s linear infinite;
+    box-shadow: 0 0 10px rgba(255, 155, 27, 0.8);
+  }
+  @keyframes shimmerWarrior {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  .stat-bar-fill.effect-boy {
+    background: linear-gradient(90deg, #e5231b, #ffd93d, #ffe98a, #ffd93d, #e5231b);
+    background-size: 300% 100%;
+    animation: shimmerBoy 3s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(255, 217, 61, 0.7);
+  }
+  @keyframes shimmerBoy {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  .stat-bar-fill.effect-science {
+    background: linear-gradient(90deg, #e5231b, #00d4a4, #7cf5d6, #00d4a4, #e5231b);
+    background-size: 300% 100%;
+    animation: shimmerScience 2.5s linear infinite;
+    box-shadow: 0 0 10px rgba(0, 212, 164, 0.7);
+  }
+  @keyframes shimmerScience {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  .stat-bar-fill.effect-mech {
+    background: linear-gradient(90deg, #e5231b, #c0c0c0, #ffffff, #c0c0c0, #e5231b);
+    background-size: 300% 100%;
+    animation: shimmerMech 2s linear infinite;
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.9);
+  }
+  @keyframes shimmerMech {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  .stat-bar-fill.effect-antique {
+    background: linear-gradient(90deg, #e5231b, #d4af37, #f4e4bc, #d4af37, #e5231b);
+    background-size: 300% 100%;
+    animation: shimmerAntique 3s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+  }
+  @keyframes shimmerAntique {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  /* ============ ОСОБЫЕ СООБЩЕНИЯ СТАДИЙ ============ */
+  .stage-message {
+    margin: 24px 0;
+    text-align: center;
+    animation: statsIn 0.45s ease both;
+  }
+  .stage-message.status {
+    font-size: 2.2em;
+    color: #b0b0b0;
+    letter-spacing: 4px;
+    font-style: italic;
+    padding: 30px 0;
+  }
+  .stage-message.quote {
+    border-left: 3px solid #e5231b;
+    padding: 16px 18px;
+    background: rgba(229, 35, 27, 0.05);
+    border-radius: 0 8px 8px 0;
+    text-align: left;
+    margin: 24px 0;
+  }
+  .stage-message-text {
+    font-size: 1.5em;
+    color: #2b2b2b;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .stage-message-signature {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #999;
+    letter-spacing: 2px;
+    text-align: right;
+  }
+
+  .char-body {
+    font-size: 1.35em; line-height: 1.6;
+    color: #2b2b2b; white-space: pre-wrap;
+    margin-bottom: 24px;
+    animation: statsIn 0.7s ease 0.15s both;
+  }
   .char-quote {
     border-left: 3px solid #e5231b;
     padding: 12px 16px;
@@ -248,8 +452,10 @@
     color: #444;
     background: rgba(229, 35, 27, 0.05);
     border-radius: 0 8px 8px 0;
+    animation: statsIn 0.7s ease 0.3s both;
   }
 
+  /* ============ НАСТРОЙКИ ============ */
   .setting-row {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 4px;
@@ -305,47 +511,35 @@
   .link-row .link-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
   .link-row:active .link-arrow { transform: translateX(6px); }
 
-  /* Прячем декор главного экрана, когда открыт любой экран */
-  .main-content {
-    transition: opacity 0.3s ease;
-  }
+  .main-content { transition: opacity 0.3s ease; }
   body.screen-open .main-content { opacity: 0; pointer-events: none; }
 </style>
 </head>
 <body>
 
-  <!-- Всё содержимое главного экрана обёрнуто в .main-content -->
   <div class="main-content">
     <div class="top-label">The Redpro Archives</div>
     <svg class="top-line" viewBox="0 0 140 12" preserveAspectRatio="none">
       <path d="M 2,6 Q 30,2 60,6 T 138,6" fill="none" stroke="#e5231b" stroke-width="2" stroke-linecap="round"/>
     </svg>
-
     <div class="bottom-label">выбери свою историю</div>
 
     <svg class="decor decor-splat-tl" viewBox="0 0 120 120">
-      <path d="M 30,40 Q 60,10 80,30 Q 110,40 95,70 Q 100,100 70,95 Q 40,105 30,80 Q 10,70 30,40 Z"
-            fill="#e5231b" opacity="0.12"/>
+      <path d="M 30,40 Q 60,10 80,30 Q 110,40 95,70 Q 100,100 70,95 Q 40,105 30,80 Q 10,70 30,40 Z" fill="#e5231b" opacity="0.12"/>
       <path d="M 35,45 Q 60,20 78,35" fill="none" stroke="#e5231b" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
-
     <svg class="decor decor-star-tr" viewBox="0 0 60 60">
-      <path d="M 30,6 L 33,26 L 54,30 L 33,34 L 30,54 L 27,34 L 6,30 L 27,26 Z"
-            fill="none" stroke="#e5231b" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M 30,6 L 33,26 L 54,30 L 33,34 L 30,54 L 27,34 L 6,30 L 27,26 Z" fill="none" stroke="#e5231b" stroke-width="2.2" stroke-linejoin="round"/>
     </svg>
-
     <svg class="decor decor-dots-l" viewBox="0 0 30 60">
       <circle cx="6" cy="10" r="2.5" fill="#e5231b"/>
       <circle cx="18" cy="24" r="2" fill="#e5231b"/>
       <circle cx="8" cy="38" r="3" fill="#e5231b"/>
       <circle cx="20" cy="52" r="2" fill="#e5231b"/>
     </svg>
-
     <svg class="decor decor-swirl-r" viewBox="0 0 80 80">
-      <path d="M 10,60 Q 10,20 45,20 Q 75,20 70,45 Q 65,68 40,62 Q 20,58 25,45"
-            fill="none" stroke="#e5231b" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M 10,60 Q 10,20 45,20 Q 75,20 70,45 Q 65,68 40,62 Q 20,58 25,45" fill="none" stroke="#e5231b" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
-
     <svg class="decor decor-drops" viewBox="0 0 40 40">
       <circle cx="8" cy="8" r="3" fill="#ef9a1d"/>
       <circle cx="22" cy="18" r="2" fill="#ef9a1d"/>
@@ -362,11 +556,7 @@
 
     <button class="main-btn" onclick="openScreen('screen-archives')">
       <svg viewBox="0 0 300 110" preserveAspectRatio="none">
-        <path d="M 38,58
-                 C 30,28 90,12 155,14
-                 C 220,16 280,26 275,55
-                 C 272,82 200,100 140,98
-                 C 78,96 44,86 38,58 Z" />
+        <path d="M 38,58 C 30,28 90,12 155,14 C 220,16 280,26 275,55 C 272,82 200,100 140,98 C 78,96 44,86 38,58 Z" />
       </svg>
       <span>АРХИВЫ</span>
     </button>
@@ -397,7 +587,10 @@
 
   <div class="screen" id="screen-character">
     <button class="back-btn" onclick="openScreen('screen-characters')">← назад</button>
-    <div id="characterContent"></div>
+    <div id="charHeader"></div>
+    <div id="stageArea"></div>
+    <div class="char-body" id="charBody"></div>
+    <div class="char-quote" id="charQuote"></div>
   </div>
 
   <div class="screen" id="screen-settings">
@@ -412,17 +605,14 @@
         <button onclick="changeTextSize(1)">+</button>
       </div>
     </div>
-
     <div class="setting-row">
       <span class="setting-label">Тёмная тема</span>
       <div class="toggle" id="tgl-dark" onclick="toggleSetting('dark', this)"></div>
     </div>
-
     <div class="setting-row">
       <span class="setting-label">Анимации</span>
       <div class="toggle on" id="tgl-anim" onclick="toggleSetting('anim', this)"></div>
     </div>
-
     <div class="setting-row">
       <span class="setting-label">Звуки</span>
       <div class="toggle on" id="tgl-sound" onclick="toggleSetting('sound', this)"></div>
@@ -438,31 +628,89 @@
 
 <script>
   const CHARACTERS = [
-    { name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.",
+    {
+      name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.",
+      effect: "redpro",
       text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
-      quote: "Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом." },
-    { name: "Пека", age: "25 лет (на 7 лет младше Редпро)", role: "Брат. Адмирал. Тот, кто помнит.",
+      quote: "Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом.",
+      stages: [
+        { name: "Начало", stats: { "Сила": 3, "Скорость": 5, "Интеллект": 6, "Воля": 0, "Удача": 0 } },
+        { name: "Середина", stats: { "Сила": 7, "Скорость": 8, "Интеллект": 6, "Воля": 9, "Удача": 2 } },
+        { name: "Финал", stats: { "Сила": 23000000, "Скорость": 21000000, "Интеллект": 10, "Воля": 4, "Удача": 5 } }
+      ]
+    },
+    {
+      name: "Пека", age: "25 лет (на 7 лет младше Редпро)", role: "Брат. Адмирал. Тот, кто помнит.",
+      effect: "wind",
       text: "Младший брат Редпро. Сорвиголова. Ворвался в гильдию «Меха-Помощник» с криком: «Я нужен вам!» — и не ошибся. Управляет воздухом. Создал из чёрного шприца Линада — свою тёмную половину. Единственный, кто узнает правду в конце. И единственный, кто сохранит её.",
-      quote: "Брат учил меня держать нить. Я держу. Даже когда руки в крови." },
-    { name: "Виталик", age: "64 года", role: "Отец Редпро и Пеки. Легенда. Шпион.",
+      quote: "Брат учил меня держать нить. Я держу. Даже когда руки в крови.",
+      stages: [
+        { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 4, "Воля": 3, "Удача": 2 } },
+        { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 6, "Воля": 7, "Удача": 5 } },
+        { name: "Финал", stats: { "Сила": 20000, "Скорость": 20, "Интеллект": 9, "Воля": 10, "Удача": 8 } }
+      ]
+    },
+    {
+      name: "Виталик", age: "64 года", role: "Отец Редпро и Пеки. Легенда. Шпион.",
+      effect: "warrior",
       text: "Сильнейший человек гильдии. Прошёл войны, которые не принято вспоминать. Молчалив. Каждый его шаг заставляет дрожать бетон. Ушёл к Взломщикам как шпион под прикрытием. Передавал данные через азбуку Морзе в шуме старых телевизоров. Рисковал собой каждую ночь. И выжил.",
-      quote: "Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час." },
-    { name: "Мелкий", age: "7 лет", role: "Сын. Носитель. Тот, кого спасли.",
+      quote: "Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час.",
+      stages: [
+        { name: "Начало", stats: { "Сила": 10, "Скорость": 5, "Интеллект": 7, "Воля": 10, "Удача": 2 } },
+        { name: "Середина", stats: { "Сила": 50, "Скорость": 27, "Интеллект": 8, "Воля": 10, "Удача": 5 } },
+        { name: "Финал", stats: { "Сила": 1000, "Скорость": 999, "Интеллект": 80, "Воля": 100, "Удача": 8 } }
+      ]
+    },
+    {
+      name: "Мелкий", age: "7 лет", role: "Сын. Носитель. Тот, кого спасли.",
+      effect: "boy",
       text: "Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Потому что в ту ночь — в дождь и крик — Тревор вытащил его. Мелкий жив. Он вырос. И он помнит.",
-      quote: "Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда." },
-    { name: "Манекен", age: "75 лет", role: "Учёный. Создатель. Тот, кто знал.",
+      quote: "Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда.",
+      stages: [
+        { name: "Начало", stats: { "Сила": 1, "Скорость": 1, "Интеллект": 4, "Воля": 2, "Удача": 9 } },
+        { name: "Середина", stats: { "Сила": 8000, "Скорость": 8000, "Интеллект": 6000, "Воля": 0, "Удача": 0 } },
+        { name: "Финал", stats: { "Сила": 15000000, "Скорость": 17000000, "Интеллект": 0, "Воля": 0, "Удача": 0 } }
+      ]
+    },
+    {
+      name: "Манекен", age: "75 лет", role: "Учёный. Создатель. Тот, кто знал.",
+      effect: "science",
       text: "Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели. Знал тайну Лиры. Погиб в 6-й главе — но не зря. Его смерть стала ключом к финалу.",
-      quote: "Я не спасаю мир. Я просто чиню то, что сломали другие." },
-    { name: "Подопытный", age: "10 лет", role: "Сын Манекена. Киборг. Тот, кто вернётся.",
+      quote: "Я не спасаю мир. Я просто чиню то, что сломали другие.",
+      stages: [
+        { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 10, "Воля": 3, "Удача": 9 } },
+        { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 100, "Воля": 7, "Удача": 7 } },
+        { name: "Финал", message: "X, друг мой, прости меня за всё...", messageType: "quote", signature: "Последние слова" }
+      ]
+    },
+    {
+      name: "Подопытный", age: "10 лет", role: "Сын Манекена. Киборг. Тот, кто вернётся.",
+      effect: "mech",
       text: "Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Его роль в финале — ослабить Нуля и дать команде шанс. Он знает это. И не боится.",
-      quote: "Я умирал один раз. Второй — не страшно. Главное, чтобы не зря." },
-    { name: "Лира", age: "31 год (на момент смерти)", role: "Жена. Мать. Свет.",
+      quote: "Я умирал один раз. Второй — не страшно. Главное, чтобы не зря.",
+      stages: [
+        { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 4, "Воля": 3, "Удача": 0 } },
+        { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 6, "Воля": 7, "Удача": 0 } },
+        { name: "Финал", stats: { "Сила": 15, "Скорость": 20, "Интеллект": 9, "Воля": 10, "Удача": 0 } }
+      ]
+    },
+    {
+      name: "Лира", age: "31 год (на момент смерти)", role: "Жена. Мать. Свет.",
+      effect: "antique",
       text: "Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа. Тень узнал из газеты. Кофе пролился. Что-то сломалось навсегда.",
-      quote: "Береги его. Что бы ни случилось — не отпускай его руку." }
+      quote: "Береги его. Что бы ни случилось — не отпускай его руку.",
+      stages: [
+        { name: "Начало", message: "мёртв", messageType: "status" },
+        { name: "Середина", message: "мёртв", messageType: "status" },
+        { name: "Финал", stats: { "Сила": 1, "Скорость": 1, "Интеллект": 1, "Воля": 1, "Удача": 1 }, forceEffect: true }
+      ]
+    }
   ];
 
+  let currentCharIndex = -1;
+  let currentStageIndex = 0;
+
   function openScreen(id) {
-    // Все экраны — просто убираем active, новый получает active
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     document.body.classList.add('screen-open');
@@ -490,17 +738,99 @@
   }
 
   function openCharacter(index) {
+    currentCharIndex = index;
+    currentStageIndex = 0;
     const c = CHARACTERS[index];
-    document.getElementById('characterContent').innerHTML =
+
+    document.getElementById('charHeader').innerHTML =
       '<div class="char-header">' +
         '<div class="char-name">' + c.name + '</div>' +
         '<div class="char-info">Возраст: ' + c.age + '</div>' +
         '<div class="char-role">' + c.role + '</div>' +
-      '</div>' +
-      '<div class="char-body">' + c.text + '</div>' +
-      '<div class="char-quote">«' + c.quote + '»</div>';
+      '</div>';
+
+    document.getElementById('charBody').textContent = c.text;
+    document.getElementById('charQuote').textContent = '«' + c.quote + '»';
+
+    renderStage();
     openScreen('screen-character');
     document.getElementById('screen-character').scrollTop = 0;
+  }
+
+  function renderStage() {
+    const c = CHARACTERS[currentCharIndex];
+    const stage = c.stages[currentStageIndex];
+    const total = c.stages.length;
+
+    const leftHidden = currentStageIndex === 0 ? 'hidden' : '';
+    const rightHidden = currentStageIndex === total - 1 ? 'hidden' : '';
+
+    let dots = '';
+    for (let i = 0; i < total; i++) {
+      dots += '<span class="dot' + (i === currentStageIndex ? ' active' : '') + '"></span>';
+    }
+
+    const navHtml =
+      '<div class="stage-nav">' +
+        '<button class="stage-arrow ' + leftHidden + '" onclick="changeStage(-1)">←</button>' +
+        '<div class="stage-center">' +
+          '<div class="stage-name">' + stage.name + '</div>' +
+          '<div class="stage-dots">' + dots + '</div>' +
+        '</div>' +
+        '<button class="stage-arrow ' + rightHidden + '" onclick="changeStage(1)">→</button>' +
+      '</div>';
+
+    let contentHtml = '';
+
+    if (stage.message) {
+      if (stage.messageType === 'quote') {
+        contentHtml =
+          '<div class="stage-message quote">' +
+            '<div class="stage-message-text">«' + stage.message + '»</div>' +
+            (stage.signature ? '<div class="stage-message-signature">— ' + stage.signature + '</div>' : '') +
+          '</div>';
+      } else {
+        contentHtml = '<div class="stage-message status">' + stage.message + '</div>';
+      }
+    } else if (stage.stats) {
+      contentHtml = '<div class="stats">';
+      for (const name in stage.stats) {
+        contentHtml += renderStat(name, stage.stats[name], c.effect, stage.forceEffect);
+      }
+      contentHtml += '</div>';
+    }
+
+    document.getElementById('stageArea').innerHTML = navHtml + contentHtml;
+  }
+
+  function renderStat(name, value, effect, forceEffect) {
+    const percent = value > 10 ? 100 : (value / 10) * 100;
+    const isSpecial = value > 10 || forceEffect;
+    const effectClass = isSpecial ? ' effect-' + effect : '';
+    const displayValue = formatNumber(value);
+    return (
+      '<div class="stat-row">' +
+        '<div class="stat-label">' + name + '</div>' +
+        '<div class="stat-bar">' +
+          '<div class="stat-bar-fill' + effectClass + '" style="width: ' + percent + '%"></div>' +
+        '</div>' +
+        '<div class="stat-value">' + displayValue + '</div>' +
+      '</div>'
+    );
+  }
+
+  function formatNumber(n) {
+    if (n >= 1000000) return (n / 1000000) + ' млн';
+    if (n >= 10000) return (n / 1000) + ' тыс';
+    return n.toString();
+  }
+
+  function changeStage(delta) {
+    const c = CHARACTERS[currentCharIndex];
+    const next = currentStageIndex + delta;
+    if (next < 0 || next >= c.stages.length) return;
+    currentStageIndex = next;
+    renderStage();
   }
 
   let textSize = 100;
@@ -554,7 +884,8 @@
   body.dark-theme .bottom-label { color: #16161a; text-shadow: none; }
   body.dark-theme .setting-label { color: #eaeaea; }
   body.dark-theme .screen h2,
-  body.dark-theme .char-name { color: #ff5c4d; }
+  body.dark-theme .char-name,
+  body.dark-theme .stage-name { color: #ff5c4d; }
   body.dark-theme .back-btn { color: #ff5c4d; }
   body.dark-theme .main-btn { color: #ff5c4d; }
   body.dark-theme .main-btn svg path { stroke: #ff5c4d; }
@@ -580,6 +911,14 @@
   body.dark-theme .link-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
   body.dark-theme .link-row .setting-label { color: #ff5c4d; }
   body.dark-theme .link-row .link-arrow { color: #ff5c4d; }
+  body.dark-theme .stat-label { color: #eaeaea; }
+  body.dark-theme .stat-bar { background: rgba(255,255,255,0.1); }
+  body.dark-theme .stat-value { color: #ff5c4d; }
+  body.dark-theme .stage-arrow { border-color: #ff5c4d; color: #ff5c4d; }
+  body.dark-theme .stage-arrow:active { background: #ff5c4d; color: #16161a; }
+  body.dark-theme .stage-message.status { color: #666; }
+  body.dark-theme .stage-message-text { color: #eaeaea; }
+  body.dark-theme .stage-message.quote { background: rgba(255,92,77,0.08); }
 </style>
 
 </body>
