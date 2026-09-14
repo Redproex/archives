@@ -141,7 +141,7 @@
   .stat-icon { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; color: var(--race-color, #e5231b); transition: color 0.3s ease; }
   .stat-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .stat-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 0.5px; }
-  .stat-bar { height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 7px; overflow: hidden; position: relative; }
+  .stat-bar { height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 7px; overflow: visible; position: relative; }
   .stat-bar-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 7px; width: 0; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
   .stat-value { font-size: 1.2em; color: var(--race-color, #e5231b); text-align: right; font-weight: 700; white-space: nowrap; transition: color 0.3s ease; }
 
@@ -164,6 +164,7 @@
       inset 0 -1px 0 rgba(60, 0, 0, 0.6);
     position: relative;
     overflow: visible;
+    border-radius: 7px 0 0 7px;
   }
   @keyframes bloodFlow {
     0%   { background-position: 0 0; }
@@ -174,16 +175,16 @@
     content: '';
     position: absolute;
     top: 50%;
-    right: -14px;
+    right: -40px;
     transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
+    width: 48px;
+    height: 48px;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fffbe0' stroke='%23ffe600' stroke-width='1'><path d='M13 2 L4 14 L11 14 L10 22 L19 10 L12 10 Z'/></svg>");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     animation: lightningFlicker 0.4s steps(3, end) infinite;
-    filter: drop-shadow(0 0 5px #ffe600) drop-shadow(0 0 10px rgba(255, 200, 0, 0.7));
+    filter: drop-shadow(0 0 8px #ffe600) drop-shadow(0 0 18px rgba(255, 200, 0, 0.85)) drop-shadow(0 0 28px rgba(255, 150, 0, 0.6));
     pointer-events: none;
     z-index: 5;
   }
