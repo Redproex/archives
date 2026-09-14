@@ -2,921 +2,171 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Архивы</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Redpro Archives</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { height: 100%; overflow: hidden; font-family: 'Caveat', cursive; background: #f7f6f3; }
-
-  .blob { position: fixed; z-index: 1; pointer-events: none; animation: float 9s ease-in-out infinite; }
-  .blob-orange { left: -18%; bottom: -22%; width: 65%; height: 48%; background: #ef9a1d; border-radius: 50% 50% 45% 55% / 65% 55% 45% 35%; transform: rotate(-6deg); }
-  .blob-red { right: -22%; bottom: -28%; width: 90%; height: 62%; background: #e5231b; border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; transform: rotate(4deg); animation-delay: -3s; }
-  @keyframes float { 0%, 100% { transform: translate(0, 0) rotate(-6deg) scale(1); } 50% { transform: translate(-8px, -6px) rotate(-4deg) scale(1.03); } }
-
-  .decor { position: fixed; z-index: 2; pointer-events: none; color: #e5231b; opacity: 0.9; }
-  .decor-splat-tl { top: 12%; left: -20px; width: 120px; height: 120px; animation: wobble 7s ease-in-out infinite; }
-  .decor-star-tr { top: 15%; right: 22px; width: 60px; height: 60px; animation: wobble 6s ease-in-out infinite reverse; }
-  .decor-dots-l { top: 50%; left: 18px; width: 30px; animation: wobble 8s ease-in-out infinite; }
-  .decor-swirl-r { top: 55%; right: 10px; width: 80px; height: 80px; animation: wobble 7.5s ease-in-out infinite reverse; }
-  .decor-drops { bottom: 28%; left: 8%; width: 40px; color: #ef9a1d; animation: wobble 6.5s ease-in-out infinite; }
-  @keyframes wobble { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(-4px); } }
-
-  .top-label { position: fixed; top: 32px; left: 50%; transform: translateX(-50%); z-index: 8; font-size: 1.15em; letter-spacing: 6px; color: #b0b0b0; text-transform: uppercase; white-space: nowrap; }
-  .bottom-label { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 12; font-size: 1.4em; letter-spacing: 4px; color: #f7f6f3; text-shadow: 0 1px 4px rgba(0,0,0,0.25); white-space: nowrap; opacity: 0.95; }
-  .top-line { position: fixed; top: 52px; left: 50%; transform: translateX(-50%); z-index: 8; color: #e5231b; opacity: 0.6; width: 140px; height: 12px; }
-
-  .main-btn { position: fixed; top: 32%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 22px 46px; font-family: 'Caveat', cursive; font-size: 2.8em; font-weight: 700; color: #e5231b; letter-spacing: 5px; line-height: 1; transition: transform 0.25s ease; white-space: nowrap; }
-  .main-btn:active { transform: translateX(-50%) scale(0.95); }
-  .main-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-  .main-btn svg path { fill: none; stroke: #e5231b; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .main-btn span { position: relative; z-index: 2; }
-
-  .story-btn { position: fixed; top: 52%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 22px 36px; font-family: 'Caveat', cursive; font-size: 1.6em; font-weight: 700; color: #e5231b; letter-spacing: 3px; line-height: 1.15; transition: transform 0.25s ease; opacity: 0.9; text-align: center; }
-  .story-btn:active { transform: translateX(-50%) scale(0.95); opacity: 1; }
-  .story-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-  .story-btn svg path { fill: none; stroke: #e5231b; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .story-btn span { position: relative; z-index: 2; display: block; }
-
-  .settings-btn { position: fixed; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: #2b2b2b; border: none; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; color: #f7f6f3; box-shadow: 0 3px 10px rgba(0,0,0,0.15); transition: transform 0.25s ease, box-shadow 0.25s ease; }
-  .settings-btn:active { transform: scale(0.9) rotate(45deg); box-shadow: 0 0 0 6px rgba(229, 35, 27, 0.15); }
-  .settings-btn svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.6s ease; }
-  .settings-btn:active svg { transform: rotate(90deg); }
-
-  .screen { position: fixed; inset: 0; z-index: 50; background: #f7f6f3; padding: 72px 24px 30px; display: flex; flex-direction: column; overflow-y: auto; opacity: 0; pointer-events: none; transform: translateX(30px); transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
-  .screen.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
-  .screen.active h2 { animation: titleEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
-  @keyframes titleEnter { 0% { opacity: 0; transform: translateY(-14px); letter-spacing: 12px; } 100% { opacity: 1; transform: translateY(0); letter-spacing: 4px; } }
-  .screen.active .back-btn { animation: fadeIn 0.4s ease 0.15s both; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-
-  .screen h2 { font-size: 2.6em; color: var(--race-color, #e5231b); text-align: center; letter-spacing: 4px; margin-bottom: 30px; transition: color 0.3s ease; }
-  .back-btn { position: absolute; top: 18px; left: 18px; background: none; border: none; font-family: 'Caveat', cursive; font-size: 1.6em; color: var(--race-color, #e5231b); cursor: pointer; letter-spacing: 1px; transition: color 0.3s ease; }
-
-  .archive-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .archive-item { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: rgba(255,255,255,0.6); border: 2px dashed rgba(229, 35, 27, 0.35); border-radius: 14px; cursor: pointer; transition: all 0.25s ease; position: relative; overflow: hidden; }
-  .screen.active .archive-item { animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .screen.active .archive-item:nth-child(1) { animation-delay: 0.15s; }
-  .screen.active .archive-item:nth-child(2) { animation-delay: 0.21s; }
-  .screen.active .archive-item:nth-child(3) { animation-delay: 0.27s; }
-  .screen.active .archive-item:nth-child(4) { animation-delay: 0.33s; }
-  .screen.active .archive-item:nth-child(5) { animation-delay: 0.39s; }
-  .screen.active .archive-item:nth-child(6) { animation-delay: 0.45s; }
-  .screen.active .archive-item:nth-child(7) { animation-delay: 0.51s; }
-  .screen.active .archive-item:nth-child(8) { animation-delay: 0.57s; }
-  .screen.active .archive-item:nth-child(9) { animation-delay: 0.63s; }
-  @keyframes itemEnter { 0% { opacity: 0; transform: translateX(-24px); } 100% { opacity: 1; transform: translateX(0); } }
-
-  .archive-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 0% 50%, rgba(229,35,27,0.08), transparent 70%); animation: pulseGlow 4s ease-in-out infinite; pointer-events: none; }
-  .archive-item:nth-child(2)::before { animation-delay: 0.5s; }
-  .archive-item:nth-child(3)::before { animation-delay: 1.0s; }
-  .archive-item:nth-child(4)::before { animation-delay: 1.5s; }
-  @keyframes pulseGlow { 0%, 100% { opacity: 0.4; transform: translateX(-10%); } 50% { opacity: 1; transform: translateX(10%); } }
-
-  .archive-item.race-humans { border-color: rgba(229, 35, 27, 0.45); }
-  .archive-item.race-humans .archive-arrow { color: #e5231b; }
-  .archive-item.race-robots { border-color: rgba(91, 127, 166, 0.55); }
-  .archive-item.race-robots .archive-arrow { color: #5b7fa6; }
-  .archive-item.race-hybrids { border-color: rgba(45, 138, 78, 0.55); }
-  .archive-item.race-hybrids .archive-arrow { color: #2d8a4e; }
-  .archive-item.race-gods { border-color: rgba(123, 47, 190, 0.55); }
-  .archive-item.race-gods .archive-arrow { color: #7b2fbe; }
-
-  .archive-item:active { background: var(--race-color, #e5231b); border-color: var(--race-color, #e5231b); transform: scale(0.98); }
-  .archive-item:active .archive-title, .archive-item:active .archive-arrow, .archive-item:active .archive-sub { color: #fff; }
-  .archive-item > * { position: relative; z-index: 2; }
-
-  .archive-title { font-size: 1.6em; color: #2b2b2b; letter-spacing: 1px; }
-  .archive-sub { font-size: 1.1em; color: #999; margin-top: 2px; }
-  .archive-arrow { font-size: 1.6em; color: var(--race-color, #e5231b); transition: transform 0.25s ease, color 0.3s ease; }
-  .archive-item:active .archive-arrow { transform: translateX(6px); }
-  .archive-item.empty { opacity: 0.45; cursor: default; }
-  .archive-item.empty:active { background: rgba(255,255,255,0.6); border-color: rgba(229, 35, 27, 0.35); transform: none; }
-  .archive-item.empty:active .archive-title,
-  .archive-item.empty:active .archive-arrow,
-  .archive-item.empty:active .archive-sub { color: inherit; }
-  .archive-item.empty:active .archive-arrow { transform: none; }
-
-  .star-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; z-index: 10; position: relative; }
-  .star-btn:active { transform: scale(0.85); }
-  .star-btn svg { width: 30px; height: 30px; fill: none; stroke: var(--race-color, #e5231b); stroke-width: 1.8; stroke-linejoin: round; transition: fill 0.25s ease, stroke 0.25s ease; }
-  .star-btn.on svg { fill: #ffc107; stroke: #e6a800; filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.6)); }
-
-  .favorites-btn { display: flex; align-items: center; justify-content: center; gap: 8px; align-self: center; margin-bottom: 12px; padding: 8px 18px; background: rgba(255, 193, 7, 0.1); border: 2px dashed rgba(255, 193, 7, 0.6); border-radius: 20px; font-family: 'Caveat', cursive; font-size: 1.3em; color: #b8860b; cursor: pointer; transition: all 0.25s ease; animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .favorites-btn:active { background: #ffc107; color: #fff; transform: scale(0.96); }
-  .favorites-btn svg { width: 22px; height: 22px; fill: #ffc107; stroke: #e6a800; stroke-width: 1.5; stroke-linejoin: round; }
-  .favorites-btn:active svg { fill: #fff; stroke: #fff; }
-  .favorites-btn .fav-count { font-weight: 700; }
-
-  .char-header { text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35)); animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; position: relative; }
-  @keyframes charHeaderIn { 0% { opacity: 0; transform: translateY(-16px); } 100% { opacity: 1; transform: translateY(0); } }
-  .char-name { font-size: 2.6em; color: var(--race-color, #e5231b); letter-spacing: 5px; font-weight: 700; text-transform: uppercase; transition: color 0.3s ease; }
-  .char-subtitle { font-size: 1.5em; color: var(--race-color, #e5231b); letter-spacing: 3px; margin-top: -2px; opacity: 0.75; font-style: italic; transition: color 0.3s ease; }
-  .char-info { font-size: 1.25em; color: #666; margin-top: 8px; }
-  .char-role { font-size: 1.35em; color: #2b2b2b; margin-top: 8px; font-style: italic; }
-
-  .power-bar { margin: 4px 0 18px; padding: 12px 16px; background: rgba(255,255,255,0.55); border: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35)); border-radius: 12px; animation: statsIn 0.5s ease both; }
-  .power-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-  .power-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 2px; text-transform: uppercase; }
-  .power-value { font-size: 1.4em; color: var(--race-color, #e5231b); font-weight: 700; }
-  .power-value .power-max { font-size: 0.75em; opacity: 0.6; font-weight: 500; }
-  .power-track { height: 16px; background: rgba(0,0,0,0.08); border-radius: 8px; overflow: hidden; position: relative; }
-  .power-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 8px; width: 0; transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
-
-  .stage-nav { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 8px; padding: 10px 0; animation: stageIn 0.4s ease both; }
-  @keyframes stageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  .stage-arrow { background: none; border: 2px solid var(--race-color, #e5231b); color: var(--race-color, #e5231b); width: 44px; height: 44px; border-radius: 50%; font-family: 'Caveat', cursive; font-size: 1.6em; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
-  .stage-arrow:active { background: var(--race-color, #e5231b); color: #fff; transform: scale(0.92); }
-  .stage-arrow.hidden { visibility: hidden; pointer-events: none; }
-  .stage-center { flex: 1; text-align: center; padding: 0 10px; }
-  .stage-name { font-size: 1.6em; color: var(--race-color, #e5231b); letter-spacing: 3px; font-weight: 700; transition: color 0.3s ease; }
-  .stage-dots { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(229, 35, 27, 0.25); transition: all 0.3s ease; }
-  .dot.active { background: var(--race-color, #e5231b); transform: scale(1.3); }
-
-  .stats { margin: 18px 0 24px; animation: statsIn 0.45s ease both; }
-  @keyframes statsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-  .stat-row { display: grid; grid-template-columns: 34px 90px 1fr 70px; gap: 8px; align-items: center; margin-bottom: 12px; }
-  .stat-icon { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; color: var(--race-color, #e5231b); transition: color 0.3s ease; }
-  .stat-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .stat-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 0.5px; }
-  .stat-bar { height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 7px; overflow: hidden; position: relative; }
-  .stat-bar-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 7px; width: 0; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
-  .stat-value { font-size: 1.2em; color: var(--race-color, #e5231b); text-align: right; font-weight: 700; white-space: nowrap; transition: color 0.3s ease; }
-
-  /* ===== REDPRO — красная полоска + бегущие синие разряды ===== */
-  .stat-bar-fill.effect-redpro {
-    background-color: #e5231b;
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 120, 120, 0.5),
-      inset 0 -1px 0 rgba(60, 0, 0, 0.5);
-  }
-  .stat-bar-fill.effect-redpro::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 14' preserveAspectRatio='none'%3E%3Cpath d='M0,3 Q12,0 25,3 T50,3 T75,3 T100,3' stroke='%236a9aff' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Cpath d='M0,7 Q15,10 30,7 T60,7 T90,7 T100,6' stroke='%234a7dff' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M0,11 Q10,8 22,11 T45,11 T70,11 T100,11' stroke='%238ab4ff' stroke-width='1.3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: repeat-x;
-    background-size: 100px 100%;
-    background-position: 0 0;
-    animation: boltFlow 1.6s linear infinite;
-    pointer-events: none;
-  }
-  @keyframes boltFlow {
-    0%   { background-position: 0 0; }
-    100% { background-position: 100px 0; }
-  }
-
-  .stat-bar-fill.effect-wind { background: linear-gradient(90deg, #e5231b, #a8e6ff, #7ec8ff, #a8e6ff, #e5231b); background-size: 300% 100%; animation: shimmerWind 2.5s linear infinite; box-shadow: 0 0 10px rgba(126, 200, 255, 0.7); }
-  @keyframes shimmerWind { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-  .stat-bar-fill.effect-warrior { background: linear-gradient(90deg, #e5231b, #ff9b1b, #ffce3d, #ff9b1b, #e5231b); background-size: 300% 100%; animation: shimmerWarrior 2s linear infinite; box-shadow: 0 0 10px rgba(255, 155, 27, 0.8); }
-  @keyframes shimmerWarrior { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-  .stat-bar-fill.effect-boy { background: linear-gradient(90deg, #e5231b, #ffd93d, #ffe98a, #ffd93d, #e5231b); background-size: 300% 100%; animation: shimmerBoy 3s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 217, 61, 0.7); }
-  @keyframes shimmerBoy { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-  .stat-bar-fill.effect-science { background: linear-gradient(90deg, #e5231b, #00d4a4, #7cf5d6, #00d4a4, #e5231b); background-size: 300% 100%; animation: shimmerScience 2.5s linear infinite; box-shadow: 0 0 10px rgba(0, 212, 164, 0.7); }
-  @keyframes shimmerScience { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-  .stat-bar-fill.effect-mech { background: linear-gradient(90deg, #e5231b, #c0c0c0, #ffffff, #c0c0c0, #e5231b); background-size: 300% 100%; animation: shimmerMech 2s linear infinite; box-shadow: 0 0 10px rgba(192, 192, 192, 0.9); }
-  @keyframes shimmerMech { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-  .stat-bar-fill.effect-antique { background: linear-gradient(90deg, #e5231b, #d4af37, #f4e4bc, #d4af37, #e5231b); background-size: 300% 100%; animation: shimmerAntique 3s ease-in-out infinite; box-shadow: 0 0 10px rgba(212, 175, 55, 0.8); }
-  @keyframes shimmerAntique { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-  .stat-bar-fill.effect-god { background: linear-gradient(90deg, #e5231b, #6a1b9a, #d500f9, #6a1b9a, #e5231b); background-size: 300% 100%; animation: shimmerGod 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(213, 0, 249, 0.7); }
-  @keyframes shimmerGod { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-  .stat-bar-fill.effect-dark { background: linear-gradient(90deg, #e5231b, #1a1a1a, #666, #1a1a1a, #e5231b); background-size: 300% 100%; animation: shimmerDark 3s linear infinite; box-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 0 4px rgba(229, 35, 27, 0.6); }
-  @keyframes shimmerDark { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
-
-  .stat-bar-fill.shadow-style { background: #111; box-shadow: 0 0 12px rgba(229, 35, 27, 0.9), inset 0 0 6px rgba(229, 35, 27, 0.6); }
-
-  .stage-message { margin: 24px 0; text-align: center; animation: statsIn 0.45s ease both; }
-  .stage-message.status { font-size: 2.2em; color: #b0b0b0; letter-spacing: 4px; font-style: italic; padding: 30px 0; }
-  .stage-message.quote { border-left: 3px solid var(--race-color, #e5231b); padding: 16px 18px; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; text-align: left; margin: 24px 0; }
-  .stage-message-text { font-size: 1.5em; color: #2b2b2b; font-style: italic; line-height: 1.4; }
-  .stage-message-signature { margin-top: 10px; font-size: 1.2em; color: #999; letter-spacing: 2px; text-align: right; }
-
-  .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; animation: statsIn 0.7s ease 0.15s both; }
-  .char-quote { border-left: 3px solid var(--race-color, #e5231b); padding: 12px 16px; margin: 20px 0; font-size: 1.35em; font-style: italic; color: #444; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; animation: statsIn 0.7s ease 0.3s both; }
-
-  .story-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; animation: statsIn 0.8s ease both; }
-  .story-soon-text { font-size: 5em; color: #e5231b; letter-spacing: 12px; font-weight: 700; animation: soonPulse 3s ease-in-out infinite; }
-  @keyframes soonPulse { 0%, 100% { opacity: 0.5; letter-spacing: 12px; } 50% { opacity: 1; letter-spacing: 16px; } }
-  .story-soon-sub { font-size: 1.6em; color: #999; margin-top: 16px; font-style: italic; letter-spacing: 2px; }
-
-  .empty-message { text-align: center; color: #aaa; font-size: 1.6em; padding: 60px 20px; font-style: italic; animation: statsIn 0.6s ease both; }
-
-  .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; border-bottom: 2px dashed rgba(229, 35, 27, 0.25); }
-  .setting-row:last-of-type { border-bottom: none; }
-  .setting-label { font-size: 1.5em; color: #2b2b2b; letter-spacing: 1px; }
-  .size-control { display: flex; align-items: center; gap: 12px; }
-  .size-control button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e5231b; background: transparent; color: #e5231b; font-family: 'Caveat', cursive; font-size: 1.6em; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .size-control button:active { background: #e5231b; color: #fff; }
-  .size-control .size-value { font-size: 1.3em; color: #e5231b; min-width: 34px; text-align: center; }
-
-  .toggle { width: 54px; height: 28px; background: #d0d0d0; border-radius: 14px; position: relative; cursor: pointer; transition: 0.3s; }
-  .toggle::after { content: ''; position: absolute; width: 22px; height: 22px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-  .toggle.on { background: #e5231b; }
-  .toggle.on::after { left: 29px; }
-
-  .reset-btn { margin-top: 30px; align-self: center; padding: 12px 28px; background: transparent; border: 2px solid #e5231b; border-radius: 30px; color: #e5231b; font-family: 'Caveat', cursive; font-size: 1.4em; cursor: pointer; letter-spacing: 1px; }
-  .reset-btn:active { background: #e5231b; color: #fff; }
-
-  .link-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; border-bottom: 2px dashed rgba(229, 35, 27, 0.25); cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
-  .link-row:active { opacity: 0.6; }
-  .link-row .setting-label { color: #e5231b; }
-  .link-row .link-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
-  .link-row:active .link-arrow { transform: translateX(6px); }
-
-  .main-content { transition: opacity 0.3s ease; }
-  body.screen-open .main-content { opacity: 0; pointer-events: none; }
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+*{box-sizing:border-box}
+:root{--red:#df241c;--orange:#ed991b;--paper:#f5f3ee;--ink:#272727;--gray:#777;--line:#27272728}
+html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}
+body{font-family:Caveat,cursive;overflow-x:hidden}
+button{font:inherit;cursor:pointer}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.blob{position:fixed;z-index:0;pointer-events:none}
+.blob1{width:65vw;height:40vh;left:-25vw;bottom:-18vh;background:var(--orange);border-radius:60% 40% 50% 50%;transform:rotate(-12deg)}
+.blob2{width:70vw;height:45vh;right:-27vw;bottom:-20vh;background:var(--red);border-radius:45% 55% 50% 50%;transform:rotate(8deg)}
+header{position:relative;z-index:3;text-align:center;padding:22px 15px 10px}
+.brand{font-family:IBM Plex Mono,monospace;font-size:.67rem;letter-spacing:3px;color:#888}
+.status{margin-top:9px;font:600 .58rem IBM Plex Mono,monospace;letter-spacing:1.5px;color:#777}
+.status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#32864b;box-shadow:0 0 8px #32864b;margin-right:6px}
+main{position:relative;z-index:2;max-width:650px;margin:auto;padding:30px 18px 90px}
+h1{text-align:center;color:var(--red);font-size:clamp(3.1rem,14vw,6rem);line-height:.8;letter-spacing:5px;margin:25px 0 12px;text-transform:uppercase}
+.intro{text-align:center;color:#666;font-size:1.35rem;line-height:1.1;margin-bottom:30px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font:600 .62rem IBM Plex Mono,monospace;color:#888;letter-spacing:1px}
+.back{border:0;background:transparent;color:var(--red);font-size:1.15rem;padding:5px}
+.grid{display:grid;gap:13px}
+.archive{position:relative;width:100%;text-align:left;border:2px solid #2727271c;border-radius:15px;background:#ffffffaa;padding:18px 45px 17px 18px;box-shadow:0 5px 18px #0000000a;transition:transform .18s,box-shadow .18s}
+.archive:active{transform:scale(.975)}
+.archive:hover{transform:translateY(-2px);box-shadow:0 9px 22px #00000014}
+.num{font:600 .65rem IBM Plex Mono,monospace;letter-spacing:2px;color:#999}
+.name{font-size:1.85rem;color:var(--red);font-weight:700;letter-spacing:1px;margin-top:2px}
+.desc{font-size:1.02rem;color:#666;line-height:1.05;margin-top:3px}
+.badge{position:absolute;right:15px;top:18px;font:600 .52rem IBM Plex Mono,monospace;letter-spacing:1px;padding:5px 6px;border-radius:5px;background:#e5231b12;color:var(--red)}
+.badge.ok{color:#32864b;background:#32864b12}
+.badge.lock{color:#666;background:#66666612}
+.badge.warn{color:#b27616;background:#b2761612}
+.hidden-card{border-style:dashed}
+footer{position:fixed;z-index:4;bottom:10px;left:0;right:0;text-align:center;font:600 .52rem IBM Plex Mono,monospace;letter-spacing:1px;color:#fff;text-shadow:0 2px 6px #0007}
+.view{position:fixed;inset:0;z-index:20;background:var(--paper);overflow:auto;transform:translateX(105%);transition:transform .32s cubic-bezier(.2,.9,.25,1)}
+.view.open{transform:translateX(0)}
+.view-head{position:sticky;top:0;z-index:2;background:#f5f3eee8;backdrop-filter:blur(7px);padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.view-head button{border:0;background:transparent;color:var(--red);font-size:1.25rem}
+.view-id{font:600 .55rem IBM Plex Mono,monospace;letter-spacing:1.5px;color:#999}
+.document{max-width:650px;margin:auto;padding:40px 20px 100px}
+.document .stamp{font:600 .55rem IBM Plex Mono,monospace;color:#888;letter-spacing:2px}
+.document h2{font-size:3.3rem;color:var(--red);line-height:.9;margin:8px 0 20px}
+.rule{height:2px;background:var(--red);opacity:.35;margin:15px 0 25px}
+.document p{font-size:1.35rem;line-height:1.18;color:#4d4d4d}
+.meta{font:400 .6rem IBM Plex Mono,monospace;color:#777;line-height:1.7;border:1px dashed #7778;padding:13px;margin:25px 0}
+.warning{border-left:4px solid var(--red);padding:8px 14px;background:#df241c0a;font-size:1.15rem;color:#555}
+.locked-doc{text-align:center;padding-top:18vh}
+.locked-doc .lock{font-size:4rem;color:#777}
+.locked-doc h2{color:#555;letter-spacing:5px}
+.glitch{font:600 .62rem IBM Plex Mono,monospace;color:var(--red);letter-spacing:1px;animation:blink 1.8s infinite}
+.secret{margin-top:40px;font:400 .58rem IBM Plex Mono,monospace;color:#aaa;line-height:1.8}
+@keyframes blink{0%,42%,100%{opacity:.25}50%,70%{opacity:1}}
+@media(max-width:420px){main{padding-top:18px}.archive{padding:15px 40px 15px 15px}.name{font-size:1.65rem}}
 </style>
 </head>
 <body>
+<div class="blob blob1"></div><div class="blob blob2"></div><div class="noise"></div>
 
-  <div class="main-content">
-    <div class="top-label">The Redpro Archives</div>
-    <svg class="top-line" viewBox="0 0 140 12" preserveAspectRatio="none">
-      <path d="M 2,6 Q 30,2 60,6 T 138,6" fill="none" stroke="#e5231b" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    <div class="bottom-label">выбери свою историю</div>
+<header>
+  <div class="brand">THE REDPRO ARCHIVES // CENTRAL TERMINAL</div>
+  <div class="status"><i></i>SYSTEM ONLINE · DATABASE CONNECTED · TERMINAL 001</div>
+</header>
 
-    <svg class="decor decor-splat-tl" viewBox="0 0 120 120">
-      <path d="M 30,40 Q 60,10 80,30 Q 110,40 95,70 Q 100,100 70,95 Q 40,105 30,80 Q 10,70 30,40 Z" fill="#e5231b" opacity="0.12"/>
-      <path d="M 35,45 Q 60,20 78,35" fill="none" stroke="#e5231b" stroke-width="2.5" stroke-linecap="round"/>
-    </svg>
-    <svg class="decor decor-star-tr" viewBox="0 0 60 60">
-      <path d="M 30,6 L 33,26 L 54,30 L 33,34 L 30,54 L 27,34 L 6,30 L 27,26 Z" fill="none" stroke="#e5231b" stroke-width="2.2" stroke-linejoin="round"/>
-    </svg>
-    <svg class="decor decor-dots-l" viewBox="0 0 30 60">
-      <circle cx="6" cy="10" r="2.5" fill="#e5231b"/>
-      <circle cx="18" cy="24" r="2" fill="#e5231b"/>
-      <circle cx="8" cy="38" r="3" fill="#e5231b"/>
-      <circle cx="20" cy="52" r="2" fill="#e5231b"/>
-    </svg>
-    <svg class="decor decor-swirl-r" viewBox="0 0 80 80">
-      <path d="M 10,60 Q 10,20 45,20 Q 75,20 70,45 Q 65,68 40,62 Q 20,58 25,45" fill="none" stroke="#e5231b" stroke-width="2.5" stroke-linecap="round"/>
-    </svg>
-    <svg class="decor decor-drops" viewBox="0 0 40 40">
-      <circle cx="8" cy="8" r="3" fill="#ef9a1d"/>
-      <circle cx="22" cy="18" r="2" fill="#ef9a1d"/>
-      <circle cx="12" cy="28" r="2.5" fill="#ef9a1d"/>
-      <circle cx="30" cy="32" r="1.8" fill="#ef9a1d"/>
-    </svg>
+<main>
+  <h1>ARCHIVES</h1>
+  <div class="intro">Выберите запись.<br>Некоторые архивы могут содержать данные, которые система не рекомендует открывать.</div>
 
-    <button class="settings-btn" onclick="openScreen('screen-settings')" aria-label="Настройки">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="3.2"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-      </svg>
+  <div class="toolbar">
+    <span>ARCHIVE DATABASE</span>
+    <span>4 RECORDS</span>
+  </div>
+
+  <div class="grid">
+    <button class="archive" onclick="openDoc('one')">
+      <span class="num">ARCHIVE // 001</span>
+      <span class="badge ok">AVAILABLE</span>
+      <div class="name">THE BEGINNING</div>
+      <div class="desc">Первая доступная запись архива.</div>
     </button>
 
-    <button class="main-btn" onclick="openScreen('screen-archives')">
-      <svg viewBox="0 0 300 110" preserveAspectRatio="none">
-        <path d="M 38,58 C 30,28 90,12 155,14 C 220,16 280,26 275,55 C 272,82 200,100 140,98 C 78,96 44,86 38,58 Z" />
-      </svg>
-      <span>АРХИВЫ</span>
+    <button class="archive" onclick="openDoc('characters')">
+      <span class="num">DATABASE // 003</span>
+      <span class="badge ok">AVAILABLE</span>
+      <div class="name">CHARACTERS</div>
+      <div class="desc">Персонажи и сущности, зарегистрированные системой.</div>
     </button>
 
-    <button class="story-btn" onclick="openScreen('screen-story')">
-      <svg viewBox="0 0 260 160" preserveAspectRatio="none">
-        <path d="M 34,80 C 26,38 90,12 130,14 C 172,16 234,36 226,82 C 220,124 175,148 130,146 C 84,144 40,122 34,80 Z" />
-      </svg>
-      <span>НАЧАТЬ<br>ИСТОРИЮ</span>
+    <button class="archive" onclick="openDoc('gold')">
+      <span class="num">ARCHIVE // 002</span>
+      <span class="badge lock">RESTRICTED</span>
+      <div class="name">GOLD CHILD</div>
+      <div class="desc">Запись существует. Причина ограничения неизвестна.</div>
+    </button>
+
+    <button class="archive hidden-card" onclick="openDoc('unknown')">
+      <span class="num">ARCHIVE // ???</span>
+      <span class="badge warn">CORRUPTED</span>
+      <div class="name">UNKNOWN FILE</div>
+      <div class="desc">Содержимое не распознано системой.</div>
     </button>
   </div>
+</main>
 
-  <div class="blob blob-orange"></div>
-  <div class="blob blob-red"></div>
+<footer>THE REDPRO ARCHIVES · BETA BUILD 0.2 · DO NOT TRUST UNVERIFIED RECORDS</footer>
 
-  <div class="screen" id="screen-story">
-    <button class="back-btn" onclick="closeScreens()">← назад</button>
-    <h2>Gold Child</h2>
-    <div class="story-soon">
-      <div class="story-soon-text">Скоро</div>
-      <div class="story-soon-sub">История только начинается...</div>
-    </div>
-  </div>
+<section id="one" class="view">
+  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">ARCHIVE 001</span></div>
+  <article class="document">
+    <div class="stamp">RECORD STATUS: AVAILABLE</div>
+    <h2>THE BEGINNING</h2>
+    <div class="rule"></div>
+    <div class="meta">FILE: RP-001<br>ACCESS: PUBLIC<br>INTEGRITY: 100%<br>LAST CHECK: SYSTEM</div>
+    <p>Это место предназначено для первой записи твоей истории.</p>
+    <p>Позже здесь появится настоящий текст архива. Мы сделаем его не просто страницей с текстом, а полноценным документом внутри мира.</p>
+    <div class="warning">Примечание системы: содержимое этой записи является демонстрационным.</div>
+  </article>
+</section>
 
-  <div class="screen" id="screen-archives">
-    <button class="back-btn" onclick="closeScreens()">← назад</button>
-    <h2>Архивы</h2>
+<section id="characters" class="view">
+  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">DATABASE 003</span></div>
+  <article class="document">
+    <div class="stamp">DATABASE STATUS: AVAILABLE</div>
+    <h2>CHARACTERS</h2>
+    <div class="rule"></div>
+    <p>Здесь будет каталог персонажей твоего мира.</p>
+    <div class="meta">CATEGORY: ENTITIES<br>RECORDS: PENDING<br>DATABASE LINK: ACTIVE</div>
+    <p>На следующем этапе сюда можно перенести твою существующую систему персонажей и сделать каждого персонажа отдельной архивной карточкой.</p>
+  </article>
+</section>
 
-    <div class="favorites-btn" onclick="openFavorites()">
-      <svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18.5 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>
-      <span>Избранное · <span class="fav-count" id="favCount">0</span></span>
-    </div>
+<section id="gold" class="view">
+  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">ARCHIVE 002</span></div>
+  <article class="document locked-doc">
+    <div class="lock">🔒</div>
+    <div class="stamp">SECURITY LEVEL: ██████</div>
+    <h2>GOLD CHILD</h2>
+    <div class="rule"></div>
+    <p>Доступ к записи запрещён.</p>
+    <p>Причина блокировки отсутствует.</p>
+    <div class="glitch">ACCESS DENIED · RECORD CORRUPTED · ACCESS DENIED</div>
+    <div class="secret">LAST REQUEST: 14.09.20XX<br>USER: UNKNOWN<br>EVENT: 001<br>NOTE: THE FILE RESPONDED.</div>
+  </article>
+</section>
 
-    <ul class="archive-list" id="archivesList"></ul>
-  </div>
-
-  <div class="screen" id="screen-races">
-    <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
-    <h2>Персонажи</h2>
-    <ul class="archive-list" id="raceList"></ul>
-  </div>
-
-  <div class="screen" id="screen-characters">
-    <button class="back-btn" onclick="openScreen('screen-races')">← назад</button>
-    <h2 id="raceTitle">Персонажи</h2>
-    <ul class="archive-list" id="characterList"></ul>
-  </div>
-
-  <div class="screen" id="screen-character">
-    <button class="back-btn" onclick="goBackFromCharacter()">← назад</button>
-    <div id="charHeader"></div>
-    <div id="powerArea"></div>
-    <div id="stageArea"></div>
-    <div class="char-body" id="charBody"></div>
-    <div class="char-quote" id="charQuote"></div>
-  </div>
-
-  <div class="screen" id="screen-favorites">
-    <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
-    <h2>Избранное</h2>
-    <ul class="archive-list" id="favoritesList"></ul>
-  </div>
-
-  <div class="screen" id="screen-settings">
-    <button class="back-btn" onclick="closeScreens()">← назад</button>
-    <h2>Настройки</h2>
-    <div class="setting-row">
-      <span class="setting-label">Размер текста</span>
-      <div class="size-control">
-        <button onclick="changeTextSize(-1)">−</button>
-        <span class="size-value" id="sizeValue">100%</span>
-        <button onclick="changeTextSize(1)">+</button>
-      </div>
-    </div>
-    <div class="setting-row">
-      <span class="setting-label">Тёмная тема</span>
-      <div class="toggle" id="tgl-dark" onclick="toggleSetting('dark', this)"></div>
-    </div>
-    <div class="setting-row">
-      <span class="setting-label">Анимации</span>
-      <div class="toggle on" id="tgl-anim" onclick="toggleSetting('anim', this)"></div>
-    </div>
-    <div class="setting-row">
-      <span class="setting-label">Звуки</span>
-      <div class="toggle on" id="tgl-sound" onclick="toggleSetting('sound', this)"></div>
-    </div>
-    <a class="link-row" href="https://www.youtube.com/@Radproex" target="_blank" rel="noopener">
-      <span class="setting-label">YouTube канал</span>
-      <span class="link-arrow">↗</span>
-    </a>
-    <button class="reset-btn" onclick="resetSettings()">Сбросить всё</button>
-  </div>
+<section id="unknown" class="view">
+  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">ARCHIVE ???</span></div>
+  <article class="document locked-doc">
+    <div class="stamp">INTEGRITY CHECK: FAILED</div>
+    <h2>UNKNOWN</h2>
+    <div class="rule"></div>
+    <p>Система не может определить содержимое этого файла.</p>
+    <div class="meta">FILE ID: ███-███<br>CREATED: UNKNOWN<br>AUTHOR: UNKNOWN<br>MODIFIED: <span id="time">UNKNOWN</span></div>
+    <div class="glitch">WARNING // THIS RECORD SHOULD NOT BE HERE</div>
+  </article>
+</section>
 
 <script>
-  const STAT_ICONS = {
-    "Сила": '<svg viewBox="0 0 24 24"><path d="M14.5 2 L21 8.5 L11 18.5 L4.5 12 Z"/><path d="M4.5 12 L2 14.5 L3 17 L5.5 18 L8 15.5"/><path d="M5.5 18 L3 20.5"/></svg>',
-    "Скорость": '<svg viewBox="0 0 24 24"><path d="M13 2 L4 14 L11 14 L10 22 L19 10 L12 10 Z"/></svg>',
-    "Интеллект": '<svg viewBox="0 0 24 24"><path d="M9 18 h6 M10 21 h4"/><path d="M12 3 a6 6 0 0 0-3 11 v4 h6 v-4 a6 6 0 0 0-3-11 z"/></svg>',
-    "Воля": '<svg viewBox="0 0 24 24"><path d="M12 2 C8 6 6 9 6 13 a6 6 0 0 0 12 0 c0-2-1-3-2-4 -1 2-2 2-3 2 0-3-1-6-1-9 z"/></svg>',
-    "Удача": '<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/></svg>'
-  };
-
-  const HUMANS = [
-    { name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.", effect: "redpro",
-      text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
-      quote: "Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 3, "Скорость": 5, "Интеллект": 6, "Воля": 0, "Удача": 0 } },
-        { name: "Середина", stats: { "Сила": 7, "Скорость": 8, "Интеллект": 6, "Воля": 9, "Удача": 2 } },
-        { name: "Финал", stats: { "Сила": 23000000, "Скорость": 21000000, "Интеллект": 10, "Воля": 4, "Удача": 5 } }
-      ] },
-    { name: "Пека", age: "25 лет (на 7 лет младше Редпро)", role: "Брат. Адмирал. Тот, кто помнит.", effect: "wind",
-      text: "Младший брат Редпро. Сорвиголова. Ворвался в гильдию «Меха-Помощник» с криком: «Я нужен вам!» — и не ошибся. Управляет воздухом. Создал из чёрного шприца Линада — свою тёмную половину. Единственный, кто узнает правду в конце. И единственный, кто сохранит её.",
-      quote: "Брат учил меня держать нить. Я держу. Даже когда руки в крови.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 4, "Воля": 3, "Удача": 2 } },
-        { name: "Середина", stats: { "Сила": 6000, "Скорость": 6000, "Интеллект": 6, "Воля": 7, "Удача": 50 } },
-        { name: "Финал", stats: { "Сила": 1000000, "Скорость": 500000, "Интеллект": 10, "Воля": 4, "Удача": 5 } }
-      ] },
-    { name: "Виталик", age: "64 года", role: "Отец Редпро и Пеки. Легенда. Шпион.", effect: "warrior",
-      text: "Сильнейший человек гильдии. Прошёл войны, которые не принято вспоминать. Молчалив. Каждый его шаг заставляет дрожать бетон. Ушёл к Взломщикам как шпион под прикрытием. Передавал данные через азбуку Морзе в шуме старых телевизоров. Рисковал собой каждую ночь. И выжил.",
-      quote: "Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 10, "Скорость": 5, "Интеллект": 7, "Воля": 10, "Удача": 2 } },
-        { name: "Середина", stats: { "Сила": 50, "Скорость": 27, "Интеллект": 8, "Воля": 10, "Удача": 5 } },
-        { name: "Финал", stats: { "Сила": 1000, "Скорость": 999, "Интеллект": 80, "Воля": 100, "Удача": 8 } }
-      ] },
-    { name: "Мелкий", age: "7 лет", role: "Сын. Носитель. Тот, кого спасли.", effect: "boy",
-      text: "Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Потому что в ту ночь — в дождь и крик — Тревор вытащил его. Мелкий жив. Он вырос. И он помнит.",
-      quote: "Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 1, "Скорость": 1, "Интеллект": 4, "Воля": 2, "Удача": 9 } },
-        { name: "Середина", stats: { "Сила": 8000, "Скорость": 8000, "Интеллект": 6000, "Воля": 0, "Удача": 0 } },
-        { name: "Финал", stats: { "Сила": 15000000, "Скорость": 17000000, "Интеллект": 0, "Воля": 0, "Удача": 0 } }
-      ] },
-    { name: "Манекен", age: "75 лет", role: "Учёный. Создатель. Тот, кто знал.", effect: "science",
-      text: "Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели. Знал тайну Лиры. Погиб в 6-й главе — но не зря. Его смерть стала ключом к финалу.",
-      quote: "Я не спасаю мир. Я просто чиню то, что сломали другие.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 10, "Воля": 3, "Удача": 9 } },
-        { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 100, "Воля": 7, "Удача": 7 } },
-        { name: "Финал", message: "X, друг мой, прости меня за всё...", messageType: "quote", signature: "Последние слова" }
-      ] },
-    { name: "Подопытный", age: "10 лет", role: "Сын Манекена. Киборг. Тот, кто вернётся.", effect: "mech",
-      text: "Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Его роль в финале — ослабить Нуля и дать команде шанс. Он знает это. И не боится.",
-      quote: "Я умирал один раз. Второй — не страшно. Главное, чтобы не зря.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 4, "Воля": 3, "Удача": 0 } },
-        { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 6, "Воля": 7, "Удача": 0 } },
-        { name: "Финал", stats: { "Сила": 15, "Скорость": 20, "Интеллект": 9, "Воля": 10, "Удача": 0 } }
-      ] },
-    { name: "Лира", age: "31 год (на момент смерти)", role: "Жена. Мать. Свет.", effect: "antique",
-      text: "Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа. Тень узнал из газеты. Кофе пролился. Что-то сломалось навсегда.",
-      quote: "Береги его. Что бы ни случилось — не отпускай его руку.",
-      stages: [
-        { name: "Начало", message: "мёртв", messageType: "status" },
-        { name: "Середина", message: "мёртв", messageType: "status" },
-        { name: "Финал", stats: { "Сила": 1, "Скорость": 1, "Интеллект": 1, "Воля": 1, "Удача": 1 }, forceEffect: true }
-      ] },
-    { name: "Веста", age: "неизвестен (гадалка)", role: "Гадалка. Двойной агент. Та, кто знала.", effect: "antique",
-      text: "Гадалка. Носила колоду карт. Проходила через блокпосты Взломщиков по пропуску. Оставляла записки под перилами моста. Работала на Нуля? Или на «Меху»? Или на себя? Она вытянула Перевёрнутую Звезду и прошептала: «Прости, мальчик. Но судьба выбрала такой путь». Она — загадка. И, возможно, ключ.",
-      quote: "Передайте вашему хозяину, что я принесла ему то, что он просил.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 2, "Скорость": 5, "Интеллект": 8, "Воля": 6, "Удача": 9 } }
-      ] },
-    { name: "Элли Рояль", age: "24 года", role: "Девушка Пеки. Сорвиголова. Та, кто пришла из аниме.", effect: "antique",
-      text: "Таинственная девушка, родом из аниме. Сорвиголова — лезет туда, где опасно, и улыбается, когда всё горит. Владеет фруктом Каз Каз но Ми — фруктом Казино, дающим власть над вероятностью и азартом. Она появилась в жизни Пеки не случайно. Её путь пересечётся с Редпро и Пекой в самый неожиданный момент. Она — не просто спутница. Она — ключ к чему-то большему.",
-      quote: "Опасно? Отлично. Я как раз скучала.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 4, "Скорость": 6, "Интеллект": 9, "Воля": 7, "Удача": 8 } }
-      ] }
-  ];
-
-  const ROBOTS = [
-    { name: "Читер", age: "неизвестен (Титан)", role: "Первый Король Бездны. Тот, чью способность украли.", effect: "mech",
-      text: "Титан. Командир. Гигант с щитом из искажённого кода. Его голос — как сбой в системе. Он обладал способностью «Небесный суд» — вкалывать вину и судить души.",
-      quote: "Ты не существуешь!",
-      stages: [
-        { name: "Начало", stats: { "Сила": 9, "Скорость": 5, "Интеллект": 8, "Воля": 6, "Удача": 3 } }
-      ] },
-    { name: "Дельта", age: "неизвестен (Титан)", role: "Второй Король. Полутитан. Тот, кто был верен.", effect: "antique",
-      text: "Ловкий, как молния. Вооружён клинком из чистого света. Служил Мелкому. Сражался с Метрой и Линадом. Был ранен, но выжил.",
-      quote: "Я не люблю совпадений.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 7, "Скорость": 9, "Интеллект": 6, "Воля": 5, "Удача": 4 } }
-      ] },
-    { name: "Модератор", age: "неизвестен (Титан)", role: "Третий Король. Саппорт. Тот, кто усиливал.", effect: "mech",
-      text: "Массивный. Щит из искажённого кода. Живой усилитель энергии — увеличивал мощь союзников в десять раз. Он был мозгом команды.",
-      quote: "У нас есть резервное питание. Оно внутри меня.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 8, "Скорость": 3, "Интеллект": 9, "Воля": 7, "Удача": 3 } }
-      ] },
-    { name: "Нуль", age: "неизвестен (анти-бог)", role: "Четвёртый Король. Анти-бог. Тот, кто поглощал.", effect: "dark",
-      text: "Появился внезапно. Огромный, в чёрной броне без лица, с молотом, вокруг которого искривляется воздух. Его сила — не тьма и не свет, а поглощение. Он высасывает любую магию в радиусе ста шагов.",
-      quote: "Ты не существуешь!",
-      stages: [
-        { name: "Начало", stats: { "Сила": 10, "Скорость": 4, "Интеллект": 7, "Воля": 8, "Удача": 2 } }
-      ] }
-  ];
-
-  const HYBRIDS = [
-    { name: "Линад", age: "несколько дней (создан из Пеки)", role: "Тёмная половина Пеки. Тот, кто смеётся.", effect: "dark",
-      text: "Создан из чёрного шприца. Точная копия Пеки, но соткан из дыма и теней. Алые глаза. Сила — 800 (позже 1500). Управляет тьмой и огнём. Открывает порталы в Тёмную зону. Запер там Королей. Спас Метру. Он — тьма, но на стороне света. Потому что он — часть Пеки. Его желание защищать.",
-      quote: "Я — твой кошмар, детка. И я пришёл забрать своё.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 6, "Скорость": 7, "Интеллект": 4, "Воля": 3, "Удача": 2 } },
-        { name: "Середина", stats: { "Сила": 6600, "Скорость": 6600, "Интеллект": 7, "Воля": 8, "Удача": 55 } },
-        { name: "Финал", stats: { "Сила": 1100000, "Скорость": 550000, "Интеллект": 11, "Воля": 4, "Удача": 6 } }
-      ] },
-    { name: "Метра", age: "несколько дней (создан из Редпро)", role: "Светлая половина Редпро. Тот, кто инструмент.", effect: "antique",
-      text: "Создан случайно. Луч «Божественного света» прошёл через руку Редпро. Стенд впитал его электричество и стал живым. Белый, как мрамор. Золотые глаза без зрачков. Сила — 255 (позже 1499). Он — оружие. Но он выбирает быть на стороне Редпро. Он холоден. Но в нём есть что-то от отца.",
-      quote: "Я — инструмент. Но я выбираю быть на вашей стороне. Пока вы не предадите меня.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 3, "Скорость": 6, "Интеллект": 7, "Воля": 0, "Удача": 0 } },
-        { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 7, "Воля": 10, "Удача": 2 } },
-        { name: "Финал", stats: { "Сила": 25300000, "Скорость": 23100000, "Интеллект": 11, "Воля": 4, "Удача": 6 } }
-      ] }
-  ];
-
-  const GODS = [
-    { name: "Тень", subtitle: "Четырёхрукий", age: "неизвестен (древний)", role: "Главный антагонист. Тот, кто потерял всё.", effect: "shadow",
-      text: "Существо, потерявшее всё. Пришёл, чтобы уничтожить этот мир — как уничтожили его собственный. Но встретил маленькую девочку Лиру. Она стала его единственным другом. Он остановился. На годы. А потом она умерла — от сердечного приступа. Он узнал из газеты. Кофе пролился. Что-то сломалось навсегда. Но внутри него — пустота, которую не заполнить.",
-      quote: "Ты не спас её. Теперь ты не спасёшь его.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 2000, "Скорость": 2000, "Интеллект": 2000, "Воля": 2000, "Удача": 2000 } },
-        { name: "Середина", stats: { "Сила": 5003, "Скорость": 379, "Интеллект": 1000, "Воля": 1000, "Удача": 10 } },
-        { name: "Финал", stats: { "Сила": 17000000, "Скорость": 17000000, "Интеллект": 17000000, "Воля": 0, "Удача": 0 } }
-      ] },
-    { name: "Тревор", age: "неизвестен (древний)", role: "Друг Тени. Сильнейший. Тот, кто спас.", effect: "god",
-      text: "Бывший коллега и лучший друг Тени. Они были братьями. Когда всё рухнуло, Тревор не пошёл мстить. Он ушёл в тень — наблюдать. Ждать. Он знал: Тень сломается. И когда это случилось — когда Тень в бешенстве не проверил тело Мелкого — Тревор вытащил мальчика. Спрятал. Спас. Его присутствие чувствуется с самого начала, но он появляется только в решающий момент.",
-      quote: "Мелкий погиб? Что за ерунда!",
-      stages: [
-        { name: "Начало", stats: { "Сила": 10, "Скорость": 9, "Интеллект": 10, "Воля": 10, "Удача": 5 } }
-      ] },
-    { name: "Часовой", age: "неизвестен (древний)", role: "Столп времени. Тот, кто видит все пути.", effect: "god",
-      text: "Он — время. Он ходит по коридору из мерцающих дверей. Видит все варианты. Все смерти. Все победы. Его голос — как метроном. Его меч рассекает пространство.",
-      quote: "Я не силён. Я — время. И я знаю, что ты не умрёшь здесь.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 8, "Скорость": 10, "Интеллект": 10, "Воля": 10, "Удача": 0 } }
-      ] },
-    { name: "Разрушитель", age: "неизвестен (древний)", role: "Столп силы. Тот, кто сметает.", effect: "warrior",
-      text: "Его голос — как взрыв. Он хотел выйти раньше. Хотел сметать базы. Давить гильдии. Но Император сказал: «Нет. Ты выйдешь, когда они соберутся вместе. Тогда их смерть будет зрелищем». Он ждал. И дождался.",
-      quote: "Я смету их базы. Я раздавлю их гильдии.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 10, "Скорость": 6, "Интеллект": 5, "Воля": 7, "Удача": 1 } }
-      ] },
-    { name: "Шёпот", age: "неизвестен (древний)", role: "Столп страха. Тот, кто нашёл слабости.", effect: "god",
-      text: "Его голос — тысячи голосов. Он нашёл слабости. Отца. Дяди. Учёного. Их страхи — его козыри. Он мог разорвать их изнутри. Но не успел.",
-      quote: "Я уже нашёл слабости. Их страхи — мои козыри.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 4, "Скорость": 7, "Интеллект": 10, "Воля": 6, "Удача": 5 } }
-      ] },
-    { name: "Архитектор", age: "неизвестен (древний)", role: "Столп кода. Тот, кто создал Титанов.", effect: "science",
-      text: "Сухой голос, как треск кода. Он создал Титанов. Но они были слабы. Он хотел перестроить их. Ему нужен был новый материал. Город — лишь полигон. Он просил доступ к следующему слою. Но не получил.",
-      quote: "Я перестрою их. Но мне нужен новый материал.",
-      stages: [
-        { name: "Начало", stats: { "Сила": 6, "Скорость": 5, "Интеллект": 10, "Воля": 8, "Удача": 2 } }
-      ] }
-  ];
-
-  const RACES = [
-    { id: "humans",  name: "Люди",    desc: "Обычные люди",             characters: HUMANS },
-    { id: "robots",  name: "Роботы",  desc: "Титаны, механические люди", characters: ROBOTS },
-    { id: "hybrids", name: "Гибриды", desc: "Смешение ДНК и препаратов", characters: HYBRIDS },
-    { id: "gods",    name: "Боги",    desc: "Древние существа",           characters: GODS }
-  ];
-
-  const RACE_COLORS = {
-    humans:  "#e5231b",
-    robots:  "#5b7fa6",
-    hybrids: "#2d8a4e",
-    gods:    "#7b2fbe"
-  };
-
-  const FAV_KEY = 'lore_favorites';
-  let currentRaceId = null;
-  let currentCharIndex = -1;
-  let currentStageIndex = 0;
-  let returnToScreen = 'screen-characters';
-
-  function loadFavorites() {
-    try { const raw = localStorage.getItem(FAV_KEY); return raw ? JSON.parse(raw) : []; }
-    catch (e) { return []; }
-  }
-  function saveFavorites(arr) { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); updateFavCount(); }
-  function favKey(raceId, index) { return raceId + ':' + index; }
-  function isFavorite(raceId, index) { return loadFavorites().indexOf(favKey(raceId, index)) !== -1; }
-  function toggleFavorite(raceId, index) {
-    let favs = loadFavorites();
-    const key = favKey(raceId, index);
-    if (favs.indexOf(key) === -1) favs.push(key);
-    else favs = favs.filter(k => k !== key);
-    saveFavorites(favs);
-  }
-  function updateFavCount() {
-    const el = document.getElementById('favCount');
-    if (el) el.textContent = loadFavorites().length;
-  }
-  function openFavorites() {
-    const list = document.getElementById('favoritesList');
-    list.innerHTML = '';
-    const favs = loadFavorites();
-    if (favs.length === 0) {
-      list.innerHTML = '<div class="empty-message">Пока никого не добавил в избранное.<br>Тапни на звёздочку в карточке персонажа.</div>';
-    } else {
-      favs.forEach(key => {
-        const [raceId, idxStr] = key.split(':');
-        const idx = parseInt(idxStr);
-        const race = RACES.find(r => r.id === raceId);
-        if (!race || !race.characters[idx]) return;
-        const c = race.characters[idx];
-        const displayName = c.subtitle ? (c.name + ' (' + c.subtitle + ')') : c.name;
-        const li = document.createElement('li');
-        li.className = 'archive-item race-' + raceId;
-        li.style.setProperty('--race-color', RACE_COLORS[raceId]);
-        li.innerHTML =
-          '<div onclick="openCharacterFromFavorite(\'' + raceId + '\',' + idx + ')" style="flex:1">' +
-            '<div class="archive-title">' + displayName + '</div>' +
-            '<div class="archive-sub">' + race.name + ' · ' + c.role + '</div>' +
-          '</div>' +
-          '<button class="star-btn on" onclick="event.stopPropagation(); removeFavoriteFromList(\'' + raceId + '\',' + idx + ')">' +
-            '<svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18.5 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>' +
-          '</button>';
-        list.appendChild(li);
-      });
-    }
-    openScreen('screen-favorites');
-  }
-  function removeFavoriteFromList(raceId, idx) { toggleFavorite(raceId, idx); openFavorites(); }
-  function openCharacterFromFavorite(raceId, idx) {
-    currentRaceId = raceId;
-    returnToScreen = 'screen-favorites';
-    applyRaceColor('screen-character', raceId);
-    openCharacter(idx);
-  }
-
-  function openScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.body.classList.add('screen-open');
-    if (id === 'screen-archives') updateFavCount();
-  }
-  function closeScreens() {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.body.classList.remove('screen-open');
-  }
-  function goBackFromCharacter() { openScreen(returnToScreen); }
-
-  function buildArchivesList() {
-    const list = document.getElementById('archivesList');
-    list.innerHTML =
-      '<li class="archive-item" onclick="openScreen(\'screen-races\')">' +
-        '<div>' +
-          '<div class="archive-title">Персонажи</div>' +
-          '<div class="archive-sub">' + RACES.length + ' расы</div>' +
-        '</div>' +
-        '<div class="archive-arrow">→</div>' +
-      '</li>';
-  }
-
-  function buildRaceList() {
-    const list = document.getElementById('raceList');
-    list.innerHTML = '';
-    RACES.forEach(r => {
-      const count = r.characters.length;
-      const isEmpty = count === 0;
-      const li = document.createElement('li');
-      li.className = 'archive-item race-' + r.id + (isEmpty ? ' empty' : '');
-      if (!isEmpty) li.onclick = () => openRace(r.id);
-      li.innerHTML =
-        '<div>' +
-          '<div class="archive-title">' + r.name + '</div>' +
-          '<div class="archive-sub">' + r.desc + (isEmpty ? ' · скоро' : ' · ' + count) + '</div>' +
-        '</div>' +
-        '<div class="archive-arrow">' + (isEmpty ? '·' : '→') + '</div>';
-      list.appendChild(li);
-    });
-  }
-
-  function applyRaceColor(screenId, raceId) {
-    const el = document.getElementById(screenId);
-    el.style.setProperty('--race-color', RACE_COLORS[raceId] || '#e5231b');
-  }
-
-  function openRace(raceId) {
-    currentRaceId = raceId;
-    returnToScreen = 'screen-characters';
-    const race = RACES.find(r => r.id === raceId);
-    document.getElementById('raceTitle').textContent = race.name;
-    applyRaceColor('screen-characters', raceId);
-    applyRaceColor('screen-character', raceId);
-
-    const list = document.getElementById('characterList');
-    list.innerHTML = '';
-    race.characters.forEach((c, i) => {
-      const li = document.createElement('li');
-      li.className = 'archive-item race-' + raceId;
-      li.onclick = () => openCharacter(i);
-      const displayName = c.subtitle ? (c.name + ' (' + c.subtitle + ')') : c.name;
-      li.innerHTML =
-        '<div>' +
-          '<div class="archive-title">' + displayName + '</div>' +
-          '<div class="archive-sub">' + c.role + '</div>' +
-        '</div>' +
-        '<div class="archive-arrow">→</div>';
-      list.appendChild(li);
-    });
-    openScreen('screen-characters');
-  }
-
-  function openCharacter(index) {
-    currentCharIndex = index;
-    currentStageIndex = 0;
-    const race = RACES.find(r => r.id === currentRaceId);
-    const c = race.characters[index];
-    const fav = isFavorite(currentRaceId, index);
-
-    document.getElementById('charHeader').innerHTML =
-      '<div class="char-header">' +
-        '<button class="star-btn char-star-wrap' + (fav ? ' on' : '') + '" onclick="toggleFavInCard()" aria-label="Избранное" style="position:absolute; top:0; right:0;">' +
-          '<svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18.5 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>' +
-        '</button>' +
-        '<div class="char-name">' + c.name + '</div>' +
-        (c.subtitle ? '<div class="char-subtitle">(' + c.subtitle + ')</div>' : '') +
-        '<div class="char-info">Возраст: ' + c.age + '</div>' +
-        '<div class="char-role">' + c.role + '</div>' +
-      '</div>';
-
-    document.getElementById('charBody').textContent = c.text;
-    document.getElementById('charQuote').textContent = '«' + c.quote + '»';
-
-    renderStage();
-    openScreen('screen-character');
-    document.getElementById('screen-character').scrollTop = 0;
-  }
-
-  function toggleFavInCard() {
-    toggleFavorite(currentRaceId, currentCharIndex);
-    const star = document.querySelector('#charHeader .star-btn');
-    if (star) star.classList.toggle('on', isFavorite(currentRaceId, currentCharIndex));
-  }
-
-  function renderStage() {
-    const race = RACES.find(r => r.id === currentRaceId);
-    const c = race.characters[currentCharIndex];
-    const stage = c.stages[currentStageIndex];
-    const total = c.stages.length;
-
-    const powerArea = document.getElementById('powerArea');
-    if (stage.stats) {
-      let sum = 0;
-      for (const k in stage.stats) sum += stage.stats[k];
-      const displaySum = Math.min(sum, 100);
-      powerArea.innerHTML =
-        '<div class="power-bar">' +
-          '<div class="power-top">' +
-            '<span class="power-label">Общая мощь</span>' +
-            '<span class="power-value">' + displaySum + '<span class="power-max"> / 100</span></span>' +
-          '</div>' +
-          '<div class="power-track">' +
-            '<div class="power-fill" data-power="' + displaySum + '" style="width: 0"></div>' +
-          '</div>' +
-        '</div>';
-    } else {
-      powerArea.innerHTML = '';
-    }
-
-    let navHtml = '';
-    if (total > 1) {
-      const leftHidden = currentStageIndex === 0 ? 'hidden' : '';
-      const rightHidden = currentStageIndex === total - 1 ? 'hidden' : '';
-      let dots = '';
-      for (let i = 0; i < total; i++) {
-        dots += '<span class="dot' + (i === currentStageIndex ? ' active' : '') + '"></span>';
-      }
-      navHtml =
-        '<div class="stage-nav">' +
-          '<button class="stage-arrow ' + leftHidden + '" onclick="changeStage(-1)">←</button>' +
-          '<div class="stage-center">' +
-            '<div class="stage-name">' + stage.name + '</div>' +
-            '<div class="stage-dots">' + dots + '</div>' +
-          '</div>' +
-          '<button class="stage-arrow ' + rightHidden + '" onclick="changeStage(1)">→</button>' +
-        '</div>';
-    }
-
-    let contentHtml = '';
-    if (stage.message) {
-      if (stage.messageType === 'quote') {
-        contentHtml =
-          '<div class="stage-message quote">' +
-            '<div class="stage-message-text">«' + stage.message + '»</div>' +
-            (stage.signature ? '<div class="stage-message-signature">— ' + stage.signature + '</div>' : '') +
-          '</div>';
-      } else {
-        contentHtml = '<div class="stage-message status">' + stage.message + '</div>';
-      }
-    } else if (stage.stats) {
-      contentHtml = '<div class="stats">';
-      for (const name in stage.stats) {
-        contentHtml += renderStat(name, stage.stats[name], c.effect, stage.forceEffect);
-      }
-      contentHtml += '</div>';
-    }
-
-    document.getElementById('stageArea').innerHTML = navHtml + contentHtml;
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelectorAll('.stat-bar-fill').forEach(bar => {
-          bar.style.width = bar.dataset.target + '%';
-        });
-        document.querySelectorAll('.power-fill').forEach(bar => {
-          bar.style.width = bar.dataset.power + '%';
-        });
-      });
-    });
-  }
-
-  function renderStat(name, value, effect, forceEffect) {
-    const percent = value > 10 ? 100 : (value / 10) * 100;
-    const isSpecial = value > 10 || forceEffect;
-    let effectClass = '';
-    if (effect === 'shadow') {
-      if (value > 0) effectClass = ' shadow-style';
-    } else if (isSpecial) {
-      effectClass = ' effect-' + effect;
-    }
-    const icon = STAT_ICONS[name] || '';
-    const displayValue = formatNumber(value);
-    return (
-      '<div class="stat-row">' +
-        '<div class="stat-icon">' + icon + '</div>' +
-        '<div class="stat-label">' + name + '</div>' +
-        '<div class="stat-bar">' +
-          '<div class="stat-bar-fill' + effectClass + '" data-target="' + percent + '" style="width: 0"></div>' +
-        '</div>' +
-        '<div class="stat-value">' + displayValue + '</div>' +
-      '</div>'
-    );
-  }
-
-  function formatNumber(n) {
-    if (n >= 1000000) return (n / 1000000) + ' млн';
-    if (n >= 10000) return (n / 1000) + ' тыс';
-    return n.toString();
-  }
-
-  function changeStage(delta) {
-    const race = RACES.find(r => r.id === currentRaceId);
-    const c = race.characters[currentCharIndex];
-    const next = currentStageIndex + delta;
-    if (next < 0 || next >= c.stages.length) return;
-    currentStageIndex = next;
-    renderStage();
-  }
-
-  let textSize = 100;
-  function changeTextSize(delta) {
-    textSize = Math.max(80, Math.min(140, textSize + delta * 10));
-    document.getElementById('sizeValue').textContent = textSize + '%';
-    document.documentElement.style.fontSize = (textSize / 100) * 16 + 'px';
-    localStorage.setItem('lore_size', textSize);
-  }
-  function toggleSetting(key, el) {
-    el.classList.toggle('on');
-    const isOn = el.classList.contains('on');
-    localStorage.setItem('lore_' + key, isOn);
-    if (key === 'dark') document.body.classList.toggle('dark-theme', isOn);
-    if (key === 'anim') {
-      document.querySelectorAll('.blob, .decor').forEach(b => {
-        b.style.animationPlayState = isOn ? 'running' : 'paused';
-      });
-    }
-  }
-  function resetSettings() {
-    if (!confirm('Сбросить все настройки?')) return;
-    ['dark', 'anim', 'sound', 'size'].forEach(k => localStorage.removeItem('lore_' + k));
-    location.reload();
-  }
-
-  window.addEventListener('load', () => {
-    buildArchivesList();
-    buildRaceList();
-    updateFavCount();
-
-    const size = localStorage.getItem('lore_size');
-    if (size) {
-      textSize = parseInt(size);
-      document.getElementById('sizeValue').textContent = textSize + '%';
-      document.documentElement.style.fontSize = (textSize / 100) * 16 + 'px';
-    }
-    ['dark', 'anim', 'sound'].forEach(k => {
-      const val = localStorage.getItem('lore_' + k);
-      const el = document.getElementById('tgl-' + k);
-      if (val === 'false') el.classList.remove('on');
-      if (val === 'true')  el.classList.add('on');
-      if (k === 'dark' && val === 'true') document.body.classList.add('dark-theme');
-    });
-  });
+function openDoc(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('open'));
+  document.getElementById(id).classList.add('open');
+  if(id==='unknown') document.getElementById('time').textContent=new Date().toLocaleTimeString();
+}
+function closeDoc(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('open'))}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDoc()});
 </script>
-
-<style>
-  body.dark-theme { background: #16161a; }
-  body.dark-theme .screen { background: #16161a; }
-  body.dark-theme .top-label { color: #555; }
-  body.dark-theme .bottom-label { color: #16161a; text-shadow: none; }
-  body.dark-theme .setting-label { color: #eaeaea; }
-  body.dark-theme .char-info { color: #999; }
-  body.dark-theme .char-role { color: #eaeaea; }
-  body.dark-theme .char-body { color: #eaeaea; }
-  body.dark-theme .char-quote { color: #ccc; background: rgba(255, 92, 77, 0.08); }
-  body.dark-theme .setting-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
-  body.dark-theme .toggle { background: #444; }
-  body.dark-theme .size-control button { border-color: #ff5c4d; color: #ff5c4d; }
-  body.dark-theme .size-control button:active { background: #ff5c4d; color: #16161a; }
-  body.dark-theme .size-control .size-value { color: #ff5c4d; }
-  body.dark-theme .reset-btn { border-color: #ff5c4d; color: #ff5c4d; }
-  body.dark-theme .reset-btn:active { background: #ff5c4d; color: #16161a; }
-  body.dark-theme .archive-item { background: rgba(40,40,45,0.7); }
-  body.dark-theme .archive-item.race-humans { border-color: rgba(255, 92, 77, 0.5); }
-  body.dark-theme .archive-item.race-robots { border-color: rgba(140, 180, 220, 0.5); }
-  body.dark-theme .archive-item.race-hybrids { border-color: rgba(80, 200, 130, 0.5); }
-  body.dark-theme .archive-item.race-gods { border-color: rgba(180, 100, 240, 0.55); }
-  body.dark-theme .archive-title { color: #eaeaea; }
-  body.dark-theme .archive-sub { color: #888; }
-  body.dark-theme .stat-label { color: #eaeaea; }
-  body.dark-theme .stat-bar { background: rgba(255,255,255,0.1); }
-  body.dark-theme .stat-icon { color: var(--race-color, #ff5c4d); }
-  body.dark-theme .power-label { color: #eaeaea; }
-  body.dark-theme .power-bar { background: rgba(40,40,45,0.7); border-color: var(--race-color); }
-  body.dark-theme .power-track { background: rgba(255,255,255,0.1); }
-  body.dark-theme .stage-message.status { color: #666; }
-  body.dark-theme .stage-message-text { color: #eaeaea; }
-  body.dark-theme .stage-message.quote { background: rgba(255,92,77,0.08); }
-  body.dark-theme .link-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
-  body.dark-theme .link-row .setting-label { color: #ff5c4d; }
-  body.dark-theme .link-row .link-arrow { color: #ff5c4d; }
-  body.dark-theme .decor { color: #ff5c4d; }
-  body.dark-theme .favorites-btn { background: rgba(255, 193, 7, 0.15); border-color: rgba(255, 193, 7, 0.5); color: #ffc107; }
-  body.dark-theme .empty-message { color: #666; }
-  body.dark-theme .story-soon-text { color: #ff5c4d; }
-  body.dark-theme .story-soon-sub { color: #888; }
-</style>
-
 </body>
- </html>
+</html>
