@@ -26,11 +26,17 @@
   .bottom-label { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 12; font-size: 1.4em; letter-spacing: 4px; color: #f7f6f3; text-shadow: 0 1px 4px rgba(0,0,0,0.25); white-space: nowrap; opacity: 0.95; }
   .top-line { position: fixed; top: 52px; left: 50%; transform: translateX(-50%); z-index: 8; color: #e5231b; opacity: 0.6; width: 140px; height: 12px; }
 
-  .main-btn { position: fixed; top: 42%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 22px 46px; font-family: 'Caveat', cursive; font-size: 2.8em; font-weight: 700; color: #e5231b; letter-spacing: 5px; line-height: 1; transition: transform 0.25s ease; }
+  .main-btn { position: fixed; top: 38%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 22px 46px; font-family: 'Caveat', cursive; font-size: 2.8em; font-weight: 700; color: #e5231b; letter-spacing: 5px; line-height: 1; transition: transform 0.25s ease; }
   .main-btn:active { transform: translateX(-50%) scale(0.95); }
   .main-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
   .main-btn svg path { fill: none; stroke: #e5231b; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .main-btn span { position: relative; z-index: 2; }
+
+  .story-btn { position: fixed; top: 53%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 16px 38px; font-family: 'Caveat', cursive; font-size: 1.9em; font-weight: 700; color: #e5231b; letter-spacing: 4px; line-height: 1; transition: transform 0.25s ease; opacity: 0.85; }
+  .story-btn:active { transform: translateX(-50%) scale(0.95); opacity: 1; }
+  .story-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+  .story-btn svg path { fill: none; stroke: #e5231b; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .story-btn span { position: relative; z-index: 2; }
 
   .settings-btn { position: fixed; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: #2b2b2b; border: none; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; color: #f7f6f3; box-shadow: 0 3px 10px rgba(0,0,0,0.15); transition: transform 0.25s ease, box-shadow 0.25s ease; }
   .settings-btn:active { transform: scale(0.9) rotate(45deg); box-shadow: 0 0 0 6px rgba(229, 35, 27, 0.15); }
@@ -108,51 +114,13 @@
   .char-info { font-size: 1.25em; color: #666; margin-top: 8px; }
   .char-role { font-size: 1.35em; color: #2b2b2b; margin-top: 8px; font-style: italic; }
 
-  /* ============ ОБЩАЯ ШКАЛА СИЛЫ ============ */
-  .power-bar {
-    margin: 4px 0 18px;
-    padding: 12px 16px;
-    background: rgba(255,255,255,0.55);
-    border: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35));
-    border-radius: 12px;
-    animation: statsIn 0.5s ease both;
-  }
-  .power-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 8px;
-  }
-  .power-label {
-    font-size: 1.15em;
-    color: #2b2b2b;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .power-value {
-    font-size: 1.4em;
-    color: var(--race-color, #e5231b);
-    font-weight: 700;
-  }
-  .power-value .power-max {
-    font-size: 0.75em;
-    opacity: 0.6;
-    font-weight: 500;
-  }
-  .power-track {
-    height: 16px;
-    background: rgba(0,0,0,0.08);
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
-  }
-  .power-fill {
-    height: 100%;
-    background: var(--race-color, #e5231b);
-    border-radius: 8px;
-    width: 0;
-    transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  .power-bar { margin: 4px 0 18px; padding: 12px 16px; background: rgba(255,255,255,0.55); border: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35)); border-radius: 12px; animation: statsIn 0.5s ease both; }
+  .power-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .power-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 2px; text-transform: uppercase; }
+  .power-value { font-size: 1.4em; color: var(--race-color, #e5231b); font-weight: 700; }
+  .power-value .power-max { font-size: 0.75em; opacity: 0.6; font-weight: 500; }
+  .power-track { height: 16px; background: rgba(0,0,0,0.08); border-radius: 8px; overflow: hidden; position: relative; }
+  .power-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 8px; width: 0; transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
 
   .stage-nav { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 8px; padding: 10px 0; animation: stageIn 0.4s ease both; }
   @keyframes stageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -168,30 +136,9 @@
   .stats { margin: 18px 0 24px; animation: statsIn 0.45s ease both; }
   @keyframes statsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* Строка характеристики с иконкой */
-  .stat-row {
-    display: grid;
-    grid-template-columns: 34px 90px 1fr 70px;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  .stat-icon {
-    width: 26px; height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--race-color, #e5231b);
-    transition: color 0.3s ease;
-  }
-  .stat-icon svg {
-    width: 22px; height: 22px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+  .stat-row { display: grid; grid-template-columns: 34px 90px 1fr 70px; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .stat-icon { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; color: var(--race-color, #e5231b); transition: color 0.3s ease; }
+  .stat-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .stat-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 0.5px; }
   .stat-bar { height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 7px; overflow: hidden; position: relative; }
   .stat-bar-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 7px; width: 0; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -224,6 +171,35 @@
 
   .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; animation: statsIn 0.7s ease 0.15s both; }
   .char-quote { border-left: 3px solid var(--race-color, #e5231b); padding: 12px 16px; margin: 20px 0; font-size: 1.35em; font-style: italic; color: #444; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; animation: statsIn 0.7s ease 0.3s both; }
+
+  /* ============ ЭКРАН «СКОРО» ДЛЯ ИСТОРИИ ============ */
+  .story-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    animation: statsIn 0.8s ease both;
+  }
+  .story-soon-text {
+    font-size: 5em;
+    color: #e5231b;
+    letter-spacing: 12px;
+    font-weight: 700;
+    animation: soonPulse 3s ease-in-out infinite;
+  }
+  @keyframes soonPulse {
+    0%, 100% { opacity: 0.5; letter-spacing: 12px; }
+    50%      { opacity: 1; letter-spacing: 16px; }
+  }
+  .story-soon-sub {
+    font-size: 1.6em;
+    color: #999;
+    margin-top: 16px;
+    font-style: italic;
+    letter-spacing: 2px;
+  }
 
   .empty-message { text-align: center; color: #aaa; font-size: 1.6em; padding: 60px 20px; font-style: italic; animation: statsIn 0.6s ease both; }
 
@@ -298,10 +274,26 @@
       </svg>
       <span>АРХИВЫ</span>
     </button>
+
+    <button class="story-btn" onclick="openScreen('screen-story')">
+      <svg viewBox="0 0 300 110" preserveAspectRatio="none">
+        <path d="M 38,58 C 30,28 90,12 155,14 C 220,16 280,26 275,55 C 272,82 200,100 140,98 C 78,96 44,86 38,58 Z" />
+      </svg>
+      <span>НАЧАТЬ ИСТОРИЮ</span>
+    </button>
   </div>
 
   <div class="blob blob-orange"></div>
   <div class="blob blob-red"></div>
+
+  <div class="screen" id="screen-story">
+    <button class="back-btn" onclick="closeScreens()">← назад</button>
+    <h2>Gold Child</h2>
+    <div class="story-soon">
+      <div class="story-soon-text">Скоро</div>
+      <div class="story-soon-sub">История только начинается...</div>
+    </div>
+  </div>
 
   <div class="screen" id="screen-archives">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
@@ -373,7 +365,6 @@
   </div>
 
 <script>
-  /* ================== ИКОНКИ ХАРАКТЕРИСТИК ================== */
   const STAT_ICONS = {
     "Сила": '<svg viewBox="0 0 24 24"><path d="M14.5 2 L21 8.5 L11 18.5 L4.5 12 Z"/><path d="M4.5 12 L2 14.5 L3 17 L5.5 18 L8 15.5"/><path d="M5.5 18 L3 20.5"/></svg>',
     "Скорость": '<svg viewBox="0 0 24 24"><path d="M13 2 L4 14 L11 14 L10 22 L19 10 L12 10 Z"/></svg>',
@@ -382,7 +373,6 @@
     "Удача": '<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/></svg>'
   };
 
-  /* ================== ДАННЫЕ ================== */
   const HUMANS = [
     { name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.", effect: "redpro",
       text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
@@ -476,7 +466,6 @@
   let currentStageIndex = 0;
   let returnToScreen = 'screen-characters';
 
-  /* ================== ИЗБРАННОЕ ================== */
   function loadFavorites() {
     try { const raw = localStorage.getItem(FAV_KEY); return raw ? JSON.parse(raw) : []; }
     catch (e) { return []; }
@@ -533,7 +522,6 @@
     openCharacter(idx);
   }
 
-  /* ================== ЭКРАНЫ ================== */
   function openScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -646,7 +634,6 @@
     const stage = c.stages[currentStageIndex];
     const total = c.stages.length;
 
-    /* ---- Общая шкала силы ---- */
     const powerArea = document.getElementById('powerArea');
     if (stage.stats) {
       let sum = 0;
@@ -666,7 +653,6 @@
       powerArea.innerHTML = '';
     }
 
-    /* ---- Навигация стадий ---- */
     let navHtml = '';
     if (total > 1) {
       const leftHidden = currentStageIndex === 0 ? 'hidden' : '';
@@ -686,7 +672,6 @@
         '</div>';
     }
 
-    /* ---- Контент стадии ---- */
     let contentHtml = '';
     if (stage.message) {
       if (stage.messageType === 'quote') {
@@ -708,7 +693,6 @@
 
     document.getElementById('stageArea').innerHTML = navHtml + contentHtml;
 
-    /* ---- Плавное заполнение полосок после рендера ---- */
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         document.querySelectorAll('.stat-bar-fill').forEach(bar => {
@@ -724,17 +708,14 @@
   function renderStat(name, value, effect, forceEffect) {
     const percent = value > 10 ? 100 : (value / 10) * 100;
     const isSpecial = value > 10 || forceEffect;
-
     let effectClass = '';
     if (effect === 'shadow') {
       if (value > 0) effectClass = ' shadow-style';
     } else if (isSpecial) {
       effectClass = ' effect-' + effect;
     }
-
     const icon = STAT_ICONS[name] || '';
     const displayValue = formatNumber(value);
-
     return (
       '<div class="stat-row">' +
         '<div class="stat-icon">' + icon + '</div>' +
@@ -846,6 +827,8 @@
   body.dark-theme .decor { color: #ff5c4d; }
   body.dark-theme .favorites-btn { background: rgba(255, 193, 7, 0.15); border-color: rgba(255, 193, 7, 0.5); color: #ffc107; }
   body.dark-theme .empty-message { color: #666; }
+  body.dark-theme .story-soon-text { color: #ff5c4d; }
+  body.dark-theme .story-soon-sub { color: #888; }
 </style>
 
 </body>
