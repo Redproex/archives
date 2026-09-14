@@ -7,31 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-  html, body {
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Caveat', cursive;
-    background: #f7f6f3;
-  }
+  html, body { height: 100%; overflow: hidden; font-family: 'Caveat', cursive; background: #f7f6f3; }
 
   .blob { position: fixed; z-index: 1; pointer-events: none; animation: float 9s ease-in-out infinite; }
-  .blob-orange {
-    left: -18%; bottom: -12%; width: 65%; height: 48%;
-    background: #ef9a1d;
-    border-radius: 50% 50% 45% 55% / 65% 55% 45% 35%;
-    transform: rotate(-6deg);
-  }
-  .blob-red {
-    right: -22%; bottom: -18%; width: 90%; height: 62%;
-    background: #e5231b;
-    border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%;
-    transform: rotate(4deg); animation-delay: -3s;
-  }
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) rotate(-6deg) scale(1); }
-    50%      { transform: translate(-8px, -6px) rotate(-4deg) scale(1.03); }
-  }
+  .blob-orange { left: -18%; bottom: -12%; width: 65%; height: 48%; background: #ef9a1d; border-radius: 50% 50% 45% 55% / 65% 55% 45% 35%; transform: rotate(-6deg); }
+  .blob-red { right: -22%; bottom: -18%; width: 90%; height: 62%; background: #e5231b; border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; transform: rotate(4deg); animation-delay: -3s; }
+  @keyframes float { 0%, 100% { transform: translate(0, 0) rotate(-6deg) scale(1); } 50% { transform: translate(-8px, -6px) rotate(-4deg) scale(1.03); } }
 
   .decor { position: fixed; z-index: 2; pointer-events: none; color: #e5231b; opacity: 0.9; }
   .decor-splat-tl { top: 12%; left: -20px; width: 120px; height: 120px; animation: wobble 7s ease-in-out infinite; }
@@ -39,125 +20,35 @@
   .decor-dots-l { top: 50%; left: 18px; width: 30px; animation: wobble 8s ease-in-out infinite; }
   .decor-swirl-r { top: 55%; right: 10px; width: 80px; height: 80px; animation: wobble 7.5s ease-in-out infinite reverse; }
   .decor-drops { bottom: 28%; left: 8%; width: 40px; color: #ef9a1d; animation: wobble 6.5s ease-in-out infinite; }
-  @keyframes wobble {
-    0%, 100% { transform: rotate(-3deg) translateY(0); }
-    50%      { transform: rotate(3deg) translateY(-4px); }
-  }
+  @keyframes wobble { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(-4px); } }
 
-  .top-label {
-    position: fixed; top: 32px; left: 50%;
-    transform: translateX(-50%);
-    z-index: 8;
-    font-size: 1.15em; letter-spacing: 6px;
-    color: #b0b0b0; text-transform: uppercase; white-space: nowrap;
-  }
-  .bottom-label {
-    position: fixed; bottom: 22px; left: 50%;
-    transform: translateX(-50%);
-    z-index: 12;
-    font-size: 1.4em; letter-spacing: 4px;
-    color: #f7f6f3;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.25);
-    white-space: nowrap; opacity: 0.95;
-  }
-  .top-line {
-    position: fixed; top: 52px; left: 50%;
-    transform: translateX(-50%);
-    z-index: 8; color: #e5231b; opacity: 0.6;
-    width: 140px; height: 12px;
-  }
+  .top-label { position: fixed; top: 32px; left: 50%; transform: translateX(-50%); z-index: 8; font-size: 1.15em; letter-spacing: 6px; color: #b0b0b0; text-transform: uppercase; white-space: nowrap; }
+  .bottom-label { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 12; font-size: 1.4em; letter-spacing: 4px; color: #f7f6f3; text-shadow: 0 1px 4px rgba(0,0,0,0.25); white-space: nowrap; opacity: 0.95; }
+  .top-line { position: fixed; top: 52px; left: 50%; transform: translateX(-50%); z-index: 8; color: #e5231b; opacity: 0.6; width: 140px; height: 12px; }
 
-  .main-btn {
-    position: fixed; top: 42%; left: 50%;
-    transform: translateX(-50%);
-    z-index: 10; background: none; border: none;
-    cursor: pointer; padding: 22px 46px;
-    font-family: 'Caveat', cursive;
-    font-size: 2.8em; font-weight: 700;
-    color: #e5231b; letter-spacing: 5px; line-height: 1;
-    transition: transform 0.25s ease;
-  }
+  .main-btn { position: fixed; top: 42%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 22px 46px; font-family: 'Caveat', cursive; font-size: 2.8em; font-weight: 700; color: #e5231b; letter-spacing: 5px; line-height: 1; transition: transform 0.25s ease; }
   .main-btn:active { transform: translateX(-50%) scale(0.95); }
   .main-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-  .main-btn svg path {
-    fill: none; stroke: #e5231b;
-    stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
-  }
+  .main-btn svg path { fill: none; stroke: #e5231b; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .main-btn span { position: relative; z-index: 2; }
 
-  .settings-btn {
-    position: fixed; top: 16px; right: 16px;
-    width: 44px; height: 44px; border-radius: 50%;
-    background: #2b2b2b; border: none; cursor: pointer; z-index: 20;
-    display: flex; align-items: center; justify-content: center;
-    color: #f7f6f3;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .settings-btn:active {
-    transform: scale(0.9) rotate(45deg);
-    box-shadow: 0 0 0 6px rgba(229, 35, 27, 0.15);
-  }
-  .settings-btn svg {
-    width: 24px; height: 24px;
-    stroke: currentColor; fill: none;
-    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
-    transition: transform 0.6s ease;
-  }
+  .settings-btn { position: fixed; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: #2b2b2b; border: none; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; color: #f7f6f3; box-shadow: 0 3px 10px rgba(0,0,0,0.15); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .settings-btn:active { transform: scale(0.9) rotate(45deg); box-shadow: 0 0 0 6px rgba(229, 35, 27, 0.15); }
+  .settings-btn svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.6s ease; }
   .settings-btn:active svg { transform: rotate(90deg); }
 
-  .screen {
-    position: fixed; inset: 0; z-index: 50;
-    background: #f7f6f3;
-    padding: 60px 24px 30px;
-    display: flex; flex-direction: column;
-    overflow-y: auto;
-    opacity: 0; pointer-events: none;
-    transform: translateX(30px);
-    transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  .screen { position: fixed; inset: 0; z-index: 50; background: #f7f6f3; padding: 60px 24px 30px; display: flex; flex-direction: column; overflow-y: auto; opacity: 0; pointer-events: none; transform: translateX(30px); transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
   .screen.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
-
   .screen.active h2 { animation: titleEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
-  @keyframes titleEnter {
-    0%   { opacity: 0; transform: translateY(-14px); letter-spacing: 12px; }
-    100% { opacity: 1; transform: translateY(0); letter-spacing: 4px; }
-  }
-
+  @keyframes titleEnter { 0% { opacity: 0; transform: translateY(-14px); letter-spacing: 12px; } 100% { opacity: 1; transform: translateY(0); letter-spacing: 4px; } }
   .screen.active .back-btn { animation: fadeIn 0.4s ease 0.15s both; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateX(-10px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
-  .screen h2 {
-    font-size: 2.6em; color: #e5231b;
-    text-align: center; letter-spacing: 4px;
-    margin-bottom: 30px;
-  }
-
-  .back-btn {
-    position: absolute; top: 18px; left: 18px;
-    background: none; border: none;
-    font-family: 'Caveat', cursive;
-    font-size: 1.6em; color: #e5231b;
-    cursor: pointer; letter-spacing: 1px;
-  }
+  .screen h2 { font-size: 2.6em; color: #e5231b; text-align: center; letter-spacing: 4px; margin-bottom: 30px; }
+  .back-btn { position: absolute; top: 18px; left: 18px; background: none; border: none; font-family: 'Caveat', cursive; font-size: 1.6em; color: #e5231b; cursor: pointer; letter-spacing: 1px; }
 
   .archive-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-
-  .archive-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 20px;
-    background: rgba(255,255,255,0.6);
-    border: 2px dashed rgba(229, 35, 27, 0.35);
-    border-radius: 14px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    position: relative;
-    overflow: hidden;
-  }
+  .archive-item { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: rgba(255,255,255,0.6); border: 2px dashed rgba(229, 35, 27, 0.35); border-radius: 14px; cursor: pointer; transition: all 0.25s ease; position: relative; overflow: hidden; }
   .screen.active .archive-item { animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
   .screen.active .archive-item:nth-child(1) { animation-delay: 0.15s; }
   .screen.active .archive-item:nth-child(2) { animation-delay: 0.21s; }
@@ -166,346 +57,98 @@
   .screen.active .archive-item:nth-child(5) { animation-delay: 0.39s; }
   .screen.active .archive-item:nth-child(6) { animation-delay: 0.45s; }
   .screen.active .archive-item:nth-child(7) { animation-delay: 0.51s; }
+  .screen.active .archive-item:nth-child(8) { animation-delay: 0.57s; }
+  @keyframes itemEnter { 0% { opacity: 0; transform: translateX(-24px); } 100% { opacity: 1; transform: translateX(0); } }
 
-  @keyframes itemEnter {
-    0%   { opacity: 0; transform: translateX(-24px); }
-    100% { opacity: 1; transform: translateX(0); }
-  }
-
-  .archive-item::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 0% 50%, rgba(229,35,27,0.08), transparent 70%);
-    animation: pulseGlow 4s ease-in-out infinite;
-    pointer-events: none;
-  }
+  .archive-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 0% 50%, rgba(229,35,27,0.08), transparent 70%); animation: pulseGlow 4s ease-in-out infinite; pointer-events: none; }
   .archive-item:nth-child(2)::before { animation-delay: 0.5s; }
   .archive-item:nth-child(3)::before { animation-delay: 1.0s; }
   .archive-item:nth-child(4)::before { animation-delay: 1.5s; }
-  .archive-item:nth-child(5)::before { animation-delay: 2.0s; }
-  .archive-item:nth-child(6)::before { animation-delay: 2.5s; }
-  .archive-item:nth-child(7)::before { animation-delay: 3.0s; }
-  @keyframes pulseGlow {
-    0%, 100% { opacity: 0.4; transform: translateX(-10%); }
-    50%      { opacity: 1;   transform: translateX(10%); }
-  }
+  @keyframes pulseGlow { 0%, 100% { opacity: 0.4; transform: translateX(-10%); } 50% { opacity: 1; transform: translateX(10%); } }
 
-  .archive-item:active {
-    background: #e5231b; border-color: #e5231b;
-    transform: scale(0.98);
-  }
-  .archive-item:active .archive-title,
-  .archive-item:active .archive-arrow,
-  .archive-item:active .archive-sub { color: #fff; }
+  .archive-item:active { background: #e5231b; border-color: #e5231b; transform: scale(0.98); }
+  .archive-item:active .archive-title, .archive-item:active .archive-arrow, .archive-item:active .archive-sub { color: #fff; }
   .archive-item > * { position: relative; z-index: 2; }
 
   .archive-title { font-size: 1.6em; color: #2b2b2b; letter-spacing: 1px; }
   .archive-sub { font-size: 1.1em; color: #999; margin-top: 2px; }
   .archive-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
   .archive-item:active .archive-arrow { transform: translateX(6px); }
+  .archive-item.empty { opacity: 0.45; cursor: default; }
+  .archive-item.empty:active { background: rgba(255,255,255,0.6); border-color: rgba(229, 35, 27, 0.35); transform: none; }
+  .archive-item.empty:active .archive-title,
+  .archive-item.empty:active .archive-arrow,
+  .archive-item.empty:active .archive-sub { color: inherit; }
+  .archive-item.empty:active .archive-arrow { transform: none; }
 
-  /* ============ КАРТОЧКА ПЕРСОНАЖА ============ */
-  .char-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 18px;
-    border-bottom: 2px dashed rgba(229, 35, 27, 0.35);
-    animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  @keyframes charHeaderIn {
-    0%   { opacity: 0; transform: translateY(-16px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  .char-name {
-    font-size: 2.6em; color: #e5231b;
-    letter-spacing: 5px; font-weight: 700;
-    text-transform: uppercase;
-  }
+  .char-header { text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px dashed rgba(229, 35, 27, 0.35); animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  @keyframes charHeaderIn { 0% { opacity: 0; transform: translateY(-16px); } 100% { opacity: 1; transform: translateY(0); } }
+  .char-name { font-size: 2.6em; color: #e5231b; letter-spacing: 5px; font-weight: 700; text-transform: uppercase; }
   .char-info { font-size: 1.25em; color: #666; margin-top: 6px; }
   .char-role { font-size: 1.35em; color: #2b2b2b; margin-top: 8px; font-style: italic; }
 
-  /* ============ ПЕРЕКЛЮЧАТЕЛЬ СТАДИЙ ============ */
-  .stage-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 22px 0 8px;
-    padding: 10px 0;
-    animation: stageIn 0.4s ease both;
-  }
-  @keyframes stageIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .stage-arrow {
-    background: none;
-    border: 2px solid #e5231b;
-    color: #e5231b;
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    font-family: 'Caveat', cursive;
-    font-size: 1.6em;
-    line-height: 1;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-  }
+  .stage-nav { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 8px; padding: 10px 0; animation: stageIn 0.4s ease both; }
+  @keyframes stageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .stage-arrow { background: none; border: 2px solid #e5231b; color: #e5231b; width: 44px; height: 44px; border-radius: 50%; font-family: 'Caveat', cursive; font-size: 1.6em; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
   .stage-arrow:active { background: #e5231b; color: #fff; transform: scale(0.92); }
   .stage-arrow.hidden { visibility: hidden; pointer-events: none; }
-
-  .stage-center {
-    flex: 1;
-    text-align: center;
-    padding: 0 10px;
-  }
-  .stage-name {
-    font-size: 1.6em;
-    color: #e5231b;
-    letter-spacing: 3px;
-    font-weight: 700;
-  }
-  .stage-dots {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 6px;
-  }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: rgba(229, 35, 27, 0.25);
-    transition: all 0.3s ease;
-  }
+  .stage-center { flex: 1; text-align: center; padding: 0 10px; }
+  .stage-name { font-size: 1.6em; color: #e5231b; letter-spacing: 3px; font-weight: 700; }
+  .stage-dots { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(229, 35, 27, 0.25); transition: all 0.3s ease; }
   .dot.active { background: #e5231b; transform: scale(1.3); }
 
-  /* ============ ХАРАКТЕРИСТИКИ ============ */
-  .stats {
-    margin: 18px 0 24px;
-    animation: statsIn 0.45s ease both;
-  }
-  @keyframes statsIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  .stats { margin: 18px 0 24px; animation: statsIn 0.45s ease both; }
+  @keyframes statsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .stat-row { display: grid; grid-template-columns: 90px 1fr 70px; gap: 10px; align-items: center; margin-bottom: 12px; }
+  .stat-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 0.5px; }
+  .stat-bar { height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 7px; overflow: hidden; position: relative; }
+  .stat-bar-fill { height: 100%; background: #e5231b; border-radius: 7px; width: 0; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+  .stat-value { font-size: 1.2em; color: #e5231b; text-align: right; font-weight: 700; white-space: nowrap; }
 
-  .stat-row {
-    display: grid;
-    grid-template-columns: 90px 1fr 70px;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  .stat-label {
-    font-size: 1.15em;
-    color: #2b2b2b;
-    letter-spacing: 0.5px;
-  }
-  .stat-bar {
-    height: 14px;
-    background: rgba(0, 0, 0, 0.08);
-    border-radius: 7px;
-    overflow: hidden;
-    position: relative;
-  }
-  .stat-bar-fill {
-    height: 100%;
-    background: #e5231b;
-    border-radius: 7px;
-    width: 0;
-    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .stat-value {
-    font-size: 1.2em;
-    color: #e5231b;
-    text-align: right;
-    font-weight: 700;
-    white-space: nowrap;
-  }
+  .stat-bar-fill.effect-redpro { background: linear-gradient(90deg, #e5231b, #2b5cff, #e5231b, #2b5cff, #e5231b); background-size: 300% 100%; animation: shimmerRedpro 3s linear infinite; box-shadow: 0 0 12px rgba(43, 92, 255, 0.7), 0 0 4px rgba(229, 35, 27, 0.8); }
+  @keyframes shimmerRedpro { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+  .stat-bar-fill.effect-wind { background: linear-gradient(90deg, #e5231b, #a8e6ff, #7ec8ff, #a8e6ff, #e5231b); background-size: 300% 100%; animation: shimmerWind 2.5s linear infinite; box-shadow: 0 0 10px rgba(126, 200, 255, 0.7); }
+  @keyframes shimmerWind { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+  .stat-bar-fill.effect-warrior { background: linear-gradient(90deg, #e5231b, #ff9b1b, #ffce3d, #ff9b1b, #e5231b); background-size: 300% 100%; animation: shimmerWarrior 2s linear infinite; box-shadow: 0 0 10px rgba(255, 155, 27, 0.8); }
+  @keyframes shimmerWarrior { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+  .stat-bar-fill.effect-boy { background: linear-gradient(90deg, #e5231b, #ffd93d, #ffe98a, #ffd93d, #e5231b); background-size: 300% 100%; animation: shimmerBoy 3s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 217, 61, 0.7); }
+  @keyframes shimmerBoy { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+  .stat-bar-fill.effect-science { background: linear-gradient(90deg, #e5231b, #00d4a4, #7cf5d6, #00d4a4, #e5231b); background-size: 300% 100%; animation: shimmerScience 2.5s linear infinite; box-shadow: 0 0 10px rgba(0, 212, 164, 0.7); }
+  @keyframes shimmerScience { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+  .stat-bar-fill.effect-mech { background: linear-gradient(90deg, #e5231b, #c0c0c0, #ffffff, #c0c0c0, #e5231b); background-size: 300% 100%; animation: shimmerMech 2s linear infinite; box-shadow: 0 0 10px rgba(192, 192, 192, 0.9); }
+  @keyframes shimmerMech { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+  .stat-bar-fill.effect-antique { background: linear-gradient(90deg, #e5231b, #d4af37, #f4e4bc, #d4af37, #e5231b); background-size: 300% 100%; animation: shimmerAntique 3s ease-in-out infinite; box-shadow: 0 0 10px rgba(212, 175, 55, 0.8); }
+  @keyframes shimmerAntique { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+  .stat-bar-fill.effect-god { background: linear-gradient(90deg, #e5231b, #6a1b9a, #d500f9, #6a1b9a, #e5231b); background-size: 300% 100%; animation: shimmerGod 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(213, 0, 249, 0.7); }
+  @keyframes shimmerGod { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
 
-  /* ============ СПЕЦЭФФЕКТЫ ПОЛОСОК (>10) ============ */
-  .stat-bar-fill.effect-redpro {
-    background: linear-gradient(90deg, #e5231b, #2b5cff, #e5231b, #2b5cff, #e5231b);
-    background-size: 300% 100%;
-    animation: shimmerRedpro 3s linear infinite;
-    box-shadow: 0 0 12px rgba(43, 92, 255, 0.7), 0 0 4px rgba(229, 35, 27, 0.8);
-  }
-  @keyframes shimmerRedpro {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
+  .stage-message { margin: 24px 0; text-align: center; animation: statsIn 0.45s ease both; }
+  .stage-message.status { font-size: 2.2em; color: #b0b0b0; letter-spacing: 4px; font-style: italic; padding: 30px 0; }
+  .stage-message.quote { border-left: 3px solid #e5231b; padding: 16px 18px; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; text-align: left; margin: 24px 0; }
+  .stage-message-text { font-size: 1.5em; color: #2b2b2b; font-style: italic; line-height: 1.4; }
+  .stage-message-signature { margin-top: 10px; font-size: 1.2em; color: #999; letter-spacing: 2px; text-align: right; }
 
-  .stat-bar-fill.effect-wind {
-    background: linear-gradient(90deg, #e5231b, #a8e6ff, #7ec8ff, #a8e6ff, #e5231b);
-    background-size: 300% 100%;
-    animation: shimmerWind 2.5s linear infinite;
-    box-shadow: 0 0 10px rgba(126, 200, 255, 0.7);
-  }
-  @keyframes shimmerWind {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
+  .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; animation: statsIn 0.7s ease 0.15s both; }
+  .char-quote { border-left: 3px solid #e5231b; padding: 12px 16px; margin: 20px 0; font-size: 1.35em; font-style: italic; color: #444; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; animation: statsIn 0.7s ease 0.3s both; }
 
-  .stat-bar-fill.effect-warrior {
-    background: linear-gradient(90deg, #e5231b, #ff9b1b, #ffce3d, #ff9b1b, #e5231b);
-    background-size: 300% 100%;
-    animation: shimmerWarrior 2s linear infinite;
-    box-shadow: 0 0 10px rgba(255, 155, 27, 0.8);
-  }
-  @keyframes shimmerWarrior {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
-
-  .stat-bar-fill.effect-boy {
-    background: linear-gradient(90deg, #e5231b, #ffd93d, #ffe98a, #ffd93d, #e5231b);
-    background-size: 300% 100%;
-    animation: shimmerBoy 3s ease-in-out infinite;
-    box-shadow: 0 0 10px rgba(255, 217, 61, 0.7);
-  }
-  @keyframes shimmerBoy {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
-
-  .stat-bar-fill.effect-science {
-    background: linear-gradient(90deg, #e5231b, #00d4a4, #7cf5d6, #00d4a4, #e5231b);
-    background-size: 300% 100%;
-    animation: shimmerScience 2.5s linear infinite;
-    box-shadow: 0 0 10px rgba(0, 212, 164, 0.7);
-  }
-  @keyframes shimmerScience {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
-
-  .stat-bar-fill.effect-mech {
-    background: linear-gradient(90deg, #e5231b, #c0c0c0, #ffffff, #c0c0c0, #e5231b);
-    background-size: 300% 100%;
-    animation: shimmerMech 2s linear infinite;
-    box-shadow: 0 0 10px rgba(192, 192, 192, 0.9);
-  }
-  @keyframes shimmerMech {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
-
-  .stat-bar-fill.effect-antique {
-    background: linear-gradient(90deg, #e5231b, #d4af37, #f4e4bc, #d4af37, #e5231b);
-    background-size: 300% 100%;
-    animation: shimmerAntique 3s ease-in-out infinite;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-  }
-  @keyframes shimmerAntique {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
-
-  /* ============ ОСОБЫЕ СООБЩЕНИЯ СТАДИЙ ============ */
-  .stage-message {
-    margin: 24px 0;
-    text-align: center;
-    animation: statsIn 0.45s ease both;
-  }
-  .stage-message.status {
-    font-size: 2.2em;
-    color: #b0b0b0;
-    letter-spacing: 4px;
-    font-style: italic;
-    padding: 30px 0;
-  }
-  .stage-message.quote {
-    border-left: 3px solid #e5231b;
-    padding: 16px 18px;
-    background: rgba(229, 35, 27, 0.05);
-    border-radius: 0 8px 8px 0;
-    text-align: left;
-    margin: 24px 0;
-  }
-  .stage-message-text {
-    font-size: 1.5em;
-    color: #2b2b2b;
-    font-style: italic;
-    line-height: 1.4;
-  }
-  .stage-message-signature {
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: #999;
-    letter-spacing: 2px;
-    text-align: right;
-  }
-
-  .char-body {
-    font-size: 1.35em; line-height: 1.6;
-    color: #2b2b2b; white-space: pre-wrap;
-    margin-bottom: 24px;
-    animation: statsIn 0.7s ease 0.15s both;
-  }
-  .char-quote {
-    border-left: 3px solid #e5231b;
-    padding: 12px 16px;
-    margin: 20px 0;
-    font-size: 1.35em;
-    font-style: italic;
-    color: #444;
-    background: rgba(229, 35, 27, 0.05);
-    border-radius: 0 8px 8px 0;
-    animation: statsIn 0.7s ease 0.3s both;
-  }
-
-  /* ============ НАСТРОЙКИ ============ */
-  .setting-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 4px;
-    border-bottom: 2px dashed rgba(229, 35, 27, 0.25);
-  }
+  .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; border-bottom: 2px dashed rgba(229, 35, 27, 0.25); }
   .setting-row:last-of-type { border-bottom: none; }
   .setting-label { font-size: 1.5em; color: #2b2b2b; letter-spacing: 1px; }
-
   .size-control { display: flex; align-items: center; gap: 12px; }
-  .size-control button {
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 2px solid #e5231b; background: transparent;
-    color: #e5231b; font-family: 'Caveat', cursive;
-    font-size: 1.6em; font-weight: 700; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .size-control button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e5231b; background: transparent; color: #e5231b; font-family: 'Caveat', cursive; font-size: 1.6em; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .size-control button:active { background: #e5231b; color: #fff; }
   .size-control .size-value { font-size: 1.3em; color: #e5231b; min-width: 34px; text-align: center; }
 
-  .toggle {
-    width: 54px; height: 28px; background: #d0d0d0;
-    border-radius: 14px; position: relative; cursor: pointer;
-    transition: 0.3s;
-  }
-  .toggle::after {
-    content: ''; position: absolute;
-    width: 22px; height: 22px; background: #fff;
-    border-radius: 50%; top: 3px; left: 3px;
-    transition: 0.3s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
+  .toggle { width: 54px; height: 28px; background: #d0d0d0; border-radius: 14px; position: relative; cursor: pointer; transition: 0.3s; }
+  .toggle::after { content: ''; position: absolute; width: 22px; height: 22px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
   .toggle.on { background: #e5231b; }
   .toggle.on::after { left: 29px; }
 
-  .reset-btn {
-    margin-top: 30px; align-self: center;
-    padding: 12px 28px; background: transparent;
-    border: 2px solid #e5231b; border-radius: 30px;
-    color: #e5231b; font-family: 'Caveat', cursive;
-    font-size: 1.4em; cursor: pointer; letter-spacing: 1px;
-  }
+  .reset-btn { margin-top: 30px; align-self: center; padding: 12px 28px; background: transparent; border: 2px solid #e5231b; border-radius: 30px; color: #e5231b; font-family: 'Caveat', cursive; font-size: 1.4em; cursor: pointer; letter-spacing: 1px; }
   .reset-btn:active { background: #e5231b; color: #fff; }
 
-  .link-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 4px;
-    border-bottom: 2px dashed rgba(229, 35, 27, 0.25);
-    cursor: pointer; text-decoration: none;
-    transition: opacity 0.2s;
-  }
+  .link-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; border-bottom: 2px dashed rgba(229, 35, 27, 0.25); cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
   .link-row:active { opacity: 0.6; }
   .link-row .setting-label { color: #e5231b; }
   .link-row .link-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
@@ -568,20 +211,18 @@
   <div class="screen" id="screen-archives">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
     <h2>Архивы</h2>
-    <ul class="archive-list">
-      <li class="archive-item" onclick="openScreen('screen-characters')">
-        <div>
-          <div class="archive-title">Персонажи</div>
-          <div class="archive-sub">7 записей</div>
-        </div>
-        <div class="archive-arrow">→</div>
-      </li>
-    </ul>
+    <ul class="archive-list" id="archivesList"></ul>
+  </div>
+
+  <div class="screen" id="screen-races">
+    <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
+    <h2>Персонажи</h2>
+    <ul class="archive-list" id="raceList"></ul>
   </div>
 
   <div class="screen" id="screen-characters">
-    <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
-    <h2>Персонажи</h2>
+    <button class="back-btn" onclick="openScreen('screen-races')">← назад</button>
+    <h2 id="raceTitle">Персонажи</h2>
     <ul class="archive-list" id="characterList"></ul>
   </div>
 
@@ -596,7 +237,6 @@
   <div class="screen" id="screen-settings">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
     <h2>Настройки</h2>
-
     <div class="setting-row">
       <span class="setting-label">Размер текста</span>
       <div class="size-control">
@@ -617,96 +257,109 @@
       <span class="setting-label">Звуки</span>
       <div class="toggle on" id="tgl-sound" onclick="toggleSetting('sound', this)"></div>
     </div>
-
     <a class="link-row" href="https://www.youtube.com/@Radproex" target="_blank" rel="noopener">
       <span class="setting-label">YouTube канал</span>
       <span class="link-arrow">↗</span>
     </a>
-
     <button class="reset-btn" onclick="resetSettings()">Сбросить всё</button>
   </div>
 
 <script>
-  const CHARACTERS = [
-    {
-      name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.",
-      effect: "redpro",
+  /* =====================================================
+     ▼▼▼  ЛЮДИ  ▼▼▼
+     ===================================================== */
+  const HUMANS = [
+    { name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.", effect: "redpro",
       text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
       quote: "Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом.",
       stages: [
         { name: "Начало", stats: { "Сила": 3, "Скорость": 5, "Интеллект": 6, "Воля": 0, "Удача": 0 } },
         { name: "Середина", stats: { "Сила": 7, "Скорость": 8, "Интеллект": 6, "Воля": 9, "Удача": 2 } },
         { name: "Финал", stats: { "Сила": 23000000, "Скорость": 21000000, "Интеллект": 10, "Воля": 4, "Удача": 5 } }
-      ]
-    },
-    {
-      name: "Пека", age: "25 лет (на 7 лет младше Редпро)", role: "Брат. Адмирал. Тот, кто помнит.",
-      effect: "wind",
+      ] },
+    { name: "Пека", age: "25 лет (на 7 лет младше Редпро)", role: "Брат. Адмирал. Тот, кто помнит.", effect: "wind",
       text: "Младший брат Редпро. Сорвиголова. Ворвался в гильдию «Меха-Помощник» с криком: «Я нужен вам!» — и не ошибся. Управляет воздухом. Создал из чёрного шприца Линада — свою тёмную половину. Единственный, кто узнает правду в конце. И единственный, кто сохранит её.",
       quote: "Брат учил меня держать нить. Я держу. Даже когда руки в крови.",
       stages: [
         { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 4, "Воля": 3, "Удача": 2 } },
         { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 6, "Воля": 7, "Удача": 5 } },
         { name: "Финал", stats: { "Сила": 20000, "Скорость": 20, "Интеллект": 9, "Воля": 10, "Удача": 8 } }
-      ]
-    },
-    {
-      name: "Виталик", age: "64 года", role: "Отец Редпро и Пеки. Легенда. Шпион.",
-      effect: "warrior",
+      ] },
+    { name: "Виталик", age: "64 года", role: "Отец Редпро и Пеки. Легенда. Шпион.", effect: "warrior",
       text: "Сильнейший человек гильдии. Прошёл войны, которые не принято вспоминать. Молчалив. Каждый его шаг заставляет дрожать бетон. Ушёл к Взломщикам как шпион под прикрытием. Передавал данные через азбуку Морзе в шуме старых телевизоров. Рисковал собой каждую ночь. И выжил.",
       quote: "Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час.",
       stages: [
         { name: "Начало", stats: { "Сила": 10, "Скорость": 5, "Интеллект": 7, "Воля": 10, "Удача": 2 } },
         { name: "Середина", stats: { "Сила": 50, "Скорость": 27, "Интеллект": 8, "Воля": 10, "Удача": 5 } },
         { name: "Финал", stats: { "Сила": 1000, "Скорость": 999, "Интеллект": 80, "Воля": 100, "Удача": 8 } }
-      ]
-    },
-    {
-      name: "Мелкий", age: "7 лет", role: "Сын. Носитель. Тот, кого спасли.",
-      effect: "boy",
+      ] },
+    { name: "Мелкий", age: "7 лет", role: "Сын. Носитель. Тот, кого спасли.", effect: "boy",
       text: "Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Потому что в ту ночь — в дождь и крик — Тревор вытащил его. Мелкий жив. Он вырос. И он помнит.",
       quote: "Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда.",
       stages: [
         { name: "Начало", stats: { "Сила": 1, "Скорость": 1, "Интеллект": 4, "Воля": 2, "Удача": 9 } },
         { name: "Середина", stats: { "Сила": 8000, "Скорость": 8000, "Интеллект": 6000, "Воля": 0, "Удача": 0 } },
         { name: "Финал", stats: { "Сила": 15000000, "Скорость": 17000000, "Интеллект": 0, "Воля": 0, "Удача": 0 } }
-      ]
-    },
-    {
-      name: "Манекен", age: "75 лет", role: "Учёный. Создатель. Тот, кто знал.",
-      effect: "science",
+      ] },
+    { name: "Манекен", age: "75 лет", role: "Учёный. Создатель. Тот, кто знал.", effect: "science",
       text: "Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели. Знал тайну Лиры. Погиб в 6-й главе — но не зря. Его смерть стала ключом к финалу.",
       quote: "Я не спасаю мир. Я просто чиню то, что сломали другие.",
       stages: [
         { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 10, "Воля": 3, "Удача": 9 } },
         { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 100, "Воля": 7, "Удача": 7 } },
         { name: "Финал", message: "X, друг мой, прости меня за всё...", messageType: "quote", signature: "Последние слова" }
-      ]
-    },
-    {
-      name: "Подопытный", age: "10 лет", role: "Сын Манекена. Киборг. Тот, кто вернётся.",
-      effect: "mech",
+      ] },
+    { name: "Подопытный", age: "10 лет", role: "Сын Манекена. Киборг. Тот, кто вернётся.", effect: "mech",
       text: "Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Его роль в финале — ослабить Нуля и дать команде шанс. Он знает это. И не боится.",
       quote: "Я умирал один раз. Второй — не страшно. Главное, чтобы не зря.",
       stages: [
         { name: "Начало", stats: { "Сила": 5, "Скорость": 6, "Интеллект": 4, "Воля": 3, "Удача": 0 } },
         { name: "Середина", stats: { "Сила": 8, "Скорость": 9, "Интеллект": 6, "Воля": 7, "Удача": 0 } },
         { name: "Финал", stats: { "Сила": 15, "Скорость": 20, "Интеллект": 9, "Воля": 10, "Удача": 0 } }
-      ]
-    },
-    {
-      name: "Лира", age: "31 год (на момент смерти)", role: "Жена. Мать. Свет.",
-      effect: "antique",
+      ] },
+    { name: "Лира", age: "31 год (на момент смерти)", role: "Жена. Мать. Свет.", effect: "antique",
       text: "Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа. Тень узнал из газеты. Кофе пролился. Что-то сломалось навсегда.",
       quote: "Береги его. Что бы ни случилось — не отпускай его руку.",
       stages: [
         { name: "Начало", message: "мёртв", messageType: "status" },
         { name: "Середина", message: "мёртв", messageType: "status" },
         { name: "Финал", stats: { "Сила": 1, "Скорость": 1, "Интеллект": 1, "Воля": 1, "Удача": 1 }, forceEffect: true }
-      ]
-    }
+      ] }
   ];
 
+  /* =====================================================
+     ▼▼▼  РОБОТЫ  (пока пусто, заполним позже)  ▼▼▼
+     ===================================================== */
+  const ROBOTS = [];
+
+  /* =====================================================
+     ▼▼▼  ГИБРИДЫ  (пока пусто)  ▼▼▼
+     ===================================================== */
+  const HYBRIDS = [];
+
+  /* =====================================================
+     ▼▼▼  БОГИ  ▼▼▼
+     ===================================================== */
+  const GODS = [
+    { name: "Тень", subtitle: "Четырёхрукий", age: "неизвестен (древний)", role: "Главный антагонист. Тот, кто потерял всё.", effect: "god",
+      text: "Существо, потерявшее всё. Пришёл, чтобы уничтожить этот мир — как уничтожили его собственный. Но встретил маленькую девочку Лиру. Она стала его единственным другом. Он остановился. На годы. А потом она умерла — от сердечного приступа. Он узнал из газеты. Кофе пролился. Что-то сломалось навсегда. Но внутри него — пустота, которую не заполнить.",
+      quote: "Ты не спас её. Теперь ты не спасёшь его.",
+      stages: [
+        { name: "Тень", stats: { "Сила": 10, "Скорость": 8, "Интеллект": 9, "Воля": 10, "Удача": 0 } }
+      ] }
+  ];
+
+  /* =====================================================
+     ▼▼▼  СПИСОК РАС  ▼▼▼
+     ===================================================== */
+  const RACES = [
+    { id: "humans",  name: "Люди",    desc: "Обычные люди",             characters: HUMANS },
+    { id: "robots",  name: "Роботы",  desc: "Титаны, механические люди", characters: ROBOTS },
+    { id: "hybrids", name: "Гибриды", desc: "Смешение ДНК и препаратов", characters: HYBRIDS },
+    { id: "gods",    name: "Боги",    desc: "Древние существа",           characters: GODS }
+  ];
+
+  let currentRaceId = null;
   let currentCharIndex = -1;
   let currentStageIndex = 0;
 
@@ -720,31 +373,75 @@
     document.body.classList.remove('screen-open');
   }
 
-  function buildCharacterList() {
+  /* Главный список Архивов */
+  function buildArchivesList() {
+    const list = document.getElementById('archivesList');
+    list.innerHTML =
+      '<li class="archive-item" onclick="openScreen(\'screen-races\')">' +
+        '<div>' +
+          '<div class="archive-title">Персонажи</div>' +
+          '<div class="archive-sub">' + RACES.length + ' расы</div>' +
+        '</div>' +
+        '<div class="archive-arrow">→</div>' +
+      '</li>';
+  }
+
+  /* Список рас */
+  function buildRaceList() {
+    const list = document.getElementById('raceList');
+    list.innerHTML = '';
+    RACES.forEach(r => {
+      const count = r.characters.length;
+      const isEmpty = count === 0;
+      const li = document.createElement('li');
+      li.className = 'archive-item' + (isEmpty ? ' empty' : '');
+      if (!isEmpty) li.onclick = () => openRace(r.id);
+      li.innerHTML =
+        '<div>' +
+          '<div class="archive-title">' + r.name + '</div>' +
+          '<div class="archive-sub">' + r.desc + (isEmpty ? ' · скоро' : ' · ' + count) + '</div>' +
+        '</div>' +
+        '<div class="archive-arrow">' + (isEmpty ? '·' : '→') + '</div>';
+      list.appendChild(li);
+    });
+  }
+
+  /* Открыть расу — загрузить её персонажей */
+  function openRace(raceId) {
+    currentRaceId = raceId;
+    const race = RACES.find(r => r.id === raceId);
+    document.getElementById('raceTitle').textContent = race.name;
+
     const list = document.getElementById('characterList');
     list.innerHTML = '';
-    CHARACTERS.forEach((c, i) => {
+    race.characters.forEach((c, i) => {
       const li = document.createElement('li');
       li.className = 'archive-item';
       li.onclick = () => openCharacter(i);
+      const displayName = c.subtitle ? (c.name + ' (' + c.subtitle + ')') : c.name;
       li.innerHTML =
         '<div>' +
-          '<div class="archive-title">' + c.name + '</div>' +
+          '<div class="archive-title">' + displayName + '</div>' +
           '<div class="archive-sub">' + c.role + '</div>' +
         '</div>' +
         '<div class="archive-arrow">→</div>';
       list.appendChild(li);
     });
+
+    openScreen('screen-characters');
   }
 
   function openCharacter(index) {
     currentCharIndex = index;
     currentStageIndex = 0;
-    const c = CHARACTERS[index];
+    const race = RACES.find(r => r.id === currentRaceId);
+    const c = race.characters[index];
+
+    const displayName = c.subtitle ? (c.name + ' (' + c.subtitle + ')') : c.name;
 
     document.getElementById('charHeader').innerHTML =
       '<div class="char-header">' +
-        '<div class="char-name">' + c.name + '</div>' +
+        '<div class="char-name">' + displayName + '</div>' +
         '<div class="char-info">Возраст: ' + c.age + '</div>' +
         '<div class="char-role">' + c.role + '</div>' +
       '</div>';
@@ -758,30 +455,31 @@
   }
 
   function renderStage() {
-    const c = CHARACTERS[currentCharIndex];
+    const race = RACES.find(r => r.id === currentRaceId);
+    const c = race.characters[currentCharIndex];
     const stage = c.stages[currentStageIndex];
     const total = c.stages.length;
 
-    const leftHidden = currentStageIndex === 0 ? 'hidden' : '';
-    const rightHidden = currentStageIndex === total - 1 ? 'hidden' : '';
-
-    let dots = '';
-    for (let i = 0; i < total; i++) {
-      dots += '<span class="dot' + (i === currentStageIndex ? ' active' : '') + '"></span>';
+    let navHtml = '';
+    if (total > 1) {
+      const leftHidden = currentStageIndex === 0 ? 'hidden' : '';
+      const rightHidden = currentStageIndex === total - 1 ? 'hidden' : '';
+      let dots = '';
+      for (let i = 0; i < total; i++) {
+        dots += '<span class="dot' + (i === currentStageIndex ? ' active' : '') + '"></span>';
+      }
+      navHtml =
+        '<div class="stage-nav">' +
+          '<button class="stage-arrow ' + leftHidden + '" onclick="changeStage(-1)">←</button>' +
+          '<div class="stage-center">' +
+            '<div class="stage-name">' + stage.name + '</div>' +
+            '<div class="stage-dots">' + dots + '</div>' +
+          '</div>' +
+          '<button class="stage-arrow ' + rightHidden + '" onclick="changeStage(1)">→</button>' +
+        '</div>';
     }
 
-    const navHtml =
-      '<div class="stage-nav">' +
-        '<button class="stage-arrow ' + leftHidden + '" onclick="changeStage(-1)">←</button>' +
-        '<div class="stage-center">' +
-          '<div class="stage-name">' + stage.name + '</div>' +
-          '<div class="stage-dots">' + dots + '</div>' +
-        '</div>' +
-        '<button class="stage-arrow ' + rightHidden + '" onclick="changeStage(1)">→</button>' +
-      '</div>';
-
     let contentHtml = '';
-
     if (stage.message) {
       if (stage.messageType === 'quote') {
         contentHtml =
@@ -826,7 +524,8 @@
   }
 
   function changeStage(delta) {
-    const c = CHARACTERS[currentCharIndex];
+    const race = RACES.find(r => r.id === currentRaceId);
+    const c = race.characters[currentCharIndex];
     const next = currentStageIndex + delta;
     if (next < 0 || next >= c.stages.length) return;
     currentStageIndex = next;
@@ -840,7 +539,6 @@
     document.documentElement.style.fontSize = (textSize / 100) * 16 + 'px';
     localStorage.setItem('lore_size', textSize);
   }
-
   function toggleSetting(key, el) {
     el.classList.toggle('on');
     const isOn = el.classList.contains('on');
@@ -852,7 +550,6 @@
       });
     }
   }
-
   function resetSettings() {
     if (!confirm('Сбросить все настройки?')) return;
     ['dark', 'anim', 'sound', 'size'].forEach(k => localStorage.removeItem('lore_' + k));
@@ -860,7 +557,9 @@
   }
 
   window.addEventListener('load', () => {
-    buildCharacterList();
+    buildArchivesList();
+    buildRaceList();
+
     const size = localStorage.getItem('lore_size');
     if (size) {
       textSize = parseInt(size);
@@ -922,4 +621,4 @@
 </style>
 
 </body>
- </html>
+       </html>
