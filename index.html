@@ -37,15 +37,15 @@
   .settings-btn svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.6s ease; }
   .settings-btn:active svg { transform: rotate(90deg); }
 
-  .screen { position: fixed; inset: 0; z-index: 50; background: #f7f6f3; padding: 60px 24px 30px; display: flex; flex-direction: column; overflow-y: auto; opacity: 0; pointer-events: none; transform: translateX(30px); transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
+  .screen { position: fixed; inset: 0; z-index: 50; background: #f7f6f3; padding: 72px 24px 30px; display: flex; flex-direction: column; overflow-y: auto; opacity: 0; pointer-events: none; transform: translateX(30px); transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
   .screen.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
   .screen.active h2 { animation: titleEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
   @keyframes titleEnter { 0% { opacity: 0; transform: translateY(-14px); letter-spacing: 12px; } 100% { opacity: 1; transform: translateY(0); letter-spacing: 4px; } }
   .screen.active .back-btn { animation: fadeIn 0.4s ease 0.15s both; }
   @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
-  .screen h2 { font-size: 2.6em; color: #e5231b; text-align: center; letter-spacing: 4px; margin-bottom: 30px; }
-  .back-btn { position: absolute; top: 18px; left: 18px; background: none; border: none; font-family: 'Caveat', cursive; font-size: 1.6em; color: #e5231b; cursor: pointer; letter-spacing: 1px; }
+  .screen h2 { font-size: 2.6em; color: var(--race-color, #e5231b); text-align: center; letter-spacing: 4px; margin-bottom: 30px; transition: color 0.3s ease; }
+  .back-btn { position: absolute; top: 18px; left: 18px; background: none; border: none; font-family: 'Caveat', cursive; font-size: 1.6em; color: var(--race-color, #e5231b); cursor: pointer; letter-spacing: 1px; transition: color 0.3s ease; }
 
   .archive-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .archive-item { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: rgba(255,255,255,0.6); border: 2px dashed rgba(229, 35, 27, 0.35); border-radius: 14px; cursor: pointer; transition: all 0.25s ease; position: relative; overflow: hidden; }
@@ -66,13 +66,23 @@
   .archive-item:nth-child(4)::before { animation-delay: 1.5s; }
   @keyframes pulseGlow { 0%, 100% { opacity: 0.4; transform: translateX(-10%); } 50% { opacity: 1; transform: translateX(10%); } }
 
-  .archive-item:active { background: #e5231b; border-color: #e5231b; transform: scale(0.98); }
+  /* Цвета рас для карточек в списке */
+  .archive-item.race-humans { border-color: rgba(229, 35, 27, 0.45); }
+  .archive-item.race-humans .archive-arrow { color: #e5231b; }
+  .archive-item.race-robots { border-color: rgba(91, 127, 166, 0.55); }
+  .archive-item.race-robots .archive-arrow { color: #5b7fa6; }
+  .archive-item.race-hybrids { border-color: rgba(45, 138, 78, 0.55); }
+  .archive-item.race-hybrids .archive-arrow { color: #2d8a4e; }
+  .archive-item.race-gods { border-color: rgba(123, 47, 190, 0.55); }
+  .archive-item.race-gods .archive-arrow { color: #7b2fbe; }
+
+  .archive-item:active { background: var(--race-color, #e5231b); border-color: var(--race-color, #e5231b); transform: scale(0.98); }
   .archive-item:active .archive-title, .archive-item:active .archive-arrow, .archive-item:active .archive-sub { color: #fff; }
   .archive-item > * { position: relative; z-index: 2; }
 
   .archive-title { font-size: 1.6em; color: #2b2b2b; letter-spacing: 1px; }
   .archive-sub { font-size: 1.1em; color: #999; margin-top: 2px; }
-  .archive-arrow { font-size: 1.6em; color: #e5231b; transition: transform 0.25s ease; }
+  .archive-arrow { font-size: 1.6em; color: var(--race-color, #e5231b); transition: transform 0.25s ease, color 0.3s ease; }
   .archive-item:active .archive-arrow { transform: translateX(6px); }
   .archive-item.empty { opacity: 0.45; cursor: default; }
   .archive-item.empty:active { background: rgba(255,255,255,0.6); border-color: rgba(229, 35, 27, 0.35); transform: none; }
@@ -81,30 +91,31 @@
   .archive-item.empty:active .archive-sub { color: inherit; }
   .archive-item.empty:active .archive-arrow { transform: none; }
 
-  .char-header { text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px dashed rgba(229, 35, 27, 0.35); animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .char-header { text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35)); animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
   @keyframes charHeaderIn { 0% { opacity: 0; transform: translateY(-16px); } 100% { opacity: 1; transform: translateY(0); } }
-  .char-name { font-size: 2.6em; color: #e5231b; letter-spacing: 5px; font-weight: 700; text-transform: uppercase; }
-  .char-info { font-size: 1.25em; color: #666; margin-top: 6px; }
+  .char-name { font-size: 2.6em; color: var(--race-color, #e5231b); letter-spacing: 5px; font-weight: 700; text-transform: uppercase; transition: color 0.3s ease; }
+  .char-subtitle { font-size: 1.5em; color: var(--race-color, #e5231b); letter-spacing: 3px; margin-top: -2px; opacity: 0.75; font-style: italic; transition: color 0.3s ease; }
+  .char-info { font-size: 1.25em; color: #666; margin-top: 8px; }
   .char-role { font-size: 1.35em; color: #2b2b2b; margin-top: 8px; font-style: italic; }
 
   .stage-nav { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 8px; padding: 10px 0; animation: stageIn 0.4s ease both; }
   @keyframes stageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  .stage-arrow { background: none; border: 2px solid #e5231b; color: #e5231b; width: 44px; height: 44px; border-radius: 50%; font-family: 'Caveat', cursive; font-size: 1.6em; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
-  .stage-arrow:active { background: #e5231b; color: #fff; transform: scale(0.92); }
+  .stage-arrow { background: none; border: 2px solid var(--race-color, #e5231b); color: var(--race-color, #e5231b); width: 44px; height: 44px; border-radius: 50%; font-family: 'Caveat', cursive; font-size: 1.6em; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
+  .stage-arrow:active { background: var(--race-color, #e5231b); color: #fff; transform: scale(0.92); }
   .stage-arrow.hidden { visibility: hidden; pointer-events: none; }
   .stage-center { flex: 1; text-align: center; padding: 0 10px; }
-  .stage-name { font-size: 1.6em; color: #e5231b; letter-spacing: 3px; font-weight: 700; }
+  .stage-name { font-size: 1.6em; color: var(--race-color, #e5231b); letter-spacing: 3px; font-weight: 700; transition: color 0.3s ease; }
   .stage-dots { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(229, 35, 27, 0.25); transition: all 0.3s ease; }
-  .dot.active { background: #e5231b; transform: scale(1.3); }
+  .dot.active { background: var(--race-color, #e5231b); transform: scale(1.3); }
 
   .stats { margin: 18px 0 24px; animation: statsIn 0.45s ease both; }
   @keyframes statsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .stat-row { display: grid; grid-template-columns: 90px 1fr 70px; gap: 10px; align-items: center; margin-bottom: 12px; }
   .stat-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 0.5px; }
   .stat-bar { height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 7px; overflow: hidden; position: relative; }
-  .stat-bar-fill { height: 100%; background: #e5231b; border-radius: 7px; width: 0; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-  .stat-value { font-size: 1.2em; color: #e5231b; text-align: right; font-weight: 700; white-space: nowrap; }
+  .stat-bar-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 7px; width: 0; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+  .stat-value { font-size: 1.2em; color: var(--race-color, #e5231b); text-align: right; font-weight: 700; white-space: nowrap; transition: color 0.3s ease; }
 
   .stat-bar-fill.effect-redpro { background: linear-gradient(90deg, #e5231b, #2b5cff, #e5231b, #2b5cff, #e5231b); background-size: 300% 100%; animation: shimmerRedpro 3s linear infinite; box-shadow: 0 0 12px rgba(43, 92, 255, 0.7), 0 0 4px rgba(229, 35, 27, 0.8); }
   @keyframes shimmerRedpro { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
@@ -123,14 +134,20 @@
   .stat-bar-fill.effect-god { background: linear-gradient(90deg, #e5231b, #6a1b9a, #d500f9, #6a1b9a, #e5231b); background-size: 300% 100%; animation: shimmerGod 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(213, 0, 249, 0.7); }
   @keyframes shimmerGod { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
 
+  /* Спецстиль для Тени — чёрные полоски с красной тенью */
+  .stat-bar-fill.shadow-style {
+    background: #111;
+    box-shadow: 0 0 12px rgba(229, 35, 27, 0.9), inset 0 0 6px rgba(229, 35, 27, 0.6);
+  }
+
   .stage-message { margin: 24px 0; text-align: center; animation: statsIn 0.45s ease both; }
   .stage-message.status { font-size: 2.2em; color: #b0b0b0; letter-spacing: 4px; font-style: italic; padding: 30px 0; }
-  .stage-message.quote { border-left: 3px solid #e5231b; padding: 16px 18px; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; text-align: left; margin: 24px 0; }
+  .stage-message.quote { border-left: 3px solid var(--race-color, #e5231b); padding: 16px 18px; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; text-align: left; margin: 24px 0; }
   .stage-message-text { font-size: 1.5em; color: #2b2b2b; font-style: italic; line-height: 1.4; }
   .stage-message-signature { margin-top: 10px; font-size: 1.2em; color: #999; letter-spacing: 2px; text-align: right; }
 
   .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; animation: statsIn 0.7s ease 0.15s both; }
-  .char-quote { border-left: 3px solid #e5231b; padding: 12px 16px; margin: 20px 0; font-size: 1.35em; font-style: italic; color: #444; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; animation: statsIn 0.7s ease 0.3s both; }
+  .char-quote { border-left: 3px solid var(--race-color, #e5231b); padding: 12px 16px; margin: 20px 0; font-size: 1.35em; font-style: italic; color: #444; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; animation: statsIn 0.7s ease 0.3s both; }
 
   .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; border-bottom: 2px dashed rgba(229, 35, 27, 0.25); }
   .setting-row:last-of-type { border-bottom: none; }
@@ -265,9 +282,6 @@
   </div>
 
 <script>
-  /* =====================================================
-     ▼▼▼  ЛЮДИ  ▼▼▼
-     ===================================================== */
   const HUMANS = [
     { name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.", effect: "redpro",
       text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
@@ -327,37 +341,33 @@
       ] }
   ];
 
-  /* =====================================================
-     ▼▼▼  РОБОТЫ  (пока пусто, заполним позже)  ▼▼▼
-     ===================================================== */
   const ROBOTS = [];
-
-  /* =====================================================
-     ▼▼▼  ГИБРИДЫ  (пока пусто)  ▼▼▼
-     ===================================================== */
   const HYBRIDS = [];
 
-  /* =====================================================
-     ▼▼▼  БОГИ  ▼▼▼
-     ===================================================== */
   const GODS = [
-    { name: "Тень", subtitle: "Четырёхрукий", age: "неизвестен (древний)", role: "Главный антагонист. Тот, кто потерял всё.", effect: "god",
+    { name: "Тень", subtitle: "Четырёхрукий", age: "неизвестен (древний)", role: "Главный антагонист. Тот, кто потерял всё.", effect: "shadow",
       text: "Существо, потерявшее всё. Пришёл, чтобы уничтожить этот мир — как уничтожили его собственный. Но встретил маленькую девочку Лиру. Она стала его единственным другом. Он остановился. На годы. А потом она умерла — от сердечного приступа. Он узнал из газеты. Кофе пролился. Что-то сломалось навсегда. Но внутри него — пустота, которую не заполнить.",
       quote: "Ты не спас её. Теперь ты не спасёшь его.",
       stages: [
-        { name: "Тень", stats: { "Сила": 10, "Скорость": 8, "Интеллект": 9, "Воля": 10, "Удача": 0 } }
+        { name: "Начало", stats: { "Сила": 2000, "Скорость": 2000, "Интеллект": 2000, "Воля": 2000, "Удача": 2000 } },
+        { name: "Середина", stats: { "Сила": 5003, "Скорость": 379, "Интеллект": 1000, "Воля": 1000, "Удача": 10 } },
+        { name: "Финал", stats: { "Сила": 17000000, "Скорость": 17000000, "Интеллект": 17000000, "Воля": 0, "Удача": 0 } }
       ] }
   ];
 
-  /* =====================================================
-     ▼▼▼  СПИСОК РАС  ▼▼▼
-     ===================================================== */
   const RACES = [
     { id: "humans",  name: "Люди",    desc: "Обычные люди",             characters: HUMANS },
     { id: "robots",  name: "Роботы",  desc: "Титаны, механические люди", characters: ROBOTS },
     { id: "hybrids", name: "Гибриды", desc: "Смешение ДНК и препаратов", characters: HYBRIDS },
     { id: "gods",    name: "Боги",    desc: "Древние существа",           characters: GODS }
   ];
+
+  const RACE_COLORS = {
+    humans:  "#e5231b",
+    robots:  "#5b7fa6",
+    hybrids: "#2d8a4e",
+    gods:    "#7b2fbe"
+  };
 
   let currentRaceId = null;
   let currentCharIndex = -1;
@@ -373,7 +383,6 @@
     document.body.classList.remove('screen-open');
   }
 
-  /* Главный список Архивов */
   function buildArchivesList() {
     const list = document.getElementById('archivesList');
     list.innerHTML =
@@ -386,7 +395,6 @@
       '</li>';
   }
 
-  /* Список рас */
   function buildRaceList() {
     const list = document.getElementById('raceList');
     list.innerHTML = '';
@@ -394,7 +402,7 @@
       const count = r.characters.length;
       const isEmpty = count === 0;
       const li = document.createElement('li');
-      li.className = 'archive-item' + (isEmpty ? ' empty' : '');
+      li.className = 'archive-item race-' + r.id + (isEmpty ? ' empty' : '');
       if (!isEmpty) li.onclick = () => openRace(r.id);
       li.innerHTML =
         '<div>' +
@@ -406,17 +414,24 @@
     });
   }
 
-  /* Открыть расу — загрузить её персонажей */
+  function applyRaceColor(screenId, raceId) {
+    const el = document.getElementById(screenId);
+    el.style.setProperty('--race-color', RACE_COLORS[raceId] || '#e5231b');
+  }
+
   function openRace(raceId) {
     currentRaceId = raceId;
     const race = RACES.find(r => r.id === raceId);
     document.getElementById('raceTitle').textContent = race.name;
 
+    applyRaceColor('screen-characters', raceId);
+    applyRaceColor('screen-character', raceId);
+
     const list = document.getElementById('characterList');
     list.innerHTML = '';
     race.characters.forEach((c, i) => {
       const li = document.createElement('li');
-      li.className = 'archive-item';
+      li.className = 'archive-item race-' + raceId;
       li.onclick = () => openCharacter(i);
       const displayName = c.subtitle ? (c.name + ' (' + c.subtitle + ')') : c.name;
       li.innerHTML =
@@ -437,11 +452,10 @@
     const race = RACES.find(r => r.id === currentRaceId);
     const c = race.characters[index];
 
-    const displayName = c.subtitle ? (c.name + ' (' + c.subtitle + ')') : c.name;
-
     document.getElementById('charHeader').innerHTML =
       '<div class="char-header">' +
-        '<div class="char-name">' + displayName + '</div>' +
+        '<div class="char-name">' + c.name + '</div>' +
+        (c.subtitle ? '<div class="char-subtitle">(' + c.subtitle + ')</div>' : '') +
         '<div class="char-info">Возраст: ' + c.age + '</div>' +
         '<div class="char-role">' + c.role + '</div>' +
       '</div>';
@@ -504,7 +518,14 @@
   function renderStat(name, value, effect, forceEffect) {
     const percent = value > 10 ? 100 : (value / 10) * 100;
     const isSpecial = value > 10 || forceEffect;
-    const effectClass = isSpecial ? ' effect-' + effect : '';
+
+    let effectClass = '';
+    if (effect === 'shadow') {
+      if (value > 0) effectClass = ' shadow-style';
+    } else if (isSpecial) {
+      effectClass = ' effect-' + effect;
+    }
+
     const displayValue = formatNumber(value);
     return (
       '<div class="stat-row">' +
@@ -582,43 +603,37 @@
   body.dark-theme .top-label { color: #555; }
   body.dark-theme .bottom-label { color: #16161a; text-shadow: none; }
   body.dark-theme .setting-label { color: #eaeaea; }
-  body.dark-theme .screen h2,
-  body.dark-theme .char-name,
-  body.dark-theme .stage-name { color: #ff5c4d; }
-  body.dark-theme .back-btn { color: #ff5c4d; }
-  body.dark-theme .main-btn { color: #ff5c4d; }
-  body.dark-theme .main-btn svg path { stroke: #ff5c4d; }
-  body.dark-theme .settings-btn { background: #eaeaea; color: #16161a; }
+  body.dark-theme .char-info { color: #999; }
+  body.dark-theme .char-role { color: #eaeaea; }
+  body.dark-theme .char-body { color: #eaeaea; }
+  body.dark-theme .char-quote { color: #ccc; background: rgba(255, 92, 77, 0.08); }
   body.dark-theme .setting-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
   body.dark-theme .toggle { background: #444; }
-  body.dark-theme .toggle.on { background: #ff5c4d; }
   body.dark-theme .size-control button { border-color: #ff5c4d; color: #ff5c4d; }
   body.dark-theme .size-control button:active { background: #ff5c4d; color: #16161a; }
   body.dark-theme .size-control .size-value { color: #ff5c4d; }
   body.dark-theme .reset-btn { border-color: #ff5c4d; color: #ff5c4d; }
   body.dark-theme .reset-btn:active { background: #ff5c4d; color: #16161a; }
-  body.dark-theme .archive-item { background: rgba(40,40,45,0.7); border-color: rgba(255,92,77,0.4); }
+  body.dark-theme .archive-item { background: rgba(40,40,45,0.7); }
+  body.dark-theme .archive-item.race-humans { border-color: rgba(255, 92, 77, 0.5); }
+  body.dark-theme .archive-item.race-robots { border-color: rgba(140, 180, 220, 0.5); }
+  body.dark-theme .archive-item.race-hybrids { border-color: rgba(80, 200, 130, 0.5); }
+  body.dark-theme .archive-item.race-gods { border-color: rgba(180, 100, 240, 0.55); }
+  body.dark-theme .archive-item.race-robots .archive-arrow { color: #8cb4dc; }
+  body.dark-theme .archive-item.race-hybrids .archive-arrow { color: #50c882; }
+  body.dark-theme .archive-item.race-gods .archive-arrow { color: #b464f0; }
   body.dark-theme .archive-title { color: #eaeaea; }
   body.dark-theme .archive-sub { color: #888; }
-  body.dark-theme .archive-arrow { color: #ff5c4d; }
-  body.dark-theme .char-body { color: #eaeaea; }
-  body.dark-theme .char-info { color: #999; }
-  body.dark-theme .char-role { color: #eaeaea; }
-  body.dark-theme .char-quote { color: #ccc; background: rgba(255, 92, 77, 0.08); }
-  body.dark-theme .char-header { border-bottom-color: rgba(255, 92, 77, 0.3); }
-  body.dark-theme .decor { color: #ff5c4d; }
-  body.dark-theme .link-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
-  body.dark-theme .link-row .setting-label { color: #ff5c4d; }
-  body.dark-theme .link-row .link-arrow { color: #ff5c4d; }
   body.dark-theme .stat-label { color: #eaeaea; }
   body.dark-theme .stat-bar { background: rgba(255,255,255,0.1); }
-  body.dark-theme .stat-value { color: #ff5c4d; }
-  body.dark-theme .stage-arrow { border-color: #ff5c4d; color: #ff5c4d; }
-  body.dark-theme .stage-arrow:active { background: #ff5c4d; color: #16161a; }
   body.dark-theme .stage-message.status { color: #666; }
   body.dark-theme .stage-message-text { color: #eaeaea; }
   body.dark-theme .stage-message.quote { background: rgba(255,92,77,0.08); }
+  body.dark-theme .link-row { border-bottom-color: rgba(255, 92, 77, 0.3); }
+  body.dark-theme .link-row .setting-label { color: #ff5c4d; }
+  body.dark-theme .link-row .link-arrow { color: #ff5c4d; }
+  body.dark-theme .decor { color: #ff5c4d; }
 </style>
 
 </body>
-       </html>
+     </html>
