@@ -66,7 +66,6 @@
   .archive-item:nth-child(4)::before { animation-delay: 1.5s; }
   @keyframes pulseGlow { 0%, 100% { opacity: 0.4; transform: translateX(-10%); } 50% { opacity: 1; transform: translateX(10%); } }
 
-  /* Цвета рас для карточек в списке */
   .archive-item.race-humans { border-color: rgba(229, 35, 27, 0.45); }
   .archive-item.race-humans .archive-arrow { color: #e5231b; }
   .archive-item.race-robots { border-color: rgba(91, 127, 166, 0.55); }
@@ -91,12 +90,82 @@
   .archive-item.empty:active .archive-sub { color: inherit; }
   .archive-item.empty:active .archive-arrow { transform: none; }
 
-  .char-header { text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35)); animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  /* ============ ЗВЁЗДОЧКА ИЗБРАННОГО ============ */
+  .star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    z-index: 10;
+    position: relative;
+  }
+  .star-btn:active { transform: scale(0.85); }
+  .star-btn svg {
+    width: 30px; height: 30px;
+    fill: none;
+    stroke: var(--race-color, #e5231b);
+    stroke-width: 1.8;
+    stroke-linejoin: round;
+    transition: fill 0.25s ease, stroke 0.25s ease;
+  }
+  .star-btn.on svg {
+    fill: #ffc107;
+    stroke: #e6a800;
+    filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.6));
+  }
+
+  /* Кнопка «Избранное» на экране Архивов — маленькая, над кнопкой «Персонажи» */
+  .favorites-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    align-self: center;
+    margin-bottom: 12px;
+    padding: 8px 18px;
+    background: rgba(255, 193, 7, 0.1);
+    border: 2px dashed rgba(255, 193, 7, 0.6);
+    border-radius: 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3em;
+    color: #b8860b;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .favorites-btn:active {
+    background: #ffc107;
+    color: #fff;
+    transform: scale(0.96);
+  }
+  .favorites-btn svg {
+    width: 22px; height: 22px;
+    fill: #ffc107;
+    stroke: #e6a800;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+  .favorites-btn:active svg { fill: #fff; stroke: #fff; }
+  .favorites-btn .fav-count {
+    font-weight: 700;
+  }
+
+  .char-header { text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35)); animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; position: relative; }
   @keyframes charHeaderIn { 0% { opacity: 0; transform: translateY(-16px); } 100% { opacity: 1; transform: translateY(0); } }
   .char-name { font-size: 2.6em; color: var(--race-color, #e5231b); letter-spacing: 5px; font-weight: 700; text-transform: uppercase; transition: color 0.3s ease; }
   .char-subtitle { font-size: 1.5em; color: var(--race-color, #e5231b); letter-spacing: 3px; margin-top: -2px; opacity: 0.75; font-style: italic; transition: color 0.3s ease; }
   .char-info { font-size: 1.25em; color: #666; margin-top: 8px; }
   .char-role { font-size: 1.35em; color: #2b2b2b; margin-top: 8px; font-style: italic; }
+
+  /* Звёздочка в углу хедера карточки */
+  .char-star-wrap {
+    position: absolute;
+    top: 0; right: 0;
+  }
 
   .stage-nav { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 8px; padding: 10px 0; animation: stageIn 0.4s ease both; }
   @keyframes stageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -134,7 +203,6 @@
   .stat-bar-fill.effect-god { background: linear-gradient(90deg, #e5231b, #6a1b9a, #d500f9, #6a1b9a, #e5231b); background-size: 300% 100%; animation: shimmerGod 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(213, 0, 249, 0.7); }
   @keyframes shimmerGod { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
 
-  /* Спецстиль для Тени — чёрные полоски с красной тенью */
   .stat-bar-fill.shadow-style {
     background: #111;
     box-shadow: 0 0 12px rgba(229, 35, 27, 0.9), inset 0 0 6px rgba(229, 35, 27, 0.6);
@@ -148,6 +216,8 @@
 
   .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; animation: statsIn 0.7s ease 0.15s both; }
   .char-quote { border-left: 3px solid var(--race-color, #e5231b); padding: 12px 16px; margin: 20px 0; font-size: 1.35em; font-style: italic; color: #444; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; animation: statsIn 0.7s ease 0.3s both; }
+
+  .empty-message { text-align: center; color: #aaa; font-size: 1.6em; padding: 60px 20px; font-style: italic; animation: statsIn 0.6s ease both; }
 
   .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; border-bottom: 2px dashed rgba(229, 35, 27, 0.25); }
   .setting-row:last-of-type { border-bottom: none; }
@@ -228,6 +298,12 @@
   <div class="screen" id="screen-archives">
     <button class="back-btn" onclick="closeScreens()">← назад</button>
     <h2>Архивы</h2>
+
+    <div class="favorites-btn" onclick="openFavorites()">
+      <svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18.5 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>
+      <span>Избранное · <span class="fav-count" id="favCount">0</span></span>
+    </div>
+
     <ul class="archive-list" id="archivesList"></ul>
   </div>
 
@@ -244,11 +320,17 @@
   </div>
 
   <div class="screen" id="screen-character">
-    <button class="back-btn" onclick="openScreen('screen-characters')">← назад</button>
+    <button class="back-btn" onclick="goBackFromCharacter()">← назад</button>
     <div id="charHeader"></div>
     <div id="stageArea"></div>
     <div class="char-body" id="charBody"></div>
     <div class="char-quote" id="charQuote"></div>
+  </div>
+
+  <div class="screen" id="screen-favorites">
+    <button class="back-btn" onclick="openScreen('screen-archives')">← назад</button>
+    <h2>Избранное</h2>
+    <ul class="archive-list" id="favoritesList"></ul>
   </div>
 
   <div class="screen" id="screen-settings">
@@ -369,18 +451,95 @@
     gods:    "#7b2fbe"
   };
 
+  const FAV_KEY = 'lore_favorites';
+
   let currentRaceId = null;
   let currentCharIndex = -1;
   let currentStageIndex = 0;
+  let returnToScreen = 'screen-characters'; // куда возвращаться из карточки
 
+  /* ============ ИЗБРАННОЕ ============ */
+  function loadFavorites() {
+    try {
+      const raw = localStorage.getItem(FAV_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveFavorites(arr) {
+    localStorage.setItem(FAV_KEY, JSON.stringify(arr));
+    updateFavCount();
+  }
+  function favKey(raceId, index) { return raceId + ':' + index; }
+  function isFavorite(raceId, index) {
+    return loadFavorites().indexOf(favKey(raceId, index)) !== -1;
+  }
+  function toggleFavorite(raceId, index) {
+    let favs = loadFavorites();
+    const key = favKey(raceId, index);
+    if (favs.indexOf(key) === -1) favs.push(key);
+    else favs = favs.filter(k => k !== key);
+    saveFavorites(favs);
+  }
+  function updateFavCount() {
+    const el = document.getElementById('favCount');
+    if (el) el.textContent = loadFavorites().length;
+  }
+  function openFavorites() {
+    const list = document.getElementById('favoritesList');
+    list.innerHTML = '';
+    const favs = loadFavorites();
+    if (favs.length === 0) {
+      list.innerHTML = '<div class="empty-message">Пока никого не добавил в избранное.<br>Тапни на звёздочку в карточке персонажа.</div>';
+    } else {
+      favs.forEach(key => {
+        const [raceId, idxStr] = key.split(':');
+        const idx = parseInt(idxStr);
+        const race = RACES.find(r => r.id === raceId);
+        if (!race || !race.characters[idx]) return;
+        const c = race.characters[idx];
+        const displayName = c.subtitle ? (c.name + ' (' + c.subtitle + ')') : c.name;
+        const li = document.createElement('li');
+        li.className = 'archive-item race-' + raceId;
+        li.style.setProperty('--race-color', RACE_COLORS[raceId]);
+        li.innerHTML =
+          '<div onclick="openCharacterFromFavorite(\'' + raceId + '\',' + idx + ')" style="flex:1">' +
+            '<div class="archive-title">' + displayName + '</div>' +
+            '<div class="archive-sub">' + race.name + ' · ' + c.role + '</div>' +
+          '</div>' +
+          '<button class="star-btn on" onclick="event.stopPropagation(); removeFavoriteFromList(\'' + raceId + '\',' + idx + ')">' +
+            '<svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18.5 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>' +
+          '</button>';
+        list.appendChild(li);
+      });
+    }
+    openScreen('screen-favorites');
+  }
+  function removeFavoriteFromList(raceId, idx) {
+    toggleFavorite(raceId, idx);
+    openFavorites();
+  }
+  function openCharacterFromFavorite(raceId, idx) {
+    currentRaceId = raceId;
+    returnToScreen = 'screen-favorites';
+    const race = RACES.find(r => r.id === raceId);
+    applyRaceColor('screen-character', raceId);
+    document.getElementById('raceTitle').textContent = race.name;
+    openCharacter(idx);
+  }
+
+  /* ============ ЭКРАНЫ ============ */
   function openScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     document.body.classList.add('screen-open');
+    if (id === 'screen-archives') updateFavCount();
   }
   function closeScreens() {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.body.classList.remove('screen-open');
+  }
+  function goBackFromCharacter() {
+    openScreen(returnToScreen);
   }
 
   function buildArchivesList() {
@@ -421,6 +580,7 @@
 
   function openRace(raceId) {
     currentRaceId = raceId;
+    returnToScreen = 'screen-characters';
     const race = RACES.find(r => r.id === raceId);
     document.getElementById('raceTitle').textContent = race.name;
 
@@ -451,9 +611,13 @@
     currentStageIndex = 0;
     const race = RACES.find(r => r.id === currentRaceId);
     const c = race.characters[index];
+    const fav = isFavorite(currentRaceId, index);
 
     document.getElementById('charHeader').innerHTML =
       '<div class="char-header">' +
+        '<button class="star-btn char-star-wrap' + (fav ? ' on' : '') + '" onclick="toggleFavInCard()" aria-label="Избранное">' +
+          '<svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18.5 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>' +
+        '</button>' +
         '<div class="char-name">' + c.name + '</div>' +
         (c.subtitle ? '<div class="char-subtitle">(' + c.subtitle + ')</div>' : '') +
         '<div class="char-info">Возраст: ' + c.age + '</div>' +
@@ -466,6 +630,12 @@
     renderStage();
     openScreen('screen-character');
     document.getElementById('screen-character').scrollTop = 0;
+  }
+
+  function toggleFavInCard() {
+    toggleFavorite(currentRaceId, currentCharIndex);
+    const star = document.querySelector('#charHeader .star-btn');
+    if (star) star.classList.toggle('on', isFavorite(currentRaceId, currentCharIndex));
   }
 
   function renderStage() {
@@ -580,6 +750,7 @@
   window.addEventListener('load', () => {
     buildArchivesList();
     buildRaceList();
+    updateFavCount();
 
     const size = localStorage.getItem('lore_size');
     if (size) {
@@ -619,9 +790,6 @@
   body.dark-theme .archive-item.race-robots { border-color: rgba(140, 180, 220, 0.5); }
   body.dark-theme .archive-item.race-hybrids { border-color: rgba(80, 200, 130, 0.5); }
   body.dark-theme .archive-item.race-gods { border-color: rgba(180, 100, 240, 0.55); }
-  body.dark-theme .archive-item.race-robots .archive-arrow { color: #8cb4dc; }
-  body.dark-theme .archive-item.race-hybrids .archive-arrow { color: #50c882; }
-  body.dark-theme .archive-item.race-gods .archive-arrow { color: #b464f0; }
   body.dark-theme .archive-title { color: #eaeaea; }
   body.dark-theme .archive-sub { color: #888; }
   body.dark-theme .stat-label { color: #eaeaea; }
@@ -633,7 +801,9 @@
   body.dark-theme .link-row .setting-label { color: #ff5c4d; }
   body.dark-theme .link-row .link-arrow { color: #ff5c4d; }
   body.dark-theme .decor { color: #ff5c4d; }
+  body.dark-theme .favorites-btn { background: rgba(255, 193, 7, 0.15); border-color: rgba(255, 193, 7, 0.5); color: #ffc107; }
+  body.dark-theme .empty-message { color: #666; }
 </style>
 
 </body>
-     </html>
+ </html>
