@@ -1,172 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Redpro Archives</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
-*{box-sizing:border-box}
-:root{--red:#df241c;--orange:#ed991b;--paper:#f5f3ee;--ink:#272727;--gray:#777;--line:#27272728}
-html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}
-body{font-family:Caveat,cursive;overflow-x:hidden}
-button{font:inherit;cursor:pointer}
-.noise{position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.blob{position:fixed;z-index:0;pointer-events:none}
-.blob1{width:65vw;height:40vh;left:-25vw;bottom:-18vh;background:var(--orange);border-radius:60% 40% 50% 50%;transform:rotate(-12deg)}
-.blob2{width:70vw;height:45vh;right:-27vw;bottom:-20vh;background:var(--red);border-radius:45% 55% 50% 50%;transform:rotate(8deg)}
-header{position:relative;z-index:3;text-align:center;padding:22px 15px 10px}
-.brand{font-family:IBM Plex Mono,monospace;font-size:.67rem;letter-spacing:3px;color:#888}
-.status{margin-top:9px;font:600 .58rem IBM Plex Mono,monospace;letter-spacing:1.5px;color:#777}
-.status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#32864b;box-shadow:0 0 8px #32864b;margin-right:6px}
-main{position:relative;z-index:2;max-width:650px;margin:auto;padding:30px 18px 90px}
-h1{text-align:center;color:var(--red);font-size:clamp(3.1rem,14vw,6rem);line-height:.8;letter-spacing:5px;margin:25px 0 12px;text-transform:uppercase}
-.intro{text-align:center;color:#666;font-size:1.35rem;line-height:1.1;margin-bottom:30px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font:600 .62rem IBM Plex Mono,monospace;color:#888;letter-spacing:1px}
-.back{border:0;background:transparent;color:var(--red);font-size:1.15rem;padding:5px}
-.grid{display:grid;gap:13px}
-.archive{position:relative;width:100%;text-align:left;border:2px solid #2727271c;border-radius:15px;background:#ffffffaa;padding:18px 45px 17px 18px;box-shadow:0 5px 18px #0000000a;transition:transform .18s,box-shadow .18s}
-.archive:active{transform:scale(.975)}
-.archive:hover{transform:translateY(-2px);box-shadow:0 9px 22px #00000014}
-.num{font:600 .65rem IBM Plex Mono,monospace;letter-spacing:2px;color:#999}
-.name{font-size:1.85rem;color:var(--red);font-weight:700;letter-spacing:1px;margin-top:2px}
-.desc{font-size:1.02rem;color:#666;line-height:1.05;margin-top:3px}
-.badge{position:absolute;right:15px;top:18px;font:600 .52rem IBM Plex Mono,monospace;letter-spacing:1px;padding:5px 6px;border-radius:5px;background:#e5231b12;color:var(--red)}
-.badge.ok{color:#32864b;background:#32864b12}
-.badge.lock{color:#666;background:#66666612}
-.badge.warn{color:#b27616;background:#b2761612}
-.hidden-card{border-style:dashed}
-footer{position:fixed;z-index:4;bottom:10px;left:0;right:0;text-align:center;font:600 .52rem IBM Plex Mono,monospace;letter-spacing:1px;color:#fff;text-shadow:0 2px 6px #0007}
-.view{position:fixed;inset:0;z-index:20;background:var(--paper);overflow:auto;transform:translateX(105%);transition:transform .32s cubic-bezier(.2,.9,.25,1)}
-.view.open{transform:translateX(0)}
-.view-head{position:sticky;top:0;z-index:2;background:#f5f3eee8;backdrop-filter:blur(7px);padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-.view-head button{border:0;background:transparent;color:var(--red);font-size:1.25rem}
-.view-id{font:600 .55rem IBM Plex Mono,monospace;letter-spacing:1.5px;color:#999}
-.document{max-width:650px;margin:auto;padding:40px 20px 100px}
-.document .stamp{font:600 .55rem IBM Plex Mono,monospace;color:#888;letter-spacing:2px}
-.document h2{font-size:3.3rem;color:var(--red);line-height:.9;margin:8px 0 20px}
-.rule{height:2px;background:var(--red);opacity:.35;margin:15px 0 25px}
-.document p{font-size:1.35rem;line-height:1.18;color:#4d4d4d}
-.meta{font:400 .6rem IBM Plex Mono,monospace;color:#777;line-height:1.7;border:1px dashed #7778;padding:13px;margin:25px 0}
-.warning{border-left:4px solid var(--red);padding:8px 14px;background:#df241c0a;font-size:1.15rem;color:#555}
-.locked-doc{text-align:center;padding-top:18vh}
-.locked-doc .lock{font-size:4rem;color:#777}
-.locked-doc h2{color:#555;letter-spacing:5px}
-.glitch{font:600 .62rem IBM Plex Mono,monospace;color:var(--red);letter-spacing:1px;animation:blink 1.8s infinite}
-.secret{margin-top:40px;font:400 .58rem IBM Plex Mono,monospace;color:#aaa;line-height:1.8}
-@keyframes blink{0%,42%,100%{opacity:.25}50%,70%{opacity:1}}
-@media(max-width:420px){main{padding-top:18px}.archive{padding:15px 40px 15px 15px}.name{font-size:1.65rem}}
+:root{
+ --bg:#08090c;--panel:#101218;--panel2:#151821;--line:#2a2e38;--text:#f4f5f7;
+ --muted:#8f96a5;--accent:#e5231b;--gold:#d6ad42;--green:#39b875;
+ --shadow:0 18px 55px #0008;
+}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+body{overflow-x:hidden} button{font:inherit;color:inherit}
+button{cursor:pointer}.app{min-height:100vh;position:relative;overflow:hidden}
+.no-anim *{animation:none!important;transition:none!important}
+.scanlines{position:fixed;inset:0;pointer-events:none;opacity:.055;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px);z-index:20}
+.topbar{height:64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#08090cee;backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+.brand{font-weight:800;letter-spacing:.16em;font-size:13px}.status{font-size:11px;color:var(--green);letter-spacing:.12em}.status:before{content:"●";margin-right:7px}
+.main{max-width:1050px;margin:auto;padding:30px 18px 60px}.hero{border:1px solid var(--line);background:linear-gradient(145deg,#151820,#0d0f14);padding:28px;border-radius:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:after{content:"ARCHIVE SYSTEM";position:absolute;right:-22px;bottom:8px;font-size:68px;font-weight:900;color:#fff03;letter-spacing:.04em;transform:rotate(-8deg);pointer-events:none}
+.kicker{font-size:11px;color:var(--muted);letter-spacing:.2em}.hero h1{font-size:clamp(32px,7vw,68px);margin:9px 0 5px;letter-spacing:-.04em}.hero p{color:#b8bec9;max-width:680px;line-height:1.55;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:18px;text-align:left;min-height:145px;transition:.2s;position:relative}
+.card:hover{transform:translateY(-2px);border-color:#515867}.card .code{font-size:10px;color:var(--muted);letter-spacing:.16em}.card h2{font-size:19px;margin:10px 0 7px}.card p{color:#969daa;font-size:13px;line-height:1.45;margin:0}.card.locked{opacity:.72}.card.secret{border-color:#593b3b}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:1px solid var(--line);background:#171a22;border-radius:9px;padding:12px 15px;font-weight:700;letter-spacing:.03em}.btn:hover{border-color:#707887}.btn.primary{background:var(--accent);border-color:var(--accent)}.btn.gold{background:#6e5518;border-color:#a17d25}.btn.danger{background:#291416;border-color:#633238}
+.view{display:none}.view.active{display:block;animation:appear .22s ease}@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.subbar{display:flex;align-items:center;gap:10px;margin-bottom:16px}.back{background:none;border:0;color:#c7cbd3;padding:7px 0}.title{font-size:21px;font-weight:800}.count{margin-left:auto;color:var(--muted);font-size:12px}
+.list{display:grid;gap:10px}.row{border:1px solid var(--line);background:var(--panel);padding:15px;border-radius:10px;display:flex;align-items:center;gap:14px}.row:hover{border-color:#555d6b}.num{font-size:11px;color:var(--muted);width:34px}.rowmain{flex:1}.row h3{margin:0 0 4px;font-size:16px}.row p{margin:0;color:#9299a7;font-size:12px}.arrow{color:#777f8d}
+.races{grid-template-columns:repeat(2,minmax(0,1fr))}.race{min-height:125px}.race-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px}.human{background:#e5231b}.robot{background:#5b7fa6}.hybrid{background:#2d8a4e}.god{background:#7b2fbe}
+.chargrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.char{border:1px solid var(--line);background:var(--panel);padding:15px;border-radius:10px;position:relative}.char h3{margin:0 0 4px}.char .role{color:#969daa;font-size:12px;line-height:1.35}.fav{position:absolute;right:10px;top:9px;background:none;border:0;font-size:22px;color:#636a77}.fav.on{color:#e4b42d}.char .open{margin-top:13px;width:100%}
+.detail{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:20px}.detailhead{display:flex;justify-content:space-between;gap:15px}.detail h1{margin:0 0 5px;font-size:clamp(27px,7vw,45px)}.meta{color:#9299a7;font-size:12px;line-height:1.55}.quote{margin:17px 0;padding:14px 16px;border-left:3px solid var(--accent);background:#171920;color:#d8dbe1;font-style:italic;line-height:1.5}.bio{color:#c2c7d0;line-height:1.65;font-size:14px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:17px}.stat{border:1px solid var(--line);padding:10px;border-radius:9px;background:#0d0f14}.stat label{display:block;color:#858c9a;font-size:10px;margin-bottom:6px}.stat b{font-size:13px}.bar{height:4px;background:#272b34;margin-top:8px;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+.stages{display:flex;gap:7px;margin:18px 0}.stage{flex:1;border:1px solid var(--line);background:#11141a;padding:9px;border-radius:7px;font-size:11px}.stage.active{border-color:var(--accent);background:#241313}.detailnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.empty{border:1px dashed #363b46;padding:30px;text-align:center;color:#818896;border-radius:10px}.message{font-size:19px;line-height:1.55;padding:35px 10px;text-align:center;color:#d2d6dd}.goldbox{border-color:#80641d;background:linear-gradient(145deg,#17140c,#0d0f13)}.goldbox h1{color:#e1bc51}.corrupt{font-family:monospace;color:#d86b6b;white-space:pre-wrap;line-height:1.6}
+.settings{display:grid;gap:10px}.setting{border:1px solid var(--line);background:var(--panel);padding:16px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:15px}.setting small{display:block;color:#858c99;margin-top:4px}.select{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.select button{border:1px solid var(--line);background:#171a21;border-radius:7px;padding:8px 10px;font-size:12px}.select button.active{border-color:var(--accent);background:#291313}.toggle{min-width:58px;border:1px solid var(--line);background:#181b22;border-radius:20px;padding:4px}.toggle i{display:block;width:20px;height:20px;background:#777;border-radius:50%;transition:.2s}.toggle.on i{transform:translateX(28px);background:var(--green)}
+@media(max-width:700px){.grid,.races,.chargrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.topbar{padding:0 12px}.main{padding:18px 12px 50px}.hero{padding:21px}.detailhead{flex-direction:column}.setting{align-items:flex-start;flex-direction:column}.select{justify-content:flex-start}}
 </style>
 </head>
 <body>
-<div class="blob blob1"></div><div class="blob blob2"></div><div class="noise"></div>
+<div class="app">
+<div class="scanlines"></div>
+<header class="topbar"><div class="brand">THE REDPRO ARCHIVES</div><div class="status" id="sysStatus">SYSTEM ONLINE</div></header>
+<main class="main">
 
-<header>
-  <div class="brand">THE REDPRO ARCHIVES // CENTRAL TERMINAL</div>
-  <div class="status"><i></i>SYSTEM ONLINE · DATABASE CONNECTED · TERMINAL 001</div>
-</header>
-
-<main>
-  <h1>ARCHIVES</h1>
-  <div class="intro">Выберите запись.<br>Некоторые архивы могут содержать данные, которые система не рекомендует открывать.</div>
-
-  <div class="toolbar">
-    <span>ARCHIVE DATABASE</span>
-    <span>4 RECORDS</span>
-  </div>
-
-  <div class="grid">
-    <button class="archive" onclick="openDoc('one')">
-      <span class="num">ARCHIVE // 001</span>
-      <span class="badge ok">AVAILABLE</span>
-      <div class="name">THE BEGINNING</div>
-      <div class="desc">Первая доступная запись архива.</div>
-    </button>
-
-    <button class="archive" onclick="openDoc('characters')">
-      <span class="num">DATABASE // 003</span>
-      <span class="badge ok">AVAILABLE</span>
-      <div class="name">CHARACTERS</div>
-      <div class="desc">Персонажи и сущности, зарегистрированные системой.</div>
-    </button>
-
-    <button class="archive" onclick="openDoc('gold')">
-      <span class="num">ARCHIVE // 002</span>
-      <span class="badge lock">RESTRICTED</span>
-      <div class="name">GOLD CHILD</div>
-      <div class="desc">Запись существует. Причина ограничения неизвестна.</div>
-    </button>
-
-    <button class="archive hidden-card" onclick="openDoc('unknown')">
-      <span class="num">ARCHIVE // ???</span>
-      <span class="badge warn">CORRUPTED</span>
-      <div class="name">UNKNOWN FILE</div>
-      <div class="desc">Содержимое не распознано системой.</div>
-    </button>
-  </div>
-</main>
-
-<footer>THE REDPRO ARCHIVES · BETA BUILD 0.2 · DO NOT TRUST UNVERIFIED RECORDS</footer>
-
-<section id="one" class="view">
-  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">ARCHIVE 001</span></div>
-  <article class="document">
-    <div class="stamp">RECORD STATUS: AVAILABLE</div>
-    <h2>THE BEGINNING</h2>
-    <div class="rule"></div>
-    <div class="meta">FILE: RP-001<br>ACCESS: PUBLIC<br>INTEGRITY: 100%<br>LAST CHECK: SYSTEM</div>
-    <p>Это место предназначено для первой записи твоей истории.</p>
-    <p>Позже здесь появится настоящий текст архива. Мы сделаем его не просто страницей с текстом, а полноценным документом внутри мира.</p>
-    <div class="warning">Примечание системы: содержимое этой записи является демонстрационным.</div>
-  </article>
+<section id="home" class="view active">
+<div class="hero">
+<div class="kicker" data-i18n="terminal">CENTRAL TERMINAL // ARCHIVE DATABASE</div>
+<h1 data-i18n="welcome">The Redpro Archives</h1>
+<p data-i18n="intro">Файлы истории. Персонажи. События. Некоторые записи намеренно заблокированы.</p>
+<div class="actions">
+<button class="btn primary" onclick="show('archives')" data-i18n="openArchives">ОТКРЫТЬ АРХИВЫ</button>
+<button class="btn" onclick="show('races')" data-i18n="characters">ПЕРСОНАЖИ</button>
+<button class="btn" onclick="show('favorites')" data-i18n="favorites">ИЗБРАННОЕ</button>
+<button class="btn" onclick="show('settings')" data-i18n="settings">НАСТРОЙКИ</button>
+</div>
+</div>
+<div class="grid">
+<button class="card" onclick="show('archives')"><div class="code">ARCHIVE 001</div><h2 data-i18n="beginning">THE BEGINNING</h2><p data-i18n="beginningDesc">Основная линия истории и доступные материалы.</p></button>
+<button class="card" onclick="show('races')"><div class="code">DATABASE 003</div><h2 data-i18n="characters">CHARACTERS</h2><p data-i18n="charDesc">База данных персонажей, разделённая по расам.</p></button>
+<button class="card locked" onclick="show('gold')"><div class="code">ARCHIVE 002</div><h2 data-i18n="gold">GOLD CHILD</h2><p data-i18n="goldDesc">Файл находится в разработке. Доступ ограничен.</p></button>
+<button class="card secret" onclick="show('unknown')"><div class="code">ARCHIVE ???</div><h2 data-i18n="unknown">UNKNOWN FILE</h2><p data-i18n="unknownDesc">Повреждённая запись. Возможно, она ждёт именно тебя.</p></button>
+</div>
 </section>
 
-<section id="characters" class="view">
-  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">DATABASE 003</span></div>
-  <article class="document">
-    <div class="stamp">DATABASE STATUS: AVAILABLE</div>
-    <h2>CHARACTERS</h2>
-    <div class="rule"></div>
-    <p>Здесь будет каталог персонажей твоего мира.</p>
-    <div class="meta">CATEGORY: ENTITIES<br>RECORDS: PENDING<br>DATABASE LINK: ACTIVE</div>
-    <p>На следующем этапе сюда можно перенести твою существующую систему персонажей и сделать каждого персонажа отдельной архивной карточкой.</p>
-  </article>
-</section>
+<section id="archives" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="archives">Архивы</div></div>
+<div class="list">
+<div class="row" onclick="show('story')"><div class="num">001</div><div class="rowmain"><h3 data-i18n="beginning">The Beginning</h3><p data-i18n="storyDesc">Главная история. Фрагменты, главы и ключевые события.</p></div><div class="arrow">›</div></div>
+<div class="row" onclick="show('gold')"><div class="num">002</div><div class="rowmain"><h3 data-i18n="gold">Gold Child</h3><p data-i18n="locked">LOCKED // FILE IN PROGRESS</p></div><div class="arrow">›</div></div>
+<div class="row" onclick="show('unknown')"><div class="num">???</div><div class="rowmain"><h3 data-i18n="unknown">Unknown File</h3><p data-i18n="corrupted">CORRUPTED DATA</p></div><div class="arrow">›</div></div>
+</div></section>
 
-<section id="gold" class="view">
-  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">ARCHIVE 002</span></div>
-  <article class="document locked-doc">
-    <div class="lock">🔒</div>
-    <div class="stamp">SECURITY LEVEL: ██████</div>
-    <h2>GOLD CHILD</h2>
-    <div class="rule"></div>
-    <p>Доступ к записи запрещён.</p>
-    <p>Причина блокировки отсутствует.</p>
-    <div class="glitch">ACCESS DENIED · RECORD CORRUPTED · ACCESS DENIED</div>
-    <div class="secret">LAST REQUEST: 14.09.20XX<br>USER: UNKNOWN<br>EVENT: 001<br>NOTE: THE FILE RESPONDED.</div>
-  </article>
-</section>
+<section id="story" class="view"><div class="subbar"><button class="back" onclick="show('archives')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="beginning">The Beginning</div></div>
+<div class="detail"><div class="kicker">ARCHIVE 001 // STORY</div><div class="message" data-i18n="storyText">История только начинается.<br><br>Основные главы будут добавляться в этот терминал по мере готовности.</div></div></section>
 
-<section id="unknown" class="view">
-  <div class="view-head"><button onclick="closeDoc()">← Назад</button><span class="view-id">ARCHIVE ???</span></div>
-  <article class="document locked-doc">
-    <div class="stamp">INTEGRITY CHECK: FAILED</div>
-    <h2>UNKNOWN</h2>
-    <div class="rule"></div>
-    <p>Система не может определить содержимое этого файла.</p>
-    <div class="meta">FILE ID: ███-███<br>CREATED: UNKNOWN<br>AUTHOR: UNKNOWN<br>MODIFIED: <span id="time">UNKNOWN</span></div>
-    <div class="glitch">WARNING // THIS RECORD SHOULD NOT BE HERE</div>
-  </article>
-</section>
+<section id="races" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="characters">Персонажи</div><div class="count" id="charCount"></div></div><div id="raceList" class="grid races"></div></section>
+
+<section id="characters" class="view"><div class="subbar"><button class="back" onclick="show('races')">← <span data-i18n="back">Назад</span></button><div class="title" id="raceTitle"></div><div class="count" id="raceCount"></div></div><div id="charList" class="chargrid"></div></section>
+
+<section id="character" class="view"><div class="subbar"><button class="back" onclick="backFromChar()">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="file">Файл персонажа</div></div><div id="detail"></div></section>
+
+<section id="favorites" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="favorites">Избранное</div><div class="count" id="favCount"></div></div><div id="favList" class="chargrid"></div></section>
+
+<section id="gold" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="gold">Gold Child</div></div><div class="detail goldbox"><div class="kicker">ARCHIVE 002 // RESTRICTED</div><div class="message"><h1 data-i18n="soon">СКОРО</h1><span data-i18n="goldText">История только начинается...<br><br>Доступ к этому файлу пока закрыт.</span></div></div></section>
+
+<section id="unknown" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title">ARCHIVE ???</div></div><div class="detail"><div class="kicker">UNAUTHORIZED ACCESS</div><div class="corrupt">ERR_07 // FILE HEADER DAMAGED
+subject: █████████
+origin: UNKNOWN
+status: NOT_DELETED
+...
+<span data-i18n="secretText">Ты нашёл запись, которую не должны были видеть.</span>
+<br><br><button class="btn danger" onclick="secretPulse()" data-i18n="continue">ПРОДОЛЖИТЬ</button></div></div></section>
+
+<section id="settings" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="settings">Настройки</div></div>
+<div class="settings">
+<div class="setting"><div><b data-i18n="language">Язык</b><small data-i18n="languageDesc">Язык интерфейса архива</small></div><div class="select"><button id="ruBtn" onclick="setLang('ru')">Русский</button><button id="enBtn" onclick="setLang('en')">English</button></div></div>
+<div class="setting"><div><b data-i18n="textSize">Размер текста</b><small data-i18n="textSizeDesc">Масштаб интерфейса</small></div><div class="select" id="sizeBtns"></div></div>
+<div class="setting"><div><b data-i18n="dark">Тёмная тема</b><small data-i18n="darkDesc">Контрастный режим терминала</small></div><button id="darkToggle" class="toggle" onclick="toggleSetting('dark')"><i></i></button></div>
+<div class="setting"><div><b data-i18n="animations">Анимации</b><small data-i18n="animDesc">Переходы и эффекты</small></div><button id="animToggle" class="toggle" onclick="toggleSetting('anim')"><i></i></button></div>
+<div class="setting"><div><b data-i18n="sounds">Звуки</b><small data-i18n="soundDesc">Системные звуки интерфейса</small></div><button id="soundToggle" class="toggle" onclick="toggleSetting('sound')"><i></i></button></div>
+<div class="setting"><div><b data-i18n="youtube">YouTube</b><small data-i18n="youtubeDesc">Канал автора</small></div><a class="btn" href="https://www.youtube.com/@Radproex" target="_blank" rel="noopener">OPEN</a></div>
+<div class="setting"><div><b data-i18n="reset">Сбросить настройки</b><small data-i18n="resetDesc">Вернуть параметры по умолчанию</small></div><button class="btn danger" onclick="resetSettings()" data-i18n="reset">Сбросить</button></div>
+</div></section>
+
+</main></div>
 
 <script>
-function openDoc(id){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('open'));
-  document.getElementById(id).classList.add('open');
-  if(id==='unknown') document.getElementById('time').textContent=new Date().toLocaleTimeString();
-}
-function closeDoc(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('open'))}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDoc()});
+const HUMANS=[
+["Redpro","32 года","Отец. Муж. Тот, кто потерял всё.","redpro","Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.","Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом.",[[3,5,6,0,0],[7,8,6,9,2],[23000000,21000000,10,4,5]]],
+["Пека","25 лет (на 7 лет младше Редпро)","Брат. Адмирал. Тот, кто помнит.","wind","Младший брат Редпро. Сорвиголова. Ворвался в гильдию «Меха-Помощник» с криком: «Я нужен вам!» — и не ошибся. Управляет воздухом. Создал из чёрного шприца Линада — свою тёмную половину. Единственный, кто узнает правду в конце. И единственный, кто сохранит её.","Брат учил меня держать нить. Я держу. Даже когда руки в крови.",[[5,6,4,3,2],[6000,6000,6,7,50],[1000000,500000,10,4,5]]],
+["Виталик","64 года","Отец Редпро и Пеки. Легенда. Шпион.","warrior","Сильнейший человек гильдии. Прошёл войны, которые не принято вспоминать. Молчалив. Каждый его шаг заставляет дрожать бетон. Ушёл к Взломщикам как шпион под прикрытием. Передавал данные через азбуку Морзе в шуме старых телевизоров. Рисковал собой каждую ночь. И выжил.","Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час.",[[10,5,7,10,2],[50,27,8,10,5],[1000,999,80,100,8]]],
+["Мелкий","7 лет","Сын. Носитель. Тот, кого спасли.","boy","Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Потому что в ту ночь — в дождь и крик — Тревор вытащил его. Мелкий жив. Он вырос. И он помнит.","Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда.",[[1,1,4,2,9],[8000,8000,6000,0,0],[15000000,17000000,0,0,0]]],
+["Манекен","75 лет","Учёный. Создатель. Тот, кто знал.","science","Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели. Знал тайну Лиры. Погиб в 6-й главе — но не зря. Его смерть стала ключом к финалу.","Я не спасаю мир. Я просто чиню то, что сломали другие.",[[5,6,10,3,9],[8,9,100,7,7],{message:"X, друг мой, прости меня за всё...",signature:"Последние слова"}]],
+["Подопытный","10 лет","Сын Манекена. Киборг. Тот, кто вернётся.","mech","Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Его роль в финале — ослабить Нуля и дать команде шанс. Он знает это. И не боится.","Я умирал один раз. Второй — не страшно. Главное, чтобы не зря.",[[5,6,4,3,0],[8,9,6,7,0],[15,20,9,10,0]]],
+["Лира","31 год (на момент смерти)","Жена. Мать. Свет.","antique","Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа. Тень узнал из газеты. Кофе пролился. Что-то сломалось навсегда.","Береги его. Что бы ни случилось — не отпускай его руку.",[{message:"мёртв",type:"status"},{message:"мёртв",type:"status"},[1,1,1,1,1]]],
+["Веста","неизвестен (гадалка)","Гадалка. Двойной агент. Та, кто знала.","antique","Гадалка. Носила колоду карт. Проходила через блокпосты Взломщиков по пропуску. Оставляла записки под перилами моста. Работала на Нуля? Или на «Меху»? Или на себя? Она вытянула Перевёрнутую Звезду и прошептала: «Прости, мальчик. Но судьба выбрала такой путь». Она — загадка. И, возможно, ключ.","Передайте вашему хозяину, что я принесла ему то, что он просил.",[[2,5,8,6,9]]],
+["Элли Рояль","24 года","Девушка Пеки. Сорвиголова. Та, кто пришла из аниме.","antique","Таинственная девушка, родом из аниме. Сорвиголова — лезет туда, где опасно, и улыбается, когда всё горит. Владеет фруктом Каз Каз но Ми — фруктом Казино, дающим власть над вероятностью и азартом. Она появилась в жизни Пеки не случайно. Её путь пересечётся с Редпро и Пекой в самый неожиданный момент. Она — не просто спутница. Она — ключ к чему-то большему.","Опасно? Отлично. Я как раз скучала.",[[4,6,9,7,8]]]
+];
+const ROBOTS=[
+["Читер","неизвестен (Титан)","Первый Король Бездны. Тот, чью способность украли.","mech","Титан. Командир. Гигант с щитом из искажённого кода. Его голос — как сбой в системе. Он обладал способностью «Небесный суд» — вкалывать вину и судить души.","Ты не существуешь!",[[9,5,8,6,3]]],
+["Дельта","неизвестен (Титан)","Второй Король. Полутитан. Тот, кто был верен.","antique","Ловкий, как молния. Вооружён клинком из чистого света. Служил Мелкому. Сражался с Метрой и Линадом. Был ранен, но выжил.","Я не люблю совпадений.",[[7,9,6,5,4]]],
+["Модератор","неизвестен (Титан)","Третий Король. Саппорт. Тот, кто усиливал.","mech","Массивный. Щит из искажённого кода. Живой усилитель энергии — увеличивал мощь союзников в десять раз. Он был мозгом команды.","У нас есть резервное питание. Оно внутри меня.",[[8,3,9,7,3]]],
+["Нуль","неизвестен (анти-бог)","Четвёртый Король. Анти-бог. Тот, кто поглощал.","dark","Появился внезапно. Огромный, в чёрной броне без лица, с молотом, вокруг которого искривляется воздух. Его сила — не тьма и не свет, а поглощение. Он высасывает любую магию в радиусе ста шагов.","Ты не существуешь!",[[10,4,7,8,2]]]
+];
+const HYBRIDS=[
+["Линад","несколько дней (создан из Пеки)","Тёмная половина Пеки. Тот, кто смеётся.","dark","Создан из чёрного шприца. Точная копия Пеки, но соткан из дыма и теней. Алые глаза. Сила — 800 (позже 1500). Управляет тьмой и огнём. Открывает порталы в Тёмную зону. Запер там Королей. Спас Метру. Он — тьма, но на стороне света. Потому что он — часть Пеки. Его желание защищать.","Я — твой кошмар, детка. И я пришёл забрать своё.",[[6,7,4,3,2],[6600,6600,7,8,55],[1100000,550000,11,4,6]]],
+["Метpa","несколько дней (создан из Редпро)","Светлая половина Редпро. Тот, кто инструмент.","antique","Создан случайно. Луч «Божественного света» прошёл через руку Редпро. Стенд впитал его электричество и стал живым. Белый, как мрамор. Золотые глаза без зрачков. Сила — 255 (позже 1499). Он — оружие. Но он выбирает быть на стороне Редпро. Он холоден. Но в нём есть что-то от отца.","Я — инструмент. Но я выбираю быть на вашей стороне. Пока вы не предадите меня.",[[3,6,7,0,0],[8,9,7,10,2],[25300000,23100000,11,4,6]]]
+];
+const GODS=[
+["Тень","неизвестен (древний)","Главный антагонист. Тот, кто потерял всё.","shadow","Существо, потерявшее всё. Пришёл, чтобы уничтожить этот мир — как уничтожили его собственный. Но встретил маленькую девочку Лиру. Она стала его единственным другом. Он остановился. На годы. А потом она умерла — от сердечного приступа. Он узнал из газеты. Кофе пролился. Что-то сломалось навсегда. Но внутри него — пустота, которую не заполнить.","Ты не спас её. Теперь ты не спасёшь его.",[[2000,2000,2000,2000,2000],[5003,379,1000,1000,10],[17000000,17000000,17000000,0,0]]],
+["Тревор","неизвестен (древний)","Друг Тени. Сильнейший. Тот, кто спас.","god","Бывший коллега и лучший друг Тени. Они были братьями. Когда всё рухнуло, Тревор не пошёл мстить. Он ушёл в тень — наблюдать. Ждать. Он знал: Тень сломается. И когда это случилось — когда Тень в бешенстве не проверил тело Мелкого — Тревор вытащил мальчика. Спрятал. Спас. Его присутствие чувствуется с самого начала, но он появляется только в решающий момент.","Мелкий погиб? Что за ерунда!",[[10,9,10,10,5]]],
+["Часовой","неизвестен (древний)","Столп времени. Тот, кто видит все пути.","god","Он — время. Он ходит по коридору из мерцающих дверей. Видит все варианты. Все смерти. Все победы. Его голос — как метроном. Его меч рассекает пространство.","Я не силён. Я — время. И я знаю, что ты не умрёшь здесь.",[[8,10,10,10,0]]],
+["Разрушитель","неизвестен (древний)","Столп силы. Тот, кто сметает.","warrior","Его голос — как взрыв. Он хотел выйти раньше. Хотел сметать базы. Давить гильдии. Но Император сказал: «Нет. Ты выйдешь, когда они соберутся вместе. Тогда их смерть будет зрелищем». Он ждал. И дождался.","Я смету их базы. Я раздавлю их гильдии.",[[10,6,5,7,1]]],
+["Шёпот","неизвестен (древний)","Столп страха. Тот, кто нашёл слабости.","god","Его голос — тысячи голосов. Он нашёл слабости. Отца. Дяди. Учёного. Их страхи — его козыри. Он мог разорвать их изнутри. Но не успел.","Я уже нашёл слабости. Их страхи — мои козыри.",[[4,7,10,6,5]]],
+["Архитектор","неизвестен (древний)","Столп кода. Тот, кто создал Титанов.","science","Сухой голос, как треск кода. Он создал Титанов. Но они были слабы. Он хотел перестроить их. Ему нужен был новый материал. Город — лишь полигон. Он просил доступ к следующему слою. Но не получил.","Я перестрою их. Но мне нужен новый материал.",[[6,5,10,8,2]]]
+];
+const RACES=[
+{id:"humans",name:"Люди",en:"Humans",desc:"Обычные люди",end:"Ordinary humans",data:HUMANS,cls:"human"},
+{id:"robots",name:"Роботы",en:"Robots",desc:"Титаны, механические люди",end:"Titans and mechanical beings",data:ROBOTS,cls:"robot"},
+{id:"hybrids",name:"Гибриды",en:"Hybrids",desc:"Смешение ДНК и препаратов",end:"DNA and chemical hybrids",data:HYBRIDS,cls:"hybrid"},
+{id:"gods",name:"Боги",en:"Gods",desc:"Древние существа",end:"Ancient beings",data:GODS,cls:"god"}
+];
+const I18N={
+ru:{terminal:"ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ // БАЗА АРХИВОВ",welcome:"The Redpro Archives",intro:"Файлы истории. Персонажи. События. Некоторые записи намеренно заблокированы.",openArchives:"ОТКРЫТЬ АРХИВЫ",characters:"ПЕРСОНАЖИ",favorites:"ИЗБРАННОЕ",settings:"НАСТРОЙКИ",beginning:"THE BEGINNING",beginningDesc:"Основная линия истории и доступные материалы.",charDesc:"База данных персонажей, разделённая по расам.",gold:"GOLD CHILD",goldDesc:"Файл находится в разработке. Доступ ограничен.",unknown:"UNKNOWN FILE",unknownDesc:"Повреждённая запись. Возможно, она ждёт именно тебя.",back:"Назад",archives:"Архивы",storyDesc:"Главная история. Фрагменты, главы и ключевые события.",locked:"ЗАБЛОКИРОВАНО // ФАЙЛ В РАЗРАБОТКЕ",corrupted:"ПОВРЕЖДЁННЫЕ ДАННЫЕ",storyText:"История только начинается.<br><br>Основные главы будут добавляться в этот терминал по мере готовности.",file:"Файл персонажа",soon:"СКОРО",goldText:"История только начинается...<br><br>Доступ к этому файлу пока закрыт.",secretText:"Ты нашёл запись, которую не должны были видеть.",continue:"ПРОДОЛЖИТЬ",language:"Язык",languageDesc:"Язык интерфейса архива",textSize:"Размер текста",textSizeDesc:"Масштаб интерфейса",dark:"Тёмная тема",darkDesc:"Контрастный режим терминала",animations:"Анимации",animDesc:"Переходы и эффекты",sounds:"Звуки",soundDesc:"Системные звуки интерфейса",youtube:"YouTube",youtubeDesc:"Канал автора",reset:"Сбросить",resetDesc:"Вернуть параметры по умолчанию",stats:["Сила","Скорость","Интеллект","Воля","Удача"],stages:["Начало","Середина","Финал"],power:"Мощь",age:"Возраст",role:"Роль",remove:"УБРАТЬ",add:"В ИЗБРАННОЕ",emptyFav:"Здесь пока ничего нет.",prev:"ПРЕДЫДУЩИЙ",next:"СЛЕДУЮЩИЙ",dead:"Статус: мёртв"},
+en:{terminal:"CENTRAL TERMINAL // ARCHIVE DATABASE",welcome:"The Redpro Archives",intro:"Story files. Characters. Events. Some records are intentionally locked.",openArchives:"OPEN ARCHIVES",characters:"CHARACTERS",favorites:"FAVORITES",settings:"SETTINGS",beginning:"THE BEGINNING",beginningDesc:"Main story line and available materials.",charDesc:"Character database, separated by race.",gold:"GOLD CHILD",goldDesc:"File in development. Access restricted.",unknown:"UNKNOWN FILE",unknownDesc:"Corrupted record. Perhaps it is waiting for you.",back:"Back",archives:"Archives",storyDesc:"Main story. Fragments, chapters and key events.",locked:"LOCKED // FILE IN PROGRESS",corrupted:"CORRUPTED DATA",storyText:"The story is only beginning.<br><br>Main chapters will be added to this terminal as they are completed.",file:"Character file",soon:"COMING SOON",goldText:"The story is only beginning...<br><br>Access to this file is currently locked.",secretText:"You found a record you were not supposed to see.",continue:"CONTINUE",language:"Language",languageDesc:"Archive interface language",textSize:"Text size",textSizeDesc:"Interface scale",dark:"Dark theme",darkDesc:"High-contrast terminal mode",animations:"Animations",animDesc:"Transitions and effects",sounds:"Sounds",soundDesc:"Interface system sounds",youtube:"YouTube",youtubeDesc:"Author channel",reset:"Reset",resetDesc:"Restore default settings",stats:["Strength","Speed","Intelligence","Will","Luck"],stages:["Beginning","Middle","Final"],power:"Power",age:"Age",role:"Role",remove:"REMOVE",add:"ADD TO FAVORITES",emptyFav:"Nothing here yet.",prev:"PREVIOUS",next:"NEXT",dead:"Status: dead"}};
+let lang=localStorage.getItem("lore_lang")||"ru", currentRace="humans", currentChar=0, currentStage=0, returnScreen="characters";
+const favs=JSON.parse(localStorage.getItem("lore_favorites")||"[]");
+function t(k){return I18N[lang][k]??k}
+function saveFav(){localStorage.setItem("lore_favorites",JSON.stringify(favs))}
+function applyText(){document.querySelectorAll("[data-i18n]").forEach(e=>e.innerHTML=t(e.dataset.i18n));document.documentElement.lang=lang;document.getElementById("ruBtn").classList.toggle("active",lang==="ru");document.getElementById("enBtn").classList.toggle("active",lang==="en");buildRaces();if(document.getElementById("characters").classList.contains("active"))buildChars(currentRace);if(document.getElementById("favorites").classList.contains("active"))buildFavs();if(document.getElementById("character").classList.contains("active"))renderDetail()}
+function setLang(x){lang=x;localStorage.setItem("lore_lang",lang);applyText()}
+function show(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");if(id==="races")buildRaces();if(id==="favorites")buildFavs();if(id==="settings")refreshSettings();window.scrollTo(0,0)}
+function buildRaces(){const total=RACES.reduce((a,r)=>a+r.data.length,0);document.getElementById("charCount").textContent=total+" //";document.getElementById("raceList").innerHTML=RACES.map(r=>`<button class="card race" onclick="openRace('${r.id}')"><div><span class="race-dot ${r.cls}"></span><span class="code">${r.id.toUpperCase()}</span></div><h2>${lang==="ru"?r.name:r.en}</h2><p>${lang==="ru"?r.desc:r.end}</p><div class="count">${r.data.length} FILES</div></button>`).join("")}
+function openRace(id){currentRace=id;show("characters");buildChars(id)}
+function buildChars(id){const r=RACES.find(x=>x.id===id);document.getElementById("raceTitle").textContent=lang==="ru"?r.name:r.en;document.getElementById("raceCount").textContent=r.data.length+" FILES";document.getElementById("charList").innerHTML=r.data.map((c,i)=>{const key=id+":"+i,on=favs.includes(key);return `<div class="char"><button class="fav ${on?"on":""}" onclick="toggleFav('${key}',event)">${on?"★":"☆"}</button><h3>${c[0]}</h3><div class="role">${c[2]}</div><button class="btn open" onclick="openChar('${id}',${i})">${lang==="ru"?"ОТКРЫТЬ ФАЙЛ":"OPEN FILE"}</button></div>`}).join("")}
+function toggleFav(key,e){e.stopPropagation();const i=favs.indexOf(key);i<0?favs.push(key):favs.splice(i,1);saveFav();updateFavCount();if(document.getElementById("characters").classList.contains("active"))buildChars(currentRace);if(document.getElementById("favorites").classList.contains("active"))buildFavs()}
+function updateFavCount(){document.getElementById("favCount").textContent=favs.length+" FILES"}
+function openChar(race,i){currentRace=race;currentChar=i;currentStage=0;returnScreen=document.getElementById("characters").classList.contains("active")?"characters":"favorites";show("character");renderDetail()}
+function fmt(n){if(typeof n!=="number")return n; if(n>=1000000)return lang==="ru"?Math.round(n/1000000)+" млн":(n/1000000).toFixed(n%1000000?1:0)+"M";if(n>=10000)return lang==="ru"?Math.round(n/1000)+" тыс":Math.round(n/1000)+"K";return n}
+function renderDetail(){const r=RACES.find(x=>x.id===currentRace),c=r.data[currentChar],key=currentRace+":"+currentChar,on=favs.includes(key),stage=c[6]?.[currentStage]??c[6]?.[0];let stats=Array.isArray(stage)?stage:null;let sum=stats?stats.reduce((a,b)=>a+(typeof b==="number"?b:0),0):0;document.getElementById("detail").innerHTML=`<div class="detailhead"><div><div class="kicker">${currentRace.toUpperCase()} // ${String(currentChar+1).padStart(2,"0")}</div><h1>${c[0]}</h1><div class="meta"><b>${t("age")}:</b> ${c[1]}<br><b>${t("role")}:</b> ${c[2]}</div></div><button class="fav ${on?"on":""}" onclick="toggleFav('${key}',event)">${on?"★":"☆"}</button></div><div class="quote">“${c[5]}”</div><div class="bio">${c[4]}</div><div class="stages">${(c[6]||[]).map((s,i)=>`<button class="stage ${i===currentStage?"active":""}" onclick="changeStage(${i})">${t("stages")[i]||("Stage "+(i+1))}</button>`).join("")}</div>${stats?`<div class="kicker">${t("power")} // ${fmt(sum)} / 100</div><div class="stats">${stats.map((v,i)=>`<div class="stat"><label>${t("stats")[i]}</label><b>${fmt(v)}</b><div class="bar"><i style="width:${Math.min(typeof v==="number"?v*10:0,100)}%"></i></div></div>`).join("")}</div>`:`<div class="message">${stage?.message||""}</div>`}<div class="detailnav"><button class="btn" onclick="changeChar(-1)">← ${t("prev")}</button><button class="btn" onclick="changeChar(1)">${t("next")} →</button></div>`}
+function changeStage(i){currentStage=i;renderDetail()}
+function changeChar(d){const r=RACES.find(x=>x.id===currentRace);currentChar=(currentChar+d+r.data.length)%r.data.length;currentStage=0;renderDetail()}
+function backFromChar(){show(returnScreen==="favorites"?"favorites":"characters");if(returnScreen!=="favorites")buildChars(currentRace)}
+function buildFavs(){updateFavCount();if(!favs.length){document.getElementById("favList").innerHTML=`<div class="empty">${t("emptyFav")}</div>`;return}document.getElementById("favList").innerHTML=favs.map(key=>{const [rid,ix]=key.split(":"),r=RACES.find(x=>x.id===rid),c=r?.data[+ix];if(!c)return"";return `<div class="char"><button class="fav on" onclick="toggleFav('${key}',event)">★</button><h3>${c[0]}</h3><div class="role">${c[2]}</div><button class="btn open" onclick="openFavChar('${rid}',${ix})">${lang==="ru"?"ОТКРЫТЬ ФАЙЛ":"OPEN FILE"}</button></div>`}).join("")}
+function openFavChar(r,i){currentRace=r;currentChar=+i;currentStage=0;returnScreen="favorites";show("character");renderDetail()}
+function refreshSettings(){const size=+(localStorage.getItem("lore_size")||100);document.getElementById("sizeBtns").innerHTML=[80,90,100,110,120,130,140].map(x=>`<button class="${x===size?"active":""}" onclick="setSize(${x})">${x}%</button>`).join("");setToggle("dark",localStorage.getItem("lore_dark")!=="false");setToggle("anim",localStorage.getItem("lore_anim")!=="false");setToggle("sound",localStorage.getItem("lore_sound")==="true")}
+function setSize(x){localStorage.setItem("lore_size",x);document.body.style.fontSize=x/100+"em";refreshSettings()}
+function setToggle(k,on){document.getElementById(k==="dark"?"darkToggle":k==="anim"?"animToggle":"soundToggle").classList.toggle("on",on)}
+function toggleSetting(k){let key=k==="dark"?"lore_dark":k==="anim"?"lore_anim":"lore_sound",now=localStorage.getItem(key);let on=now===null?(k!=="sound"):now==="true";on=!on;localStorage.setItem(key,on);if(k==="anim")document.body.classList.toggle("no-anim",!on);refreshSettings()}
+function resetSettings(){["lore_size","lore_dark","lore_anim","lore_sound","lore_lang"].forEach(k=>localStorage.removeItem(k));lang="ru";document.body.style.fontSize="1em";document.body.classList.remove("no-anim");applyText();refreshSettings()}
+function secretPulse(){document.body.style.filter="invert(.08)";setTimeout(()=>document.body.style.filter="",180);document.getElementById("sysStatus").textContent=lang==="ru"?"SYSTEM WATCHING":"SYSTEM WATCHING"}
+(function init(){const size=+(localStorage.getItem("lore_size")||100);document.body.style.fontSize=size/100+"em";if(localStorage.getItem("lore_anim")==="false")document.body.classList.add("no-anim");applyText();refreshSettings();updateFavCount()})();
 </script>
 </body>
-</html>
+                                                                                                                                                                                                                     </html>
