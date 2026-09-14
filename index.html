@@ -10,8 +10,8 @@
   html, body { height: 100%; overflow: hidden; font-family: 'Caveat', cursive; background: #f7f6f3; }
 
   .blob { position: fixed; z-index: 1; pointer-events: none; animation: float 9s ease-in-out infinite; }
-  .blob-orange { left: -18%; bottom: -12%; width: 65%; height: 48%; background: #ef9a1d; border-radius: 50% 50% 45% 55% / 65% 55% 45% 35%; transform: rotate(-6deg); }
-  .blob-red { right: -22%; bottom: -18%; width: 90%; height: 62%; background: #e5231b; border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; transform: rotate(4deg); animation-delay: -3s; }
+  .blob-orange { left: -18%; bottom: -22%; width: 65%; height: 48%; background: #ef9a1d; border-radius: 50% 50% 45% 55% / 65% 55% 45% 35%; transform: rotate(-6deg); }
+  .blob-red { right: -22%; bottom: -28%; width: 90%; height: 62%; background: #e5231b; border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%; transform: rotate(4deg); animation-delay: -3s; }
   @keyframes float { 0%, 100% { transform: translate(0, 0) rotate(-6deg) scale(1); } 50% { transform: translate(-8px, -6px) rotate(-4deg) scale(1.03); } }
 
   .decor { position: fixed; z-index: 2; pointer-events: none; color: #e5231b; opacity: 0.9; }
@@ -26,13 +26,13 @@
   .bottom-label { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 12; font-size: 1.4em; letter-spacing: 4px; color: #f7f6f3; text-shadow: 0 1px 4px rgba(0,0,0,0.25); white-space: nowrap; opacity: 0.95; }
   .top-line { position: fixed; top: 52px; left: 50%; transform: translateX(-50%); z-index: 8; color: #e5231b; opacity: 0.6; width: 140px; height: 12px; }
 
-  .main-btn { position: fixed; top: 38%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 22px 46px; font-family: 'Caveat', cursive; font-size: 2.8em; font-weight: 700; color: #e5231b; letter-spacing: 5px; line-height: 1; transition: transform 0.25s ease; }
+  .main-btn { position: fixed; top: 34%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 22px 46px; font-family: 'Caveat', cursive; font-size: 2.8em; font-weight: 700; color: #e5231b; letter-spacing: 5px; line-height: 1; transition: transform 0.25s ease; }
   .main-btn:active { transform: translateX(-50%) scale(0.95); }
   .main-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
   .main-btn svg path { fill: none; stroke: #e5231b; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .main-btn span { position: relative; z-index: 2; }
 
-  .story-btn { position: fixed; top: 53%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 16px 38px; font-family: 'Caveat', cursive; font-size: 1.9em; font-weight: 700; color: #e5231b; letter-spacing: 4px; line-height: 1; transition: transform 0.25s ease; opacity: 0.85; }
+  .story-btn { position: fixed; top: 48%; left: 50%; transform: translateX(-50%); z-index: 10; background: none; border: none; cursor: pointer; padding: 14px 32px; font-family: 'Caveat', cursive; font-size: 1.65em; font-weight: 700; color: #e5231b; letter-spacing: 3px; line-height: 1; transition: transform 0.25s ease; opacity: 0.9; }
   .story-btn:active { transform: translateX(-50%) scale(0.95); opacity: 1; }
   .story-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
   .story-btn svg path { fill: none; stroke: #e5231b; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
@@ -172,34 +172,10 @@
   .char-body { font-size: 1.35em; line-height: 1.6; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 24px; animation: statsIn 0.7s ease 0.15s both; }
   .char-quote { border-left: 3px solid var(--race-color, #e5231b); padding: 12px 16px; margin: 20px 0; font-size: 1.35em; font-style: italic; color: #444; background: rgba(229, 35, 27, 0.05); border-radius: 0 8px 8px 0; animation: statsIn 0.7s ease 0.3s both; }
 
-  /* ============ ЭКРАН «СКОРО» ДЛЯ ИСТОРИИ ============ */
-  .story-soon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    text-align: center;
-    animation: statsIn 0.8s ease both;
-  }
-  .story-soon-text {
-    font-size: 5em;
-    color: #e5231b;
-    letter-spacing: 12px;
-    font-weight: 700;
-    animation: soonPulse 3s ease-in-out infinite;
-  }
-  @keyframes soonPulse {
-    0%, 100% { opacity: 0.5; letter-spacing: 12px; }
-    50%      { opacity: 1; letter-spacing: 16px; }
-  }
-  .story-soon-sub {
-    font-size: 1.6em;
-    color: #999;
-    margin-top: 16px;
-    font-style: italic;
-    letter-spacing: 2px;
-  }
+  .story-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; animation: statsIn 0.8s ease both; }
+  .story-soon-text { font-size: 5em; color: #e5231b; letter-spacing: 12px; font-weight: 700; animation: soonPulse 3s ease-in-out infinite; }
+  @keyframes soonPulse { 0%, 100% { opacity: 0.5; letter-spacing: 12px; } 50% { opacity: 1; letter-spacing: 16px; } }
+  .story-soon-sub { font-size: 1.6em; color: #999; margin-top: 16px; font-style: italic; letter-spacing: 2px; }
 
   .empty-message { text-align: center; color: #aaa; font-size: 1.6em; padding: 60px 20px; font-style: italic; animation: statsIn 0.6s ease both; }
 
@@ -832,4 +808,4 @@
 </style>
 
 </body>
- </html>
+     </html>
