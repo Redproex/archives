@@ -90,69 +90,16 @@
   .archive-item.empty:active .archive-sub { color: inherit; }
   .archive-item.empty:active .archive-arrow { transform: none; }
 
-  /* ============ ЗВЁЗДОЧКА ИЗБРАННОГО ============ */
-  .star-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-    z-index: 10;
-    position: relative;
-  }
+  .star-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; z-index: 10; position: relative; }
   .star-btn:active { transform: scale(0.85); }
-  .star-btn svg {
-    width: 30px; height: 30px;
-    fill: none;
-    stroke: var(--race-color, #e5231b);
-    stroke-width: 1.8;
-    stroke-linejoin: round;
-    transition: fill 0.25s ease, stroke 0.25s ease;
-  }
-  .star-btn.on svg {
-    fill: #ffc107;
-    stroke: #e6a800;
-    filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.6));
-  }
+  .star-btn svg { width: 30px; height: 30px; fill: none; stroke: var(--race-color, #e5231b); stroke-width: 1.8; stroke-linejoin: round; transition: fill 0.25s ease, stroke 0.25s ease; }
+  .star-btn.on svg { fill: #ffc107; stroke: #e6a800; filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.6)); }
 
-  /* Кнопка «Избранное» на экране Архивов — маленькая, над кнопкой «Персонажи» */
-  .favorites-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    align-self: center;
-    margin-bottom: 12px;
-    padding: 8px 18px;
-    background: rgba(255, 193, 7, 0.1);
-    border: 2px dashed rgba(255, 193, 7, 0.6);
-    border-radius: 20px;
-    font-family: 'Caveat', cursive;
-    font-size: 1.3em;
-    color: #b8860b;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  .favorites-btn:active {
-    background: #ffc107;
-    color: #fff;
-    transform: scale(0.96);
-  }
-  .favorites-btn svg {
-    width: 22px; height: 22px;
-    fill: #ffc107;
-    stroke: #e6a800;
-    stroke-width: 1.5;
-    stroke-linejoin: round;
-  }
+  .favorites-btn { display: flex; align-items: center; justify-content: center; gap: 8px; align-self: center; margin-bottom: 12px; padding: 8px 18px; background: rgba(255, 193, 7, 0.1); border: 2px dashed rgba(255, 193, 7, 0.6); border-radius: 20px; font-family: 'Caveat', cursive; font-size: 1.3em; color: #b8860b; cursor: pointer; transition: all 0.25s ease; animation: itemEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .favorites-btn:active { background: #ffc107; color: #fff; transform: scale(0.96); }
+  .favorites-btn svg { width: 22px; height: 22px; fill: #ffc107; stroke: #e6a800; stroke-width: 1.5; stroke-linejoin: round; }
   .favorites-btn:active svg { fill: #fff; stroke: #fff; }
-  .favorites-btn .fav-count {
-    font-weight: 700;
-  }
+  .favorites-btn .fav-count { font-weight: 700; }
 
   .char-header { text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35)); animation: charHeaderIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; position: relative; }
   @keyframes charHeaderIn { 0% { opacity: 0; transform: translateY(-16px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -161,10 +108,50 @@
   .char-info { font-size: 1.25em; color: #666; margin-top: 8px; }
   .char-role { font-size: 1.35em; color: #2b2b2b; margin-top: 8px; font-style: italic; }
 
-  /* Звёздочка в углу хедера карточки */
-  .char-star-wrap {
-    position: absolute;
-    top: 0; right: 0;
+  /* ============ ОБЩАЯ ШКАЛА СИЛЫ ============ */
+  .power-bar {
+    margin: 4px 0 18px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.55);
+    border: 2px dashed var(--race-color, rgba(229, 35, 27, 0.35));
+    border-radius: 12px;
+    animation: statsIn 0.5s ease both;
+  }
+  .power-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .power-label {
+    font-size: 1.15em;
+    color: #2b2b2b;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .power-value {
+    font-size: 1.4em;
+    color: var(--race-color, #e5231b);
+    font-weight: 700;
+  }
+  .power-value .power-max {
+    font-size: 0.75em;
+    opacity: 0.6;
+    font-weight: 500;
+  }
+  .power-track {
+    height: 16px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .power-fill {
+    height: 100%;
+    background: var(--race-color, #e5231b);
+    border-radius: 8px;
+    width: 0;
+    transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .stage-nav { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 8px; padding: 10px 0; animation: stageIn 0.4s ease both; }
@@ -180,10 +167,34 @@
 
   .stats { margin: 18px 0 24px; animation: statsIn 0.45s ease both; }
   @keyframes statsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .stat-row { display: grid; grid-template-columns: 90px 1fr 70px; gap: 10px; align-items: center; margin-bottom: 12px; }
+
+  /* Строка характеристики с иконкой */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 34px 90px 1fr 70px;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .stat-icon {
+    width: 26px; height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--race-color, #e5231b);
+    transition: color 0.3s ease;
+  }
+  .stat-icon svg {
+    width: 22px; height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
   .stat-label { font-size: 1.15em; color: #2b2b2b; letter-spacing: 0.5px; }
   .stat-bar { height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 7px; overflow: hidden; position: relative; }
-  .stat-bar-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 7px; width: 0; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+  .stat-bar-fill { height: 100%; background: var(--race-color, #e5231b); border-radius: 7px; width: 0; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
   .stat-value { font-size: 1.2em; color: var(--race-color, #e5231b); text-align: right; font-weight: 700; white-space: nowrap; transition: color 0.3s ease; }
 
   .stat-bar-fill.effect-redpro { background: linear-gradient(90deg, #e5231b, #2b5cff, #e5231b, #2b5cff, #e5231b); background-size: 300% 100%; animation: shimmerRedpro 3s linear infinite; box-shadow: 0 0 12px rgba(43, 92, 255, 0.7), 0 0 4px rgba(229, 35, 27, 0.8); }
@@ -203,10 +214,7 @@
   .stat-bar-fill.effect-god { background: linear-gradient(90deg, #e5231b, #6a1b9a, #d500f9, #6a1b9a, #e5231b); background-size: 300% 100%; animation: shimmerGod 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(213, 0, 249, 0.7); }
   @keyframes shimmerGod { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
 
-  .stat-bar-fill.shadow-style {
-    background: #111;
-    box-shadow: 0 0 12px rgba(229, 35, 27, 0.9), inset 0 0 6px rgba(229, 35, 27, 0.6);
-  }
+  .stat-bar-fill.shadow-style { background: #111; box-shadow: 0 0 12px rgba(229, 35, 27, 0.9), inset 0 0 6px rgba(229, 35, 27, 0.6); }
 
   .stage-message { margin: 24px 0; text-align: center; animation: statsIn 0.45s ease both; }
   .stage-message.status { font-size: 2.2em; color: #b0b0b0; letter-spacing: 4px; font-style: italic; padding: 30px 0; }
@@ -322,6 +330,7 @@
   <div class="screen" id="screen-character">
     <button class="back-btn" onclick="goBackFromCharacter()">← назад</button>
     <div id="charHeader"></div>
+    <div id="powerArea"></div>
     <div id="stageArea"></div>
     <div class="char-body" id="charBody"></div>
     <div class="char-quote" id="charQuote"></div>
@@ -364,6 +373,16 @@
   </div>
 
 <script>
+  /* ================== ИКОНКИ ХАРАКТЕРИСТИК ================== */
+  const STAT_ICONS = {
+    "Сила": '<svg viewBox="0 0 24 24"><path d="M14.5 2 L21 8.5 L11 18.5 L4.5 12 Z"/><path d="M4.5 12 L2 14.5 L3 17 L5.5 18 L8 15.5"/><path d="M5.5 18 L3 20.5"/></svg>',
+    "Скорость": '<svg viewBox="0 0 24 24"><path d="M13 2 L4 14 L11 14 L10 22 L19 10 L12 10 Z"/></svg>',
+    "Интеллект": '<svg viewBox="0 0 24 24"><path d="M9 18 h6 M10 21 h4"/><path d="M12 3 a6 6 0 0 0-3 11 v4 h6 v-4 a6 6 0 0 0-3-11 z"/></svg>',
+    "Воля": '<svg viewBox="0 0 24 24"><path d="M12 2 C8 6 6 9 6 13 a6 6 0 0 0 12 0 c0-2-1-3-2-4 -1 2-2 2-3 2 0-3-1-6-1-9 z"/></svg>',
+    "Удача": '<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/></svg>'
+  };
+
+  /* ================== ДАННЫЕ ================== */
   const HUMANS = [
     { name: "Redpro", age: "32 года", role: "Отец. Муж. Тот, кто потерял всё.", effect: "redpro",
       text: "Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.",
@@ -452,27 +471,19 @@
   };
 
   const FAV_KEY = 'lore_favorites';
-
   let currentRaceId = null;
   let currentCharIndex = -1;
   let currentStageIndex = 0;
-  let returnToScreen = 'screen-characters'; // куда возвращаться из карточки
+  let returnToScreen = 'screen-characters';
 
-  /* ============ ИЗБРАННОЕ ============ */
+  /* ================== ИЗБРАННОЕ ================== */
   function loadFavorites() {
-    try {
-      const raw = localStorage.getItem(FAV_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch (e) { return []; }
+    try { const raw = localStorage.getItem(FAV_KEY); return raw ? JSON.parse(raw) : []; }
+    catch (e) { return []; }
   }
-  function saveFavorites(arr) {
-    localStorage.setItem(FAV_KEY, JSON.stringify(arr));
-    updateFavCount();
-  }
+  function saveFavorites(arr) { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); updateFavCount(); }
   function favKey(raceId, index) { return raceId + ':' + index; }
-  function isFavorite(raceId, index) {
-    return loadFavorites().indexOf(favKey(raceId, index)) !== -1;
-  }
+  function isFavorite(raceId, index) { return loadFavorites().indexOf(favKey(raceId, index)) !== -1; }
   function toggleFavorite(raceId, index) {
     let favs = loadFavorites();
     const key = favKey(raceId, index);
@@ -514,20 +525,15 @@
     }
     openScreen('screen-favorites');
   }
-  function removeFavoriteFromList(raceId, idx) {
-    toggleFavorite(raceId, idx);
-    openFavorites();
-  }
+  function removeFavoriteFromList(raceId, idx) { toggleFavorite(raceId, idx); openFavorites(); }
   function openCharacterFromFavorite(raceId, idx) {
     currentRaceId = raceId;
     returnToScreen = 'screen-favorites';
-    const race = RACES.find(r => r.id === raceId);
     applyRaceColor('screen-character', raceId);
-    document.getElementById('raceTitle').textContent = race.name;
     openCharacter(idx);
   }
 
-  /* ============ ЭКРАНЫ ============ */
+  /* ================== ЭКРАНЫ ================== */
   function openScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -538,9 +544,7 @@
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.body.classList.remove('screen-open');
   }
-  function goBackFromCharacter() {
-    openScreen(returnToScreen);
-  }
+  function goBackFromCharacter() { openScreen(returnToScreen); }
 
   function buildArchivesList() {
     const list = document.getElementById('archivesList');
@@ -583,7 +587,6 @@
     returnToScreen = 'screen-characters';
     const race = RACES.find(r => r.id === raceId);
     document.getElementById('raceTitle').textContent = race.name;
-
     applyRaceColor('screen-characters', raceId);
     applyRaceColor('screen-character', raceId);
 
@@ -602,7 +605,6 @@
         '<div class="archive-arrow">→</div>';
       list.appendChild(li);
     });
-
     openScreen('screen-characters');
   }
 
@@ -615,7 +617,7 @@
 
     document.getElementById('charHeader').innerHTML =
       '<div class="char-header">' +
-        '<button class="star-btn char-star-wrap' + (fav ? ' on' : '') + '" onclick="toggleFavInCard()" aria-label="Избранное">' +
+        '<button class="star-btn char-star-wrap' + (fav ? ' on' : '') + '" onclick="toggleFavInCard()" aria-label="Избранное" style="position:absolute; top:0; right:0;">' +
           '<svg viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 9.5 L17 14.5 L18.5 22 L12 18.5 L5.5 22 L7 14.5 L2 9.5 L9 9 Z"/></svg>' +
         '</button>' +
         '<div class="char-name">' + c.name + '</div>' +
@@ -644,6 +646,27 @@
     const stage = c.stages[currentStageIndex];
     const total = c.stages.length;
 
+    /* ---- Общая шкала силы ---- */
+    const powerArea = document.getElementById('powerArea');
+    if (stage.stats) {
+      let sum = 0;
+      for (const k in stage.stats) sum += stage.stats[k];
+      const displaySum = Math.min(sum, 100);
+      powerArea.innerHTML =
+        '<div class="power-bar">' +
+          '<div class="power-top">' +
+            '<span class="power-label">Общая мощь</span>' +
+            '<span class="power-value">' + displaySum + '<span class="power-max"> / 100</span></span>' +
+          '</div>' +
+          '<div class="power-track">' +
+            '<div class="power-fill" data-power="' + displaySum + '" style="width: 0"></div>' +
+          '</div>' +
+        '</div>';
+    } else {
+      powerArea.innerHTML = '';
+    }
+
+    /* ---- Навигация стадий ---- */
     let navHtml = '';
     if (total > 1) {
       const leftHidden = currentStageIndex === 0 ? 'hidden' : '';
@@ -663,6 +686,7 @@
         '</div>';
     }
 
+    /* ---- Контент стадии ---- */
     let contentHtml = '';
     if (stage.message) {
       if (stage.messageType === 'quote') {
@@ -683,6 +707,18 @@
     }
 
     document.getElementById('stageArea').innerHTML = navHtml + contentHtml;
+
+    /* ---- Плавное заполнение полосок после рендера ---- */
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.stat-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.target + '%';
+        });
+        document.querySelectorAll('.power-fill').forEach(bar => {
+          bar.style.width = bar.dataset.power + '%';
+        });
+      });
+    });
   }
 
   function renderStat(name, value, effect, forceEffect) {
@@ -696,12 +732,15 @@
       effectClass = ' effect-' + effect;
     }
 
+    const icon = STAT_ICONS[name] || '';
     const displayValue = formatNumber(value);
+
     return (
       '<div class="stat-row">' +
+        '<div class="stat-icon">' + icon + '</div>' +
         '<div class="stat-label">' + name + '</div>' +
         '<div class="stat-bar">' +
-          '<div class="stat-bar-fill' + effectClass + '" style="width: ' + percent + '%"></div>' +
+          '<div class="stat-bar-fill' + effectClass + '" data-target="' + percent + '" style="width: 0"></div>' +
         '</div>' +
         '<div class="stat-value">' + displayValue + '</div>' +
       '</div>'
@@ -794,6 +833,10 @@
   body.dark-theme .archive-sub { color: #888; }
   body.dark-theme .stat-label { color: #eaeaea; }
   body.dark-theme .stat-bar { background: rgba(255,255,255,0.1); }
+  body.dark-theme .stat-icon { color: var(--race-color, #ff5c4d); }
+  body.dark-theme .power-label { color: #eaeaea; }
+  body.dark-theme .power-bar { background: rgba(40,40,45,0.7); border-color: var(--race-color); }
+  body.dark-theme .power-track { background: rgba(255,255,255,0.1); }
   body.dark-theme .stage-message.status { color: #666; }
   body.dark-theme .stage-message-text { color: #eaeaea; }
   body.dark-theme .stage-message.quote { background: rgba(255,92,77,0.08); }
