@@ -3,172 +3,1214 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <title>The Redpro Archives</title>
+
 <style>
 :root{
- --bg:#08090c;--panel:#101218;--panel2:#151821;--line:#2a2e38;--text:#f4f5f7;
- --muted:#8f96a5;--accent:#e5231b;--gold:#d6ad42;--green:#39b875;
+ --bg:#08090c;
+ --panel:#101218;
+ --panel2:#151821;
+ --line:#2a2e38;
+ --text:#f4f5f7;
+ --muted:#8f96a5;
+ --accent:#e5231b;
+ --gold:#d6ad42;
+ --green:#39b875;
  --shadow:0 18px 55px #0008;
 }
-*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
-body{overflow-x:hidden} button{font:inherit;color:inherit}
-button{cursor:pointer}.app{min-height:100vh;position:relative;overflow:hidden}
-.no-anim *{animation:none!important;transition:none!important}
-.scanlines{position:fixed;inset:0;pointer-events:none;opacity:.055;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px);z-index:20}
-.topbar{height:64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#08090cee;backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
-.brand{font-weight:800;letter-spacing:.16em;font-size:13px}.status{font-size:11px;color:var(--green);letter-spacing:.12em}.status:before{content:"●";margin-right:7px}
-.main{max-width:1050px;margin:auto;padding:30px 18px 60px}.hero{border:1px solid var(--line);background:linear-gradient(145deg,#151820,#0d0f14);padding:28px;border-radius:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.hero:after{content:"ARCHIVE SYSTEM";position:absolute;right:-22px;bottom:8px;font-size:68px;font-weight:900;color:#fff03;letter-spacing:.04em;transform:rotate(-8deg);pointer-events:none}
-.kicker{font-size:11px;color:var(--muted);letter-spacing:.2em}.hero h1{font-size:clamp(32px,7vw,68px);margin:9px 0 5px;letter-spacing:-.04em}.hero p{color:#b8bec9;max-width:680px;line-height:1.55;margin:0}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
-.card{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:18px;text-align:left;min-height:145px;transition:.2s;position:relative}
-.card:hover{transform:translateY(-2px);border-color:#515867}.card .code{font-size:10px;color:var(--muted);letter-spacing:.16em}.card h2{font-size:19px;margin:10px 0 7px}.card p{color:#969daa;font-size:13px;line-height:1.45;margin:0}.card.locked{opacity:.72}.card.secret{border-color:#593b3b}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:1px solid var(--line);background:#171a22;border-radius:9px;padding:12px 15px;font-weight:700;letter-spacing:.03em}.btn:hover{border-color:#707887}.btn.primary{background:var(--accent);border-color:var(--accent)}.btn.gold{background:#6e5518;border-color:#a17d25}.btn.danger{background:#291416;border-color:#633238}
-.view{display:none}.view.active{display:block;animation:appear .22s ease}@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-.subbar{display:flex;align-items:center;gap:10px;margin-bottom:16px}.back{background:none;border:0;color:#c7cbd3;padding:7px 0}.title{font-size:21px;font-weight:800}.count{margin-left:auto;color:var(--muted);font-size:12px}
-.list{display:grid;gap:10px}.row{border:1px solid var(--line);background:var(--panel);padding:15px;border-radius:10px;display:flex;align-items:center;gap:14px}.row:hover{border-color:#555d6b}.num{font-size:11px;color:var(--muted);width:34px}.rowmain{flex:1}.row h3{margin:0 0 4px;font-size:16px}.row p{margin:0;color:#9299a7;font-size:12px}.arrow{color:#777f8d}
-.races{grid-template-columns:repeat(2,minmax(0,1fr))}.race{min-height:125px}.race-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px}.human{background:#e5231b}.robot{background:#5b7fa6}.hybrid{background:#2d8a4e}.god{background:#7b2fbe}
-.chargrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.char{border:1px solid var(--line);background:var(--panel);padding:15px;border-radius:10px;position:relative}.char h3{margin:0 0 4px}.char .role{color:#969daa;font-size:12px;line-height:1.35}.fav{position:absolute;right:10px;top:9px;background:none;border:0;font-size:22px;color:#636a77}.fav.on{color:#e4b42d}.char .open{margin-top:13px;width:100%}
-.detail{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:20px}.detailhead{display:flex;justify-content:space-between;gap:15px}.detail h1{margin:0 0 5px;font-size:clamp(27px,7vw,45px)}.meta{color:#9299a7;font-size:12px;line-height:1.55}.quote{margin:17px 0;padding:14px 16px;border-left:3px solid var(--accent);background:#171920;color:#d8dbe1;font-style:italic;line-height:1.5}.bio{color:#c2c7d0;line-height:1.65;font-size:14px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:17px}.stat{border:1px solid var(--line);padding:10px;border-radius:9px;background:#0d0f14}.stat label{display:block;color:#858c9a;font-size:10px;margin-bottom:6px}.stat b{font-size:13px}.bar{height:4px;background:#272b34;margin-top:8px;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
-.stages{display:flex;gap:7px;margin:18px 0}.stage{flex:1;border:1px solid var(--line);background:#11141a;padding:9px;border-radius:7px;font-size:11px}.stage.active{border-color:var(--accent);background:#241313}.detailnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
-.empty{border:1px dashed #363b46;padding:30px;text-align:center;color:#818896;border-radius:10px}.message{font-size:19px;line-height:1.55;padding:35px 10px;text-align:center;color:#d2d6dd}.goldbox{border-color:#80641d;background:linear-gradient(145deg,#17140c,#0d0f13)}.goldbox h1{color:#e1bc51}.corrupt{font-family:monospace;color:#d86b6b;white-space:pre-wrap;line-height:1.6}
-.settings{display:grid;gap:10px}.setting{border:1px solid var(--line);background:var(--panel);padding:16px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:15px}.setting small{display:block;color:#858c99;margin-top:4px}.select{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.select button{border:1px solid var(--line);background:#171a21;border-radius:7px;padding:8px 10px;font-size:12px}.select button.active{border-color:var(--accent);background:#291313}.toggle{min-width:58px;border:1px solid var(--line);background:#181b22;border-radius:20px;padding:4px}.toggle i{display:block;width:20px;height:20px;background:#777;border-radius:50%;transition:.2s}.toggle.on i{transform:translateX(28px);background:var(--green)}
-@media(max-width:700px){.grid,.races,.chargrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.topbar{padding:0 12px}.main{padding:18px 12px 50px}.hero{padding:21px}.detailhead{flex-direction:column}.setting{align-items:flex-start;flex-direction:column}.select{justify-content:flex-start}}
+
+*{box-sizing:border-box}
+
+html,body{
+ margin:0;
+ min-height:100%;
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+}
+
+body{overflow-x:hidden}
+
+button{
+ font:inherit;
+ color:inherit;
+ cursor:pointer;
+}
+
+.app{
+ min-height:100vh;
+ position:relative;
+ overflow:hidden;
+}
+
+.scanlines{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ opacity:.055;
+ background:repeating-linear-gradient(
+  0deg,
+  transparent 0 3px,
+  #fff 4px
+ );
+ z-index:20;
+}
+
+.topbar{
+ height:64px;
+ border-bottom:1px solid var(--line);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 18px;
+ background:#08090cee;
+ backdrop-filter:blur(12px);
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+
+/* ЛОГОТИП */
+
+.logo{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ font-weight:900;
+ letter-spacing:.16em;
+ font-size:13px;
+}
+
+.logo-mark{
+ width:32px;
+ height:32px;
+ border:2px solid var(--accent);
+ border-radius:8px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:#fff;
+ font-size:13px;
+ font-weight:900;
+ box-shadow:0 0 14px #e5231b55;
+}
+
+.status{
+ font-size:11px;
+ color:var(--green);
+ letter-spacing:.12em;
+}
+
+.status:before{
+ content:"●";
+ margin-right:7px;
+}
+
+.main{
+ max-width:1050px;
+ margin:auto;
+ padding:30px 18px 60px;
+}
+
+.hero{
+ border:1px solid var(--line);
+ background:linear-gradient(145deg,#151820,#0d0f14);
+ padding:28px;
+ border-radius:14px;
+ box-shadow:var(--shadow);
+ position:relative;
+ overflow:hidden;
+}
+
+/* ARCHIVE SYSTEM УДАЛЁН */
+
+.kicker{
+ font-size:11px;
+ color:var(--muted);
+ letter-spacing:.2em;
+}
+
+.hero h1{
+ font-size:clamp(32px,7vw,68px);
+ margin:9px 0 5px;
+ letter-spacing:-.04em;
+}
+
+.hero p{
+ color:#b8bec9;
+ max-width:680px;
+ line-height:1.55;
+ margin:0;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;
+ margin-top:14px;
+}
+
+.card{
+ border:1px solid var(--line);
+ background:var(--panel);
+ border-radius:12px;
+ padding:18px;
+ text-align:left;
+ min-height:145px;
+ transition:.2s;
+ position:relative;
+}
+
+.card:hover{
+ transform:translateY(-2px);
+ border-color:#515867;
+}
+
+.card .code{
+ font-size:10px;
+ color:var(--muted);
+ letter-spacing:.16em;
+}
+
+.card h2{
+ font-size:19px;
+ margin:10px 0 7px;
+}
+
+.card p{
+ color:#969daa;
+ font-size:13px;
+ line-height:1.45;
+ margin:0;
+}
+
+.card.gold{
+ border-color:#80641d;
+ background:linear-gradient(145deg,#17140c,#0d0f13);
+}
+
+.card.gold h2{
+ color:#e1bc51;
+}
+
+.actions{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:16px;
+}
+
+.btn{
+ border:1px solid var(--line);
+ background:#171a22;
+ border-radius:9px;
+ padding:12px 15px;
+ font-weight:700;
+ letter-spacing:.03em;
+}
+
+.btn:hover{
+ border-color:#707887;
+}
+
+.btn.primary{
+ background:var(--accent);
+ border-color:var(--accent);
+}
+
+.btn.gold{
+ background:#6e5518;
+ border-color:#a17d25;
+}
+
+.view{
+ display:none;
+}
+
+.view.active{
+ display:block;
+ animation:appear .22s ease;
+}
+
+@keyframes appear{
+ from{
+  opacity:0;
+  transform:translateY(5px);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
+}
+
+.subbar{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-bottom:16px;
+}
+
+.back{
+ background:none;
+ border:0;
+ color:#c7cbd3;
+ padding:7px 0;
+}
+
+.title{
+ font-size:21px;
+ font-weight:800;
+}
+
+.count{
+ margin-left:auto;
+ color:var(--muted);
+ font-size:12px;
+}
+
+.list{
+ display:grid;
+ gap:10px;
+}
+
+.row{
+ border:1px solid var(--line);
+ background:var(--panel);
+ padding:15px;
+ border-radius:10px;
+ display:flex;
+ align-items:center;
+ gap:14px;
+}
+
+.row:hover{
+ border-color:#555d6b;
+}
+
+.num{
+ font-size:11px;
+ color:var(--muted);
+ width:34px;
+}
+
+.rowmain{
+ flex:1;
+}
+
+.row h3{
+ margin:0 0 4px;
+ font-size:16px;
+}
+
+.row p{
+ margin:0;
+ color:#9299a7;
+ font-size:12px;
+}
+
+.arrow{
+ color:#777f8d;
+}
+
+/* СЮЖЕТ */
+
+.story{
+ border:1px solid var(--line);
+ background:var(--panel);
+ border-radius:13px;
+ padding:22px;
+}
+
+.story h1{
+ margin:0 0 8px;
+ font-size:clamp(28px,7vw,46px);
+}
+
+.story .subtitle{
+ color:#e1bc51;
+ font-size:13px;
+ letter-spacing:.15em;
+ margin-bottom:22px;
+}
+
+.story-section{
+ margin-top:24px;
+}
+
+.story-section h2{
+ font-size:20px;
+ margin:0 0 9px;
+}
+
+.story-section p{
+ color:#c2c7d0;
+ line-height:1.7;
+ font-size:14px;
+ margin:0 0 13px;
+}
+
+.story-section strong{
+ color:#fff;
+}
+
+.story-warning{
+ border-left:3px solid var(--gold);
+ background:#17140c;
+ padding:14px 16px;
+ margin:20px 0;
+ color:#d8dbe1;
+ line-height:1.6;
+}
+
+.chapter{
+ border:1px solid var(--line);
+ background:#0d0f14;
+ border-radius:10px;
+ padding:17px;
+ margin-top:12px;
+}
+
+.chapter h3{
+ margin:0 0 8px;
+ font-size:17px;
+}
+
+.chapter p{
+ margin:0;
+ color:#aeb4bf;
+ line-height:1.6;
+ font-size:13px;
+}
+
+/* ПЕРСОНАЖИ */
+
+.chargrid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;
+}
+
+.char{
+ border:1px solid var(--line);
+ background:var(--panel);
+ padding:15px;
+ border-radius:10px;
+ position:relative;
+}
+
+.char h3{
+ margin:0 0 4px;
+}
+
+.char .role{
+ color:#969daa;
+ font-size:12px;
+ line-height:1.35;
+}
+
+/* НАСТРОЙКИ */
+
+.settings{
+ display:grid;
+ gap:10px;
+}
+
+.setting{
+ border:1px solid var(--line);
+ background:var(--panel);
+ padding:16px;
+ border-radius:10px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+}
+
+.setting small{
+ display:block;
+ color:#858c99;
+ margin-top:4px;
+}
+
+.select{
+ display:flex;
+ gap:5px;
+ flex-wrap:wrap;
+ justify-content:flex-end;
+}
+
+.select button{
+ border:1px solid var(--line);
+ background:#171a21;
+ border-radius:7px;
+ padding:8px 10px;
+ font-size:12px;
+}
+
+.select button.active{
+ border-color:var(--accent);
+ background:#291313;
+}
+
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+
+@media(max-width:700px){
+
+ .grid,
+ .chargrid{
+  grid-template-columns:1fr;
+ }
+
+ .topbar{
+  padding:0 12px;
+ }
+
+ .main{
+  padding:18px 12px 50px;
+ }
+
+ .hero{
+  padding:21px;
+ }
+
+ .setting{
+  align-items:flex-start;
+  flex-direction:column;
+ }
+
+ .select{
+  justify-content:flex-start;
+ }
+
+ .logo{
+  font-size:11px;
+  letter-spacing:.11em;
+ }
+
+ .logo-mark{
+  width:29px;
+  height:29px;
+ }
+
+ .story{
+  padding:17px;
+ }
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
+
 <div class="scanlines"></div>
-<header class="topbar"><div class="brand">THE REDPRO ARCHIVES</div><div class="status" id="sysStatus">SYSTEM ONLINE</div></header>
+
+<header class="topbar">
+
+<div class="logo">
+ <div class="logo-mark">RP</div>
+ THE REDPRO ARCHIVES
+</div>
+
+<div class="status">SYSTEM ONLINE</div>
+
+</header>
+
 <main class="main">
 
+<!-- ГЛАВНАЯ -->
+
 <section id="home" class="view active">
+
 <div class="hero">
-<div class="kicker" data-i18n="terminal">CENTRAL TERMINAL // ARCHIVE DATABASE</div>
-<h1 data-i18n="welcome">The Redpro Archives</h1>
-<p data-i18n="intro">Файлы истории. Персонажи. События. Некоторые записи намеренно заблокированы.</p>
+
+<div class="kicker">
+ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ // БАЗА АРХИВОВ
+</div>
+
+<h1>The Redpro Archives</h1>
+
+<p>
+Файлы истории. Персонажи. События.
+Некоторые материалы находятся под наблюдением системы.
+</p>
+
 <div class="actions">
-<button class="btn primary" onclick="show('archives')" data-i18n="openArchives">ОТКРЫТЬ АРХИВЫ</button>
-<button class="btn" onclick="show('races')" data-i18n="characters">ПЕРСОНАЖИ</button>
-<button class="btn" onclick="show('favorites')" data-i18n="favorites">ИЗБРАННОЕ</button>
-<button class="btn" onclick="show('settings')" data-i18n="settings">НАСТРОЙКИ</button>
+
+<button class="btn primary" onclick="openView('archives')">
+ОТКРЫТЬ АРХИВЫ
+</button>
+
+<button class="btn" onclick="openView('characters')">
+ПЕРСОНАЖИ
+</button>
+
+<button class="btn" onclick="openView('settings')">
+НАСТРОЙКИ
+</button>
+
 </div>
+
 </div>
+
 <div class="grid">
-<button class="card" onclick="show('archives')"><div class="code">ARCHIVE 001</div><h2 data-i18n="beginning">THE BEGINNING</h2><p data-i18n="beginningDesc">Основная линия истории и доступные материалы.</p></button>
-<button class="card" onclick="show('races')"><div class="code">DATABASE 003</div><h2 data-i18n="characters">CHARACTERS</h2><p data-i18n="charDesc">База данных персонажей, разделённая по расам.</p></button>
-<button class="card locked" onclick="show('gold')"><div class="code">ARCHIVE 002</div><h2 data-i18n="gold">GOLD CHILD</h2><p data-i18n="goldDesc">Файл находится в разработке. Доступ ограничен.</p></button>
-<button class="card secret" onclick="show('unknown')"><div class="code">ARCHIVE ???</div><h2 data-i18n="unknown">UNKNOWN FILE</h2><p data-i18n="unknownDesc">Повреждённая запись. Возможно, она ждёт именно тебя.</p></button>
+
+<div class="card" onclick="openView('archives')">
+
+<div class="code">ARCHIVE 001</div>
+
+<h2>THE BEGINNING</h2>
+
+<p>
+Основная линия истории и доступные материалы.
+</p>
+
 </div>
+
+<div class="card gold" onclick="openView('gold')">
+
+<div class="code">ARCHIVE 002</div>
+
+<h2>GOLD CHILD</h2>
+
+<p>
+История Золотого ребёнка. От исчезновения Лиры до появления Метры и вызова Разрушителя.
+</p>
+
+</div>
+
+<div class="card" onclick="openView('characters')">
+
+<div class="code">DATABASE 003</div>
+
+<h2>ПЕРСОНАЖИ</h2>
+
+<p>
+База данных ключевых персонажей истории.
+</p>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="archives" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="archives">Архивы</div></div>
+
+<!-- АРХИВЫ -->
+
+<section id="archives" class="view">
+
+<div class="subbar">
+
+<button class="back" onclick="openView('home')">
+← Назад
+</button>
+
+<div class="title">Архивы</div>
+
+<div class="count">2 FILES</div>
+
+</div>
+
 <div class="list">
-<div class="row" onclick="show('story')"><div class="num">001</div><div class="rowmain"><h3 data-i18n="beginning">The Beginning</h3><p data-i18n="storyDesc">Главная история. Фрагменты, главы и ключевые события.</p></div><div class="arrow">›</div></div>
-<div class="row" onclick="show('gold')"><div class="num">002</div><div class="rowmain"><h3 data-i18n="gold">Gold Child</h3><p data-i18n="locked">LOCKED // FILE IN PROGRESS</p></div><div class="arrow">›</div></div>
-<div class="row" onclick="show('unknown')"><div class="num">???</div><div class="rowmain"><h3 data-i18n="unknown">Unknown File</h3><p data-i18n="corrupted">CORRUPTED DATA</p></div><div class="arrow">›</div></div>
-</div></section>
 
-<section id="story" class="view"><div class="subbar"><button class="back" onclick="show('archives')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="beginning">The Beginning</div></div>
-<div class="detail"><div class="kicker">ARCHIVE 001 // STORY</div><div class="message" data-i18n="storyText">История только начинается.<br><br>Основные главы будут добавляться в этот терминал по мере готовности.</div></div></section>
+<div class="row" onclick="openView('gold')">
 
-<section id="races" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="characters">Персонажи</div><div class="count" id="charCount"></div></div><div id="raceList" class="grid races"></div></section>
+<div class="num">002</div>
 
-<section id="characters" class="view"><div class="subbar"><button class="back" onclick="show('races')">← <span data-i18n="back">Назад</span></button><div class="title" id="raceTitle"></div><div class="count" id="raceCount"></div></div><div id="charList" class="chargrid"></div></section>
+<div class="rowmain">
 
-<section id="character" class="view"><div class="subbar"><button class="back" onclick="backFromChar()">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="file">Файл персонажа</div></div><div id="detail"></div></section>
+<h3>Золотой ребёнок</h3>
 
-<section id="favorites" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="favorites">Избранное</div><div class="count" id="favCount"></div></div><div id="favList" class="chargrid"></div></section>
+<p>
+Основная история Мелкого и Тени.
+</p>
 
-<section id="gold" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="gold">Gold Child</div></div><div class="detail goldbox"><div class="kicker">ARCHIVE 002 // RESTRICTED</div><div class="message"><h1 data-i18n="soon">СКОРО</h1><span data-i18n="goldText">История только начинается...<br><br>Доступ к этому файлу пока закрыт.</span></div></div></section>
+</div>
 
-<section id="unknown" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title">ARCHIVE ???</div></div><div class="detail"><div class="kicker">UNAUTHORIZED ACCESS</div><div class="corrupt">ERR_07 // FILE HEADER DAMAGED
-subject: █████████
-origin: UNKNOWN
-status: NOT_DELETED
-...
-<span data-i18n="secretText">Ты нашёл запись, которую не должны были видеть.</span>
-<br><br><button class="btn danger" onclick="secretPulse()" data-i18n="continue">ПРОДОЛЖИТЬ</button></div></div></section>
+<div class="arrow">→</div>
 
-<section id="settings" class="view"><div class="subbar"><button class="back" onclick="show('home')">← <span data-i18n="back">Назад</span></button><div class="title" data-i18n="settings">Настройки</div></div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- СЮЖЕТ -->
+
+<section id="gold" class="view">
+
+<div class="subbar">
+
+<button class="back" onclick="openView('home')">
+← Назад
+</button>
+
+<div class="title">GOLD CHILD</div>
+
+</div>
+
+<div class="story">
+
+<div class="kicker">
+ARCHIVE 002 // CLASSIFIED
+</div>
+
+<h1>Золотой ребёнок.</h1>
+
+<div class="subtitle">
+ФАЙЛ ИСТОРИИ
+</div>
+
+<div class="story-warning">
+<strong>ВНИМАНИЕ.</strong><br>
+Материал содержит сведения о Тени, Взломщиках Апокалипсиса и событиях, изменивших Новоград-7.
+</div>
+
+
+<div class="story-section">
+
+<h2>Новоград-7</h2>
+
+<p>
+История начинается в тихом, почти забытом городе
+<strong>Новоград-7</strong>.
+Здесь живут Редпро и Лира.
+Но однажды Лира исчезает без следа.
+</p>
+
+<p>
+Не было криков, борьбы или записки.
+Самое страшное произошло позже:
+люди начали забывать её лицо.
+Даже Редпро больше не мог вспомнить, как она выглядела.
+Полиция закрыла дело.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Семь лет спустя</h2>
+
+<p>
+Проходит семь лет.
+<strong>Мелкому семь лет.</strong>
+Именно в этот период с ним начинает происходить нечто странное.
+</p>
+
+<p>
+Его правая рука сначала краснеет, затем становится желтоватой,
+а после превращается в настоящее живое золото.
+Она тёплая и пульсирует в такт сердцу.
+</p>
+
+<p>
+Мелкий становится холоднее и замкнутее.
+Он говорит, что внутри него находится нечто,
+что шепчет ему.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Исчезновение</h2>
+
+<p>
+Мелкий исчезает.
+В ту же ночь начинают исчезать ведущие специалисты по робототехнике
+и программированию.
+Проходит три месяца — и Мелкий возвращается.
+После этого исчезновения специалистов прекращаются.
+</p>
+
+<p>
+Затем начинают исчезать заключённые.
+Следующим исчезает <strong>Редпро</strong>.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Армия Взломщиков Апокалипсиса</h2>
+
+<p>
+Под домом Редпро происходят землетрясения.
+Земля раскалывается, дом разрушается,
+и из-под земли поднимаются три Титана.
+</p>
+
+<p>
+На самом большом Титане стоит Мелкий.
+За ним находятся четыре тени —
+<strong>четыре руки Четырёхрукого</strong>.
+</p>
+
+<p>
+По городу проходит сообщение:
+появилась новая сила —
+<strong>Армия Взломщиков Апокалипсиса</strong>.
+Начинаются новые правила.
+Город эвакуируют.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Сопротивление</h2>
+
+<p>
+Люди создают гильдии сопротивления.
+Одной из них становится
+<strong>«Меха-Помощник»</strong>,
+которой руководит учёный Манекен.
+</p>
+
+<p>
+Его помощник и приёмный сын Подопытный вырос в лаборатории.
+Позже к гильдии присоединяется Пека —
+дядя Мелкого и брат Редпро.
+Он хочет остановить Мелкого и найти своего брата.
+</p>
+
+<p>
+Через некоторое время приходит Виталик —
+отец Пеки и Редпро.
+Он считается одним из сильнейших бойцов.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Тень</h2>
+
+<p>
+Постепенно становится ясно:
+Мелкий не является самой Тенью.
+<strong>Тень контролирует Мелкого.</strong>
+</p>
+
+<p>
+Тень — древнее цифровое сознание.
+Она использует Мелкого как средство для изменения реальности.
+Лира также оказывается связана с Тенью.
+Она не исчезла бесследно —
+её поглотила Тень.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Подопытный</h2>
+
+<p>
+Во время испытания шредера-разрушителя
+Подопытный погибает.
+Манекен тяжело переживает его смерть.
+</p>
+
+<p>
+Но учёный не сдаётся.
+Он создаёт новую версию Подопытного —
+киборга с тем же характером и личностью.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Виталик под прикрытием</h2>
+
+<p>
+Виталик якобы предаёт гильдию и переходит к Взломщикам.
+Но это только прикрытие.
+На самом деле он работает изнутри.
+</p>
+
+<p>
+Он получает информацию от Хранителей Кода,
+взламывает журналы Титанов и передаёт данные сопротивлению.
+Его задача —
+найти способ спасти Мелкого из-под контроля Тени.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Возвращение Редпро</h2>
+
+<p>
+Редпро появляется снова.
+Он рассказывает, что был пленником Мелкого
+и смог выбраться благодаря помощи Виталика.
+</p>
+
+<p>
+Манекен принимает его в гильдию.
+После эксперимента Редпро получает силу
+<strong>электричества</strong>,
+а Пека —
+силу <strong>воздуха</strong>.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Читер</h2>
+
+<p>
+Над городом появляется Читер —
+один из главных Взломщиков.
+Он объявляет себя первым из
+<strong>Королей Бездны</strong>.
+</p>
+
+<p>
+Он даёт городу три дня.
+Люди должны работать на Взломщиков,
+а сопротивляющихся ждёт публичная казнь.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Операция «Перезагрузка»</h2>
+
+<p>
+Манекен, Редпро и Пека разрабатывают операцию
+по отключению энергетической системы Взломщиков.
+Цель — старая электростанция.
+</p>
+
+<p>
+Братья отключают поле и генератор,
+после чего побеждают боевую проекцию кода Читера.
+Но после возвращения выясняется:
+<strong>это была ловушка.</strong>
+Читер специально позволил им победить,
+чтобы изучить их взаимодействие.
+</p>
+
+<p>
+Мелкий наблюдает за ними с водонапорной башни.
+Его золотые глаза всё видят.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Метра</h2>
+
+<p>
+В новой базе Манекена начинается эксперимент
+с загадочным веществом —
+<strong>Божественным светом</strong>.
+</p>
+
+<p>
+Луч проходит через руку Редпро.
+Его энергия электричества смешивается
+с Божественным светом и попадает в экспериментальную установку.
+</p>
+
+<p>
+Происходит невозможное.
+Установка становится живым существом.
+Так появляется <strong>Метра</strong>.
+</p>
+
+<p>
+У Метры белое тело, золотые глаза,
+способности Божественного света и электричества.
+Он обладает собственной волей.
+Это не клон Редпро —
+это живой результат эксперимента.
+</p>
+
+<p>
+Мелкий узнаёт о Метре.
+Взломщики понимают:
+появился идеальный носитель Божественного света.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Битва с Дельтой</h2>
+
+<p>
+Взломщики отправляют Дельту.
+Он атакует базу и вступает в бой с Метрой.
+</p>
+
+<p>
+Но Метра оказывается слишком силён.
+Он отражает атаку и плавит его броню светом.
+Дельта вынужден отступить.
+</p>
+
+<p>
+После боя Метра говорит Редпро и Пеке,
+что не собирается служить тьме.
+Его свет не принадлежит Тени.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Тени за гранью</h2>
+
+<p>
+За пределами времени и пространства находится
+<strong>Император Тени</strong>.
+За ним стоят четыре Столпа:
+Архитектор, Разрушитель, Шёпот и Часовой.
+</p>
+
+<p>
+Архитектор создавал Титанов.
+Разрушитель ждёт момента, чтобы выйти наружу.
+Шёпот знает слабости врагов.
+Часовой видит множество будущего.
+</p>
+
+<p>
+В одном из вариантов Мелкий освобождается.
+Часовой блокирует это будущее.
+</p>
+
+</div>
+
+
+<div class="story-section">
+
+<h2>Вызов Разрушителя</h2>
+
+<p>
+Император Тени понимает,
+что сопротивление становится сильнее.
+Враги должны собраться в одном месте.
+</p>
+
+<p>
+И тогда появляется следующий приказ.
+</p>
+
+<div class="story-warning">
+<strong>РАЗРУШИТЕЛЬ ПОЛУЧАЕТ РАЗРЕШЕНИЕ ВЫЙТИ.</strong><br><br>
+Следующий этап войны начинается.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ПЕРСОНАЖИ -->
+
+<section id="characters" class="view">
+
+<div class="subbar">
+
+<button class="back" onclick="openView('home')">
+← Назад
+</button>
+
+<div class="title">Персонажи</div>
+
+</div>
+
+<div class="chargrid">
+
+<div class="char">
+<h3>Редпро</h3>
+<div class="role">Отец Мелкого. После эксперимента получил силу электричества.</div>
+</div>
+
+<div class="char">
+<h3>Мелкий</h3>
+<div class="role">7 лет. Золотая рука. Находится под контролем Тени.</div>
+</div>
+
+<div class="char">
+<h3>Лира</h3>
+<div class="role">Жена Редпро. Была поглощена Тенью.</div>
+</div>
+
+<div class="char">
+<h3>Пека</h3>
+<div class="role">Брат Редпро. Получил силу воздуха.</div>
+</div>
+
+<div class="char">
+<h3>Виталик</h3>
+<div class="role">Отец Редпро и Пеки. Шпион под прикрытием.</div>
+</div>
+
+<div class="char">
+<h3>Манекен</h3>
+<div class="role">Учёный и лидер гильдии «Меха-Помощник».</div>
+</div>
+
+<div class="char">
+<h3>Подопытный</h3>
+<div class="role">Помощник Манекена. После смерти был воссоздан как киборг.</div>
+</div>
+
+<div class="char">
+<h3>Читер</h3>
+<div class="role">Один из Королей Бездны и командир Взломщиков.</div>
+</div>
+
+<div class="char">
+<h3>Дельта</h3>
+<div class="role">Быстрый полу-Титан с лёгким клинком.</div>
+</div>
+
+<div class="char">
+<h3>Модератор</h3>
+<div class="role">Усилитель энергии Взломщиков.</div>
+</div>
+
+<div class="char">
+<h3>Метра</h3>
+<div class="role">Живое существо, созданное Божественным светом и энергией Редпро.</div>
+</div>
+
+<div class="char">
+<h3>Император Тени</h3>
+<div class="role">Повелитель Тени за пределами времени и пространства.</div>
+</div>
+
+<div class="char">
+<h3>Разрушитель</h3>
+<div class="role">Один из четырёх Столпов. Получил приказ выйти.</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- НАСТРОЙКИ -->
+
+<section id="settings" class="view">
+
+<div class="subbar">
+
+<button class="back" onclick="openView('home')">
+← Назад
+</button>
+
+<div class="title">Настройки</div>
+
+</div>
+
 <div class="settings">
-<div class="setting"><div><b data-i18n="language">Язык</b><small data-i18n="languageDesc">Язык интерфейса архива</small></div><div class="select"><button id="ruBtn" onclick="setLang('ru')">Русский</button><button id="enBtn" onclick="setLang('en')">English</button></div></div>
-<div class="setting"><div><b data-i18n="textSize">Размер текста</b><small data-i18n="textSizeDesc">Масштаб интерфейса</small></div><div class="select" id="sizeBtns"></div></div>
-<div class="setting"><div><b data-i18n="dark">Тёмная тема</b><small data-i18n="darkDesc">Контрастный режим терминала</small></div><button id="darkToggle" class="toggle" onclick="toggleSetting('dark')"><i></i></button></div>
-<div class="setting"><div><b data-i18n="animations">Анимации</b><small data-i18n="animDesc">Переходы и эффекты</small></div><button id="animToggle" class="toggle" onclick="toggleSetting('anim')"><i></i></button></div>
-<div class="setting"><div><b data-i18n="sounds">Звуки</b><small data-i18n="soundDesc">Системные звуки интерфейса</small></div><button id="soundToggle" class="toggle" onclick="toggleSetting('sound')"><i></i></button></div>
-<div class="setting"><div><b data-i18n="youtube">YouTube</b><small data-i18n="youtubeDesc">Канал автора</small></div><a class="btn" href="https://www.youtube.com/@Radproex" target="_blank" rel="noopener">OPEN</a></div>
-<div class="setting"><div><b data-i18n="reset">Сбросить настройки</b><small data-i18n="resetDesc">Вернуть параметры по умолчанию</small></div><button class="btn danger" onclick="resetSettings()" data-i18n="reset">Сбросить</button></div>
-</div></section>
 
-</main></div>
+<div class="setting">
+
+<div>
+<strong>Язык</strong>
+<small>Language</small>
+</div>
+
+<div class="select">
+
+<button class="active" onclick="setLanguage('ru')">
+Русский
+</button>
+
+<button onclick="setLanguage('en')">
+English
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
 
 <script>
-const HUMANS=[
-["Redpro","32 года","Отец. Муж. Тот, кто потерял всё.","redpro","Обычный человек. Работал, любил жену, растил сына. Но однажды ночью его мир треснул — Лира умерла, а сын исчез. Теперь в его руках электричество, в глазах — пустота, а в сердце — вина, которую он не может отпустить. Он идёт вперёд не потому, что верит в победу. А потому, что не знает, как остановиться.","Я не герой. Я просто отец, который слишком поздно понял, что должен был быть рядом.",[[3,5,6,0,0],[7,8,6,9,2],[23000000,21000000,10,4,5]]],
-["Пека","25 лет (на 7 лет младше Редпро)","Брат. Адмирал. Тот, кто помнит.","wind","Младший брат Редпро. Сорвиголова. Ворвался в гильдию «Меха-Помощник» с криком: «Я нужен вам!» — и не ошибся. Управляет воздухом. Создал из чёрного шприца Линада — свою тёмную половину. Единственный, кто узнает правду в конце. И единственный, кто сохранит её.","Брат учил меня держать нить. Я держу. Даже когда руки в крови.",[[5,6,4,3,2],[6000,6000,6,7,50],[1000000,500000,10,4,5]]],
-["Виталик","64 года","Отец Редпро и Пеки. Легенда. Шпион.","warrior","Сильнейший человек гильдии. Прошёл войны, которые не принято вспоминать. Молчалив. Каждый его шаг заставляет дрожать бетон. Ушёл к Взломщикам как шпион под прикрытием. Передавал данные через азбуку Морзе в шуме старых телевизоров. Рисковал собой каждую ночь. И выжил.","Я ненавижу слабость. Но ещё больше — предательство. И потому я играю в их игру. Пока не пробьёт час.",[[10,5,7,10,2],[50,27,8,10,5],[1000,999,80,100,8]]],
-["Мелкий","7 лет","Сын. Носитель. Тот, кого спасли.","boy","Семилетний мальчик, у которого проявилась золотая рука. Он не просил этой силы. Не хотел её. Но она сделала его ключом к чему-то древнему. Тень овладел им. Но не поглотил. Потому что в ту ночь — в дождь и крик — Тревор вытащил его. Мелкий жив. Он вырос. И он помнит.","Мама говорила, что у неё был друг. Она говорила, что он хороший. Я хочу верить, что это правда.",[[1,1,4,2,9],[8000,8000,6000,0,0],[15000000,17000000,0,0,0]]],
-["Манекен","75 лет","Учёный. Создатель. Тот, кто знал.","science","Безымянный гений гильдии «Меха-Помощник». Скрывал лицо за маской. Создал Титана X — не робота, а друга, запечатанного под фундаментом базы. Воссоздал Подопытного после гибели. Знал тайну Лиры. Погиб в 6-й главе — но не зря. Его смерть стала ключом к финалу.","Я не спасаю мир. Я просто чиню то, что сломали другие.",[[5,6,10,3,9],[8,9,100,7,7],{message:"X, друг мой, прости меня за всё...",signature:"Последние слова"}]],
-["Подопытный","10 лет","Сын Манекена. Киборг. Тот, кто вернётся.","mech","Мальчик, выращенный в лаборатории. Погиб при тестировании «шредера-разрушителя». Но Манекен воссоздал его — в теле киборга, с точной копией личности. Он жив. Он всегда будет жить. Его роль в финале — ослабить Нуля и дать команде шанс. Он знает это. И не боится.","Я умирал один раз. Второй — не страшно. Главное, чтобы не зря.",[[5,6,4,3,0],[8,9,6,7,0],[15,20,9,10,0]]],
-["Лира","31 год (на момент смерти)","Жена. Мать. Свет.","antique","Женщина, которая умерла до начала истории. Но её присутствие везде. Она дружила с Тенью, когда была маленькой девочкой, которую дразнили в школе. Она никому не рассказала о нём. Она изменила его. А потом ушла — от сердечного приступа. Тень узнал из газеты. Кофе пролился. Что-то сломалось навсегда.","Береги его. Что бы ни случилось — не отпускай его руку.",[{message:"мёртв",type:"status"},{message:"мёртв",type:"status"},[1,1,1,1,1]]],
-["Веста","неизвестен (гадалка)","Гадалка. Двойной агент. Та, кто знала.","antique","Гадалка. Носила колоду карт. Проходила через блокпосты Взломщиков по пропуску. Оставляла записки под перилами моста. Работала на Нуля? Или на «Меху»? Или на себя? Она вытянула Перевёрнутую Звезду и прошептала: «Прости, мальчик. Но судьба выбрала такой путь». Она — загадка. И, возможно, ключ.","Передайте вашему хозяину, что я принесла ему то, что он просил.",[[2,5,8,6,9]]],
-["Элли Рояль","24 года","Девушка Пеки. Сорвиголова. Та, кто пришла из аниме.","antique","Таинственная девушка, родом из аниме. Сорвиголова — лезет туда, где опасно, и улыбается, когда всё горит. Владеет фруктом Каз Каз но Ми — фруктом Казино, дающим власть над вероятностью и азартом. Она появилась в жизни Пеки не случайно. Её путь пересечётся с Редпро и Пекой в самый неожиданный момент. Она — не просто спутница. Она — ключ к чему-то большему.","Опасно? Отлично. Я как раз скучала.",[[4,6,9,7,8]]]
-];
-const ROBOTS=[
-["Читер","неизвестен (Титан)","Первый Король Бездны. Тот, чью способность украли.","mech","Титан. Командир. Гигант с щитом из искажённого кода. Его голос — как сбой в системе. Он обладал способностью «Небесный суд» — вкалывать вину и судить души.","Ты не существуешь!",[[9,5,8,6,3]]],
-["Дельта","неизвестен (Титан)","Второй Король. Полутитан. Тот, кто был верен.","antique","Ловкий, как молния. Вооружён клинком из чистого света. Служил Мелкому. Сражался с Метрой и Линадом. Был ранен, но выжил.","Я не люблю совпадений.",[[7,9,6,5,4]]],
-["Модератор","неизвестен (Титан)","Третий Король. Саппорт. Тот, кто усиливал.","mech","Массивный. Щит из искажённого кода. Живой усилитель энергии — увеличивал мощь союзников в десять раз. Он был мозгом команды.","У нас есть резервное питание. Оно внутри меня.",[[8,3,9,7,3]]],
-["Нуль","неизвестен (анти-бог)","Четвёртый Король. Анти-бог. Тот, кто поглощал.","dark","Появился внезапно. Огромный, в чёрной броне без лица, с молотом, вокруг которого искривляется воздух. Его сила — не тьма и не свет, а поглощение. Он высасывает любую магию в радиусе ста шагов.","Ты не существуешь!",[[10,4,7,8,2]]]
-];
-const HYBRIDS=[
-["Линад","несколько дней (создан из Пеки)","Тёмная половина Пеки. Тот, кто смеётся.","dark","Создан из чёрного шприца. Точная копия Пеки, но соткан из дыма и теней. Алые глаза. Сила — 800 (позже 1500). Управляет тьмой и огнём. Открывает порталы в Тёмную зону. Запер там Королей. Спас Метру. Он — тьма, но на стороне света. Потому что он — часть Пеки. Его желание защищать.","Я — твой кошмар, детка. И я пришёл забрать своё.",[[6,7,4,3,2],[6600,6600,7,8,55],[1100000,550000,11,4,6]]],
-["Метpa","несколько дней (создан из Редпро)","Светлая половина Редпро. Тот, кто инструмент.","antique","Создан случайно. Луч «Божественного света» прошёл через руку Редпро. Стенд впитал его электричество и стал живым. Белый, как мрамор. Золотые глаза без зрачков. Сила — 255 (позже 1499). Он — оружие. Но он выбирает быть на стороне Редпро. Он холоден. Но в нём есть что-то от отца.","Я — инструмент. Но я выбираю быть на вашей стороне. Пока вы не предадите меня.",[[3,6,7,0,0],[8,9,7,10,2],[25300000,23100000,11,4,6]]]
-];
-const GODS=[
-["Тень","неизвестен (древний)","Главный антагонист. Тот, кто потерял всё.","shadow","Существо, потерявшее всё. Пришёл, чтобы уничтожить этот мир — как уничтожили его собственный. Но встретил маленькую девочку Лиру. Она стала его единственным другом. Он остановился. На годы. А потом она умерла — от сердечного приступа. Он узнал из газеты. Кофе пролился. Что-то сломалось навсегда. Но внутри него — пустота, которую не заполнить.","Ты не спас её. Теперь ты не спасёшь его.",[[2000,2000,2000,2000,2000],[5003,379,1000,1000,10],[17000000,17000000,17000000,0,0]]],
-["Тревор","неизвестен (древний)","Друг Тени. Сильнейший. Тот, кто спас.","god","Бывший коллега и лучший друг Тени. Они были братьями. Когда всё рухнуло, Тревор не пошёл мстить. Он ушёл в тень — наблюдать. Ждать. Он знал: Тень сломается. И когда это случилось — когда Тень в бешенстве не проверил тело Мелкого — Тревор вытащил мальчика. Спрятал. Спас. Его присутствие чувствуется с самого начала, но он появляется только в решающий момент.","Мелкий погиб? Что за ерунда!",[[10,9,10,10,5]]],
-["Часовой","неизвестен (древний)","Столп времени. Тот, кто видит все пути.","god","Он — время. Он ходит по коридору из мерцающих дверей. Видит все варианты. Все смерти. Все победы. Его голос — как метроном. Его меч рассекает пространство.","Я не силён. Я — время. И я знаю, что ты не умрёшь здесь.",[[8,10,10,10,0]]],
-["Разрушитель","неизвестен (древний)","Столп силы. Тот, кто сметает.","warrior","Его голос — как взрыв. Он хотел выйти раньше. Хотел сметать базы. Давить гильдии. Но Император сказал: «Нет. Ты выйдешь, когда они соберутся вместе. Тогда их смерть будет зрелищем». Он ждал. И дождался.","Я смету их базы. Я раздавлю их гильдии.",[[10,6,5,7,1]]],
-["Шёпот","неизвестен (древний)","Столп страха. Тот, кто нашёл слабости.","god","Его голос — тысячи голосов. Он нашёл слабости. Отца. Дяди. Учёного. Их страхи — его козыри. Он мог разорвать их изнутри. Но не успел.","Я уже нашёл слабости. Их страхи — мои козыри.",[[4,7,10,6,5]]],
-["Архитектор","неизвестен (древний)","Столп кода. Тот, кто создал Титанов.","science","Сухой голос, как треск кода. Он создал Титанов. Но они были слабы. Он хотел перестроить их. Ему нужен был новый материал. Город — лишь полигон. Он просил доступ к следующему слою. Но не получил.","Я перестрою их. Но мне нужен новый материал.",[[6,5,10,8,2]]]
-];
-const RACES=[
-{id:"humans",name:"Люди",en:"Humans",desc:"Обычные люди",end:"Ordinary humans",data:HUMANS,cls:"human"},
-{id:"robots",name:"Роботы",en:"Robots",desc:"Титаны, механические люди",end:"Titans and mechanical beings",data:ROBOTS,cls:"robot"},
-{id:"hybrids",name:"Гибриды",en:"Hybrids",desc:"Смешение ДНК и препаратов",end:"DNA and chemical hybrids",data:HYBRIDS,cls:"hybrid"},
-{id:"gods",name:"Боги",en:"Gods",desc:"Древние существа",end:"Ancient beings",data:GODS,cls:"god"}
-];
-const I18N={
-ru:{terminal:"ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ // БАЗА АРХИВОВ",welcome:"The Redpro Archives",intro:"Файлы истории. Персонажи. События. Некоторые записи намеренно заблокированы.",openArchives:"ОТКРЫТЬ АРХИВЫ",characters:"ПЕРСОНАЖИ",favorites:"ИЗБРАННОЕ",settings:"НАСТРОЙКИ",beginning:"THE BEGINNING",beginningDesc:"Основная линия истории и доступные материалы.",charDesc:"База данных персонажей, разделённая по расам.",gold:"GOLD CHILD",goldDesc:"Файл находится в разработке. Доступ ограничен.",unknown:"UNKNOWN FILE",unknownDesc:"Повреждённая запись. Возможно, она ждёт именно тебя.",back:"Назад",archives:"Архивы",storyDesc:"Главная история. Фрагменты, главы и ключевые события.",locked:"ЗАБЛОКИРОВАНО // ФАЙЛ В РАЗРАБОТКЕ",corrupted:"ПОВРЕЖДЁННЫЕ ДАННЫЕ",storyText:"История только начинается.<br><br>Основные главы будут добавляться в этот терминал по мере готовности.",file:"Файл персонажа",soon:"СКОРО",goldText:"История только начинается...<br><br>Доступ к этому файлу пока закрыт.",secretText:"Ты нашёл запись, которую не должны были видеть.",continue:"ПРОДОЛЖИТЬ",language:"Язык",languageDesc:"Язык интерфейса архива",textSize:"Размер текста",textSizeDesc:"Масштаб интерфейса",dark:"Тёмная тема",darkDesc:"Контрастный режим терминала",animations:"Анимации",animDesc:"Переходы и эффекты",sounds:"Звуки",soundDesc:"Системные звуки интерфейса",youtube:"YouTube",youtubeDesc:"Канал автора",reset:"Сбросить",resetDesc:"Вернуть параметры по умолчанию",stats:["Сила","Скорость","Интеллект","Воля","Удача"],stages:["Начало","Середина","Финал"],power:"Мощь",age:"Возраст",role:"Роль",remove:"УБРАТЬ",add:"В ИЗБРАННОЕ",emptyFav:"Здесь пока ничего нет.",prev:"ПРЕДЫДУЩИЙ",next:"СЛЕДУЮЩИЙ",dead:"Статус: мёртв"},
-en:{terminal:"CENTRAL TERMINAL // ARCHIVE DATABASE",welcome:"The Redpro Archives",intro:"Story files. Characters. Events. Some records are intentionally locked.",openArchives:"OPEN ARCHIVES",characters:"CHARACTERS",favorites:"FAVORITES",settings:"SETTINGS",beginning:"THE BEGINNING",beginningDesc:"Main story line and available materials.",charDesc:"Character database, separated by race.",gold:"GOLD CHILD",goldDesc:"File in development. Access restricted.",unknown:"UNKNOWN FILE",unknownDesc:"Corrupted record. Perhaps it is waiting for you.",back:"Back",archives:"Archives",storyDesc:"Main story. Fragments, chapters and key events.",locked:"LOCKED // FILE IN PROGRESS",corrupted:"CORRUPTED DATA",storyText:"The story is only beginning.<br><br>Main chapters will be added to this terminal as they are completed.",file:"Character file",soon:"COMING SOON",goldText:"The story is only beginning...<br><br>Access to this file is currently locked.",secretText:"You found a record you were not supposed to see.",continue:"CONTINUE",language:"Language",languageDesc:"Archive interface language",textSize:"Text size",textSizeDesc:"Interface scale",dark:"Dark theme",darkDesc:"High-contrast terminal mode",animations:"Animations",animDesc:"Transitions and effects",sounds:"Sounds",soundDesc:"Interface system sounds",youtube:"YouTube",youtubeDesc:"Author channel",reset:"Reset",resetDesc:"Restore default settings",stats:["Strength","Speed","Intelligence","Will","Luck"],stages:["Beginning","Middle","Final"],power:"Power",age:"Age",role:"Role",remove:"REMOVE",add:"ADD TO FAVORITES",emptyFav:"Nothing here yet.",prev:"PREVIOUS",next:"NEXT",dead:"Status: dead"}};
-let lang=localStorage.getItem("lore_lang")||"ru", currentRace="humans", currentChar=0, currentStage=0, returnScreen="characters";
-const favs=JSON.parse(localStorage.getItem("lore_favorites")||"[]");
-function t(k){return I18N[lang][k]??k}
-function saveFav(){localStorage.setItem("lore_favorites",JSON.stringify(favs))}
-function applyText(){document.querySelectorAll("[data-i18n]").forEach(e=>e.innerHTML=t(e.dataset.i18n));document.documentElement.lang=lang;document.getElementById("ruBtn").classList.toggle("active",lang==="ru");document.getElementById("enBtn").classList.toggle("active",lang==="en");buildRaces();if(document.getElementById("characters").classList.contains("active"))buildChars(currentRace);if(document.getElementById("favorites").classList.contains("active"))buildFavs();if(document.getElementById("character").classList.contains("active"))renderDetail()}
-function setLang(x){lang=x;localStorage.setItem("lore_lang",lang);applyText()}
-function show(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");if(id==="races")buildRaces();if(id==="favorites")buildFavs();if(id==="settings")refreshSettings();window.scrollTo(0,0)}
-function buildRaces(){const total=RACES.reduce((a,r)=>a+r.data.length,0);document.getElementById("charCount").textContent=total+" //";document.getElementById("raceList").innerHTML=RACES.map(r=>`<button class="card race" onclick="openRace('${r.id}')"><div><span class="race-dot ${r.cls}"></span><span class="code">${r.id.toUpperCase()}</span></div><h2>${lang==="ru"?r.name:r.en}</h2><p>${lang==="ru"?r.desc:r.end}</p><div class="count">${r.data.length} FILES</div></button>`).join("")}
-function openRace(id){currentRace=id;show("characters");buildChars(id)}
-function buildChars(id){const r=RACES.find(x=>x.id===id);document.getElementById("raceTitle").textContent=lang==="ru"?r.name:r.en;document.getElementById("raceCount").textContent=r.data.length+" FILES";document.getElementById("charList").innerHTML=r.data.map((c,i)=>{const key=id+":"+i,on=favs.includes(key);return `<div class="char"><button class="fav ${on?"on":""}" onclick="toggleFav('${key}',event)">${on?"★":"☆"}</button><h3>${c[0]}</h3><div class="role">${c[2]}</div><button class="btn open" onclick="openChar('${id}',${i})">${lang==="ru"?"ОТКРЫТЬ ФАЙЛ":"OPEN FILE"}</button></div>`}).join("")}
-function toggleFav(key,e){e.stopPropagation();const i=favs.indexOf(key);i<0?favs.push(key):favs.splice(i,1);saveFav();updateFavCount();if(document.getElementById("characters").classList.contains("active"))buildChars(currentRace);if(document.getElementById("favorites").classList.contains("active"))buildFavs()}
-function updateFavCount(){document.getElementById("favCount").textContent=favs.length+" FILES"}
-function openChar(race,i){currentRace=race;currentChar=i;currentStage=0;returnScreen=document.getElementById("characters").classList.contains("active")?"characters":"favorites";show("character");renderDetail()}
-function fmt(n){if(typeof n!=="number")return n; if(n>=1000000)return lang==="ru"?Math.round(n/1000000)+" млн":(n/1000000).toFixed(n%1000000?1:0)+"M";if(n>=10000)return lang==="ru"?Math.round(n/1000)+" тыс":Math.round(n/1000)+"K";return n}
-function renderDetail(){const r=RACES.find(x=>x.id===currentRace),c=r.data[currentChar],key=currentRace+":"+currentChar,on=favs.includes(key),stage=c[6]?.[currentStage]??c[6]?.[0];let stats=Array.isArray(stage)?stage:null;let sum=stats?stats.reduce((a,b)=>a+(typeof b==="number"?b:0),0):0;document.getElementById("detail").innerHTML=`<div class="detailhead"><div><div class="kicker">${currentRace.toUpperCase()} // ${String(currentChar+1).padStart(2,"0")}</div><h1>${c[0]}</h1><div class="meta"><b>${t("age")}:</b> ${c[1]}<br><b>${t("role")}:</b> ${c[2]}</div></div><button class="fav ${on?"on":""}" onclick="toggleFav('${key}',event)">${on?"★":"☆"}</button></div><div class="quote">“${c[5]}”</div><div class="bio">${c[4]}</div><div class="stages">${(c[6]||[]).map((s,i)=>`<button class="stage ${i===currentStage?"active":""}" onclick="changeStage(${i})">${t("stages")[i]||("Stage "+(i+1))}</button>`).join("")}</div>${stats?`<div class="kicker">${t("power")} // ${fmt(sum)} / 100</div><div class="stats">${stats.map((v,i)=>`<div class="stat"><label>${t("stats")[i]}</label><b>${fmt(v)}</b><div class="bar"><i style="width:${Math.min(typeof v==="number"?v*10:0,100)}%"></i></div></div>`).join("")}</div>`:`<div class="message">${stage?.message||""}</div>`}<div class="detailnav"><button class="btn" onclick="changeChar(-1)">← ${t("prev")}</button><button class="btn" onclick="changeChar(1)">${t("next")} →</button></div>`}
-function changeStage(i){currentStage=i;renderDetail()}
-function changeChar(d){const r=RACES.find(x=>x.id===currentRace);currentChar=(currentChar+d+r.data.length)%r.data.length;currentStage=0;renderDetail()}
-function backFromChar(){show(returnScreen==="favorites"?"favorites":"characters");if(returnScreen!=="favorites")buildChars(currentRace)}
-function buildFavs(){updateFavCount();if(!favs.length){document.getElementById("favList").innerHTML=`<div class="empty">${t("emptyFav")}</div>`;return}document.getElementById("favList").innerHTML=favs.map(key=>{const [rid,ix]=key.split(":"),r=RACES.find(x=>x.id===rid),c=r?.data[+ix];if(!c)return"";return `<div class="char"><button class="fav on" onclick="toggleFav('${key}',event)">★</button><h3>${c[0]}</h3><div class="role">${c[2]}</div><button class="btn open" onclick="openFavChar('${rid}',${ix})">${lang==="ru"?"ОТКРЫТЬ ФАЙЛ":"OPEN FILE"}</button></div>`}).join("")}
-function openFavChar(r,i){currentRace=r;currentChar=+i;currentStage=0;returnScreen="favorites";show("character");renderDetail()}
-function refreshSettings(){const size=+(localStorage.getItem("lore_size")||100);document.getElementById("sizeBtns").innerHTML=[80,90,100,110,120,130,140].map(x=>`<button class="${x===size?"active":""}" onclick="setSize(${x})">${x}%</button>`).join("");setToggle("dark",localStorage.getItem("lore_dark")!=="false");setToggle("anim",localStorage.getItem("lore_anim")!=="false");setToggle("sound",localStorage.getItem("lore_sound")==="true")}
-function setSize(x){localStorage.setItem("lore_size",x);document.body.style.fontSize=x/100+"em";refreshSettings()}
-function setToggle(k,on){document.getElementById(k==="dark"?"darkToggle":k==="anim"?"animToggle":"soundToggle").classList.toggle("on",on)}
-function toggleSetting(k){let key=k==="dark"?"lore_dark":k==="anim"?"lore_anim":"lore_sound",now=localStorage.getItem(key);let on=now===null?(k!=="sound"):now==="true";on=!on;localStorage.setItem(key,on);if(k==="anim")document.body.classList.toggle("no-anim",!on);refreshSettings()}
-function resetSettings(){["lore_size","lore_dark","lore_anim","lore_sound","lore_lang"].forEach(k=>localStorage.removeItem(k));lang="ru";document.body.style.fontSize="1em";document.body.classList.remove("no-anim");applyText();refreshSettings()}
-function secretPulse(){document.body.style.filter="invert(.08)";setTimeout(()=>document.body.style.filter="",180);document.getElementById("sysStatus").textContent=lang==="ru"?"SYSTEM WATCHING":"SYSTEM WATCHING"}
-(function init(){const size=+(localStorage.getItem("lore_size")||100);document.body.style.fontSize=size/100+"em";if(localStorage.getItem("lore_anim")==="false")document.body.classList.add("no-anim");applyText();refreshSettings();updateFavCount()})();
+
+function openView(id){
+
+ document.querySelectorAll('.view').forEach(view=>{
+  view.classList.remove('active');
+ });
+
+ const target=document.getElementById(id);
+
+ if(target){
+  target.classList.add('active');
+  window.scrollTo({
+   top:0,
+   behavior:'smooth'
+  });
+ }
+}
+
+
+/* ЯЗЫК */
+
+function setLanguage(lang){
+
+ if(lang==='en'){
+
+  alert(
+   'English version is being prepared.\\nThe Russian archive remains available.'
+  );
+
+  return;
+ }
+
+}
+
+
+/* СТАРТОВЫЙ ЭКРАН */
+
+document.addEventListener('DOMContentLoaded',()=>{
+
+ openView('home');
+
+});
+
 </script>
+
 </body>
-                                                                                                                                                                                                                     </html>
+ </html>
