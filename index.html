@@ -19,6 +19,8 @@
  --gold:#d6ad42;
  --green:#39b875;
  --shadow:0 18px 55px #0008;
+
+ /* Размер шрифта в процентах */
  --font-scale:1;
 }
 
@@ -1443,7 +1445,7 @@ DATABASE // CHARACTER FILE
 Размер шрифта
 </strong>
 
-<small data-i18n="fontDescription">
+<small id="fontDescription" data-i18n="fontDescription">
 Размер текста интерфейса
 </small>
 
@@ -1455,24 +1457,45 @@ DATABASE // CHARACTER FILE
 <div class="select">
 
 <button
- id="fontSmallButton"
- onclick="setFontSize('small')"
- data-i18n="small">
-Маленький
+ id="font80Button"
+ onclick="setFontSize(80)">
+80%
 </button>
 
 <button
- id="fontMediumButton"
- onclick="setFontSize('medium')"
- data-i18n="medium">
-Средний
+ id="font90Button"
+ onclick="setFontSize(90)">
+90%
 </button>
 
 <button
- id="fontLargeButton"
- onclick="setFontSize('large')"
- data-i18n="large">
-Большой
+ id="font100Button"
+ onclick="setFontSize(100)">
+100%
+</button>
+
+<button
+ id="font110Button"
+ onclick="setFontSize(110)">
+110%
+</button>
+
+<button
+ id="font120Button"
+ onclick="setFontSize(120)">
+120%
+</button>
+
+<button
+ id="font130Button"
+ onclick="setFontSize(130)">
+130%
+</button>
+
+<button
+ id="font150Button"
+ onclick="setFontSize(150)">
+150%
 </button>
 
 </div>
@@ -1631,17 +1654,24 @@ let currentLanguage =
 let soundEnabled =
  localStorage.getItem('redpro-sound') !== 'false';
 
+/*
+   Размер шрифта хранится именно в процентах.
+   По умолчанию 100%.
+*/
+
 let fontSize =
- localStorage.getItem('redpro-font-size') || 'medium';
+ parseInt(
+  localStorage.getItem('redpro-font-size'),
+  10
+ ) || 100;
 
 
 /* =====================================================
    YOUTUBE
-   ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ КАНАЛ
 ===================================================== */
 
 const YOUTUBE_URL =
- 'https://www.youtube.com/';
+ 'https://www.youtube.com/@Radproex';
 
 
 /* =====================================================
@@ -1725,6 +1755,7 @@ function playClick(){
   gain.connect(audioContext.destination);
 
   oscillator.start();
+
   oscillator.stop(
    audioContext.currentTime+0.05
   );
@@ -1753,16 +1784,22 @@ function setSound(enabled){
 
 
 /* =====================================================
-   РАЗМЕР ШРИФТА
+   РАЗМЕР ШРИФТА В ПРОЦЕНТАХ
 ===================================================== */
 
 function setFontSize(size){
 
- if(
-  size!=='small' &&
-  size!=='medium' &&
-  size!=='large'
- ){
+ const allowedSizes=[
+  80,
+  90,
+  100,
+  110,
+  120,
+  130,
+  150
+ ];
+
+ if(!allowedSizes.includes(size)){
   return;
  }
 
@@ -1784,48 +1821,46 @@ function setFontSize(size){
 
 function applyFontSize(){
 
- let scale='1';
-
- if(fontSize==='small'){
-  scale='.88';
- }
-
- if(fontSize==='medium'){
-  scale='1';
- }
-
- if(fontSize==='large'){
-  scale='1.14';
- }
+ const scale=fontSize / 100;
 
  document.documentElement.style
-  .setProperty('--font-scale',scale);
+  .setProperty(
+   '--font-scale',
+   scale
+  );
 
 }
 
 
 function updateFontButtons(){
 
- document
-  .getElementById('fontSmallButton')
-  .classList.toggle(
-   'active',
-   fontSize==='small'
-  );
+ const sizes=[
+  80,
+  90,
+  100,
+  110,
+  120,
+  130,
+  150
+ ];
 
- document
-  .getElementById('fontMediumButton')
-  .classList.toggle(
-   'active',
-   fontSize==='medium'
-  );
+ sizes.forEach(size=>{
 
- document
-  .getElementById('fontLargeButton')
-  .classList.toggle(
-   'active',
-   fontSize==='large'
-  );
+  const button=
+   document.getElementById(
+    'font'+size+'Button'
+   );
+
+  if(button){
+
+   button.classList.toggle(
+    'active',
+    fontSize===size
+   );
+
+  }
+
+ });
 
 }
 
@@ -2208,16 +2243,7 @@ const translations={
    'Размер шрифта',
 
   fontDescription:
-   'Размер текста интерфейса',
-
-  small:
-   'Маленький',
-
-  medium:
-   'Средний',
-
-  large:
-   'Большой',
+   'Размер текста интерфейса — в процентах',
 
   youtube:
    'YouTube канал',
@@ -2320,16 +2346,7 @@ const translations={
    'Font size',
 
   fontDescription:
-   'Interface text size',
-
-  small:
-   'Small',
-
-  medium:
-   'Medium',
-
-  large:
-   'Large',
+   'Interface text size — in percent',
 
   youtube:
    'YouTube channel',
@@ -2476,8 +2493,10 @@ function resetSettings(){
  }
 
  currentLanguage='ru';
+
  soundEnabled=true;
- fontSize='medium';
+
+ fontSize=100;
 
  localStorage.removeItem(
   'redpro-language'
@@ -2507,6 +2526,26 @@ function resetSettings(){
 document.addEventListener(
  'DOMContentLoaded',
  ()=>{
+
+  /*
+    Защита от старых значений:
+    если раньше сохранялись small/medium/large,
+    автоматически ставим 100%.
+  */
+
+  if(![
+   80,
+   90,
+   100,
+   110,
+   120,
+   130,
+   150
+  ].includes(fontSize)){
+
+   fontSize=100;
+
+  }
 
   applyFontSize();
 
