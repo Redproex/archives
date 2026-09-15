@@ -71,8 +71,6 @@ button{
  z-index:10;
 }
 
-/* ЛОГОТИП */
-
 .logo{
  display:flex;
  align-items:center;
@@ -123,8 +121,6 @@ button{
  overflow:hidden;
 }
 
-/* ARCHIVE SYSTEM УДАЛЁН */
-
 .kicker{
  font-size:11px;
  color:var(--muted);
@@ -160,6 +156,7 @@ button{
  min-height:145px;
  transition:.2s;
  position:relative;
+ cursor:pointer;
 }
 
 .card:hover{
@@ -217,11 +214,6 @@ button{
 .btn.primary{
  background:var(--accent);
  border-color:var(--accent);
-}
-
-.btn.gold{
- background:#6e5518;
- border-color:#a17d25;
 }
 
 .view{
@@ -282,6 +274,7 @@ button{
  display:flex;
  align-items:center;
  gap:14px;
+ cursor:pointer;
 }
 
 .row:hover{
@@ -312,8 +305,6 @@ button{
 .arrow{
  color:#777f8d;
 }
-
-/* СЮЖЕТ */
 
 .story{
  border:1px solid var(--line);
@@ -363,28 +354,6 @@ button{
  line-height:1.6;
 }
 
-.chapter{
- border:1px solid var(--line);
- background:#0d0f14;
- border-radius:10px;
- padding:17px;
- margin-top:12px;
-}
-
-.chapter h3{
- margin:0 0 8px;
- font-size:17px;
-}
-
-.chapter p{
- margin:0;
- color:#aeb4bf;
- line-height:1.6;
- font-size:13px;
-}
-
-/* ПЕРСОНАЖИ */
-
 .chargrid{
  display:grid;
  grid-template-columns:repeat(2,minmax(0,1fr));
@@ -397,6 +366,14 @@ button{
  padding:15px;
  border-radius:10px;
  position:relative;
+ cursor:pointer;
+ transition:.2s;
+}
+
+.char:hover{
+ transform:translateY(-2px);
+ border-color:#555d6b;
+ box-shadow:0 8px 25px #0006;
 }
 
 .char h3{
@@ -408,8 +385,6 @@ button{
  font-size:12px;
  line-height:1.35;
 }
-
-/* НАСТРОЙКИ */
 
 .settings{
  display:grid;
@@ -452,8 +427,6 @@ button{
  border-color:var(--accent);
  background:#291313;
 }
-
-/* МОБИЛЬНАЯ ВЕРСИЯ */
 
 @media(max-width:700px){
 
@@ -510,10 +483,10 @@ button{
 
 <div class="logo">
  <div class="logo-mark">RP</div>
- THE REDPRO ARCHIVES
+ <span data-i18n="logo">THE REDPRO ARCHIVES</span>
 </div>
 
-<div class="status">SYSTEM ONLINE</div>
+<div class="status" data-i18n="status">СИСТЕМА В СЕТИ</div>
 
 </header>
 
@@ -525,28 +498,28 @@ button{
 
 <div class="hero">
 
-<div class="kicker">
+<div class="kicker" data-i18n="kicker">
 ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ // БАЗА АРХИВОВ
 </div>
 
 <h1>The Redpro Archives</h1>
 
-<p>
+<p data-i18n="heroText">
 Файлы истории. Персонажи. События.
 Некоторые материалы находятся под наблюдением системы.
 </p>
 
 <div class="actions">
 
-<button class="btn primary" onclick="openView('archives')">
+<button class="btn primary" onclick="openView('archives')" data-i18n="openArchives">
 ОТКРЫТЬ АРХИВЫ
 </button>
 
-<button class="btn" onclick="openView('characters')">
+<button class="btn" onclick="openView('characters')" data-i18n="characters">
 ПЕРСОНАЖИ
 </button>
 
-<button class="btn" onclick="openView('settings')">
+<button class="btn" onclick="openView('settings')" data-i18n="settings">
 НАСТРОЙКИ
 </button>
 
@@ -560,9 +533,9 @@ button{
 
 <div class="code">ARCHIVE 001</div>
 
-<h2>THE BEGINNING</h2>
+<h2 data-i18n="beginning">THE BEGINNING</h2>
 
-<p>
+<p data-i18n="beginningText">
 Основная линия истории и доступные материалы.
 </p>
 
@@ -574,7 +547,7 @@ button{
 
 <h2>GOLD CHILD</h2>
 
-<p>
+<p data-i18n="goldText">
 История Золотого ребёнка. От исчезновения Лиры до появления Метры и вызова Разрушителя.
 </p>
 
@@ -584,9 +557,9 @@ button{
 
 <div class="code">DATABASE 003</div>
 
-<h2>ПЕРСОНАЖИ</h2>
+<h2 data-i18n="characters">ПЕРСОНАЖИ</h2>
 
-<p>
+<p data-i18n="charactersText">
 База данных ключевых персонажей истории.
 </p>
 
@@ -603,11 +576,11 @@ button{
 
 <div class="subbar">
 
-<button class="back" onclick="openView('home')">
+<button class="back" onclick="openView('home')" data-i18n="back">
 ← Назад
 </button>
 
-<div class="title">Архивы</div>
+<div class="title" data-i18n="archives">Архивы</div>
 
 <div class="count">2 FILES</div>
 
@@ -621,9 +594,9 @@ button{
 
 <div class="rowmain">
 
-<h3>Золотой ребёнок</h3>
+<h3 data-i18n="goldChild">Золотой ребёнок</h3>
 
-<p>
+<p data-i18n="goldShort">
 Основная история Мелкого и Тени.
 </p>
 
@@ -644,7 +617,7 @@ button{
 
 <div class="subbar">
 
-<button class="back" onclick="openView('home')">
+<button class="back" onclick="openView('home')" data-i18n="back">
 ← Назад
 </button>
 
@@ -658,15 +631,17 @@ button{
 ARCHIVE 002 // CLASSIFIED
 </div>
 
-<h1>Золотой ребёнок.</h1>
+<h1 data-i18n="goldTitle">Золотой ребёнок.</h1>
 
-<div class="subtitle">
+<div class="subtitle" data-i18n="storyFile">
 ФАЙЛ ИСТОРИИ
 </div>
 
 <div class="story-warning">
-<strong>ВНИМАНИЕ.</strong><br>
+<strong data-i18n="warning">ВНИМАНИЕ.</strong><br>
+<span data-i18n="warningText">
 Материал содержит сведения о Тени, Взломщиках Апокалипсиса и событиях, изменивших Новоград-7.
+</span>
 </div>
 
 
@@ -1040,79 +1015,132 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="subbar">
 
-<button class="back" onclick="openView('home')">
+<button class="back" onclick="openView('home')" data-i18n="back">
 ← Назад
 </button>
 
-<div class="title">Персонажи</div>
+<div class="title" data-i18n="characters">
+Персонажи
+</div>
 
 </div>
 
 <div class="chargrid">
 
-<div class="char">
+<div class="char" onclick="openCharacter('redpro')">
 <h3>Редпро</h3>
 <div class="role">Отец Мелкого. После эксперимента получил силу электричества.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('small')">
 <h3>Мелкий</h3>
 <div class="role">7 лет. Золотая рука. Находится под контролем Тени.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('lira')">
 <h3>Лира</h3>
 <div class="role">Жена Редпро. Была поглощена Тенью.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('peka')">
 <h3>Пека</h3>
 <div class="role">Брат Редпро. Получил силу воздуха.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('vitalik')">
 <h3>Виталик</h3>
 <div class="role">Отец Редпро и Пеки. Шпион под прикрытием.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('maneken')">
 <h3>Манекен</h3>
 <div class="role">Учёный и лидер гильдии «Меха-Помощник».</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('testsubject')">
 <h3>Подопытный</h3>
 <div class="role">Помощник Манекена. После смерти был воссоздан как киборг.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('cheater')">
 <h3>Читер</h3>
 <div class="role">Один из Королей Бездны и командир Взломщиков.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('delta')">
 <h3>Дельта</h3>
 <div class="role">Быстрый полу-Титан с лёгким клинком.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('moderator')">
 <h3>Модератор</h3>
 <div class="role">Усилитель энергии Взломщиков.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('metra')">
 <h3>Метра</h3>
 <div class="role">Живое существо, созданное Божественным светом и энергией Редпро.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('emperor')">
 <h3>Император Тени</h3>
 <div class="role">Повелитель Тени за пределами времени и пространства.</div>
 </div>
 
-<div class="char">
+<div class="char" onclick="openCharacter('destroyer')">
 <h3>Разрушитель</h3>
 <div class="role">Один из четырёх Столпов. Получил приказ выйти.</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ПРОФИЛЬ ПЕРСОНАЖА -->
+
+<section id="character-profile" class="view">
+
+<div class="subbar">
+
+<button class="back" onclick="openView('characters')" data-i18n="back">
+← Назад
+</button>
+
+<div class="title" id="character-profile-title">
+Персонаж
+</div>
+
+</div>
+
+<div class="story">
+
+<div class="kicker">
+DATABASE // CHARACTER FILE
+</div>
+
+<h1 id="character-profile-name">
+Персонаж
+</h1>
+
+<div class="subtitle" id="character-profile-role">
+Роль
+</div>
+
+<div class="story-warning" id="character-profile-description">
+Описание персонажа.
+</div>
+
+<div class="story-section">
+
+<h2 id="character-profile-about-title">
+Информация
+</h2>
+
+<p id="character-profile-about">
+Информация о персонаже.
+</p>
+
 </div>
 
 </div>
@@ -1126,11 +1154,13 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="subbar">
 
-<button class="back" onclick="openView('home')">
+<button class="back" onclick="openView('home')" data-i18n="back">
 ← Назад
 </button>
 
-<div class="title">Настройки</div>
+<div class="title" data-i18n="settings">
+Настройки
+</div>
 
 </div>
 
@@ -1139,17 +1169,20 @@ ARCHIVE 002 // CLASSIFIED
 <div class="setting">
 
 <div>
-<strong>Язык</strong>
+<strong data-i18n="language">
+Язык
+</strong>
+
 <small>Language</small>
 </div>
 
 <div class="select">
 
-<button class="active" onclick="setLanguage('ru')">
+<button id="ruButton" onclick="setLanguage('ru')">
 Русский
 </button>
 
-<button onclick="setLanguage('en')">
+<button id="enButton" onclick="setLanguage('en')">
 English
 </button>
 
@@ -1168,6 +1201,18 @@ English
 
 <script>
 
+/* =========================
+   ЯЗЫК
+========================= */
+
+let currentLanguage =
+ localStorage.getItem('redpro-language') || 'ru';
+
+
+/* =========================
+   ПЕРЕКЛЮЧЕНИЕ ЭКРАНОВ
+========================= */
+
 function openView(id){
 
  document.querySelectorAll('.view').forEach(view=>{
@@ -1177,34 +1222,389 @@ function openView(id){
  const target=document.getElementById(id);
 
  if(target){
+
   target.classList.add('active');
+
   window.scrollTo({
    top:0,
    behavior:'smooth'
   });
+
  }
+
 }
 
 
-/* ЯЗЫК */
+/* =========================
+   ПЕРСОНАЖИ
+========================= */
+
+const characters={
+
+ redpro:{
+  ru:{
+   name:'Редпро',
+   role:'Отец Мелкого',
+   description:'После эксперимента получил силу электричества.',
+   about:'Редпро — один из центральных персонажей истории. После возвращения из плена он присоединяется к сопротивлению и получает способность управлять электричеством.'
+  },
+  en:{
+   name:'Redpro',
+   role:'Father of Small',
+   description:'After an experiment, he gained the power of electricity.',
+   about:'Redpro is one of the central characters of the story. After escaping captivity, he joins the resistance and gains the ability to control electricity.'
+  }
+ },
+
+ small:{
+  ru:{
+   name:'Мелкий',
+   role:'Носитель Тени',
+   description:'Семилетний мальчик с золотой рукой, находящийся под контролем Тени.',
+   about:'Мелкий — загадочный ребёнок, чья правая рука превратилась в живое золото. Позже становится известно, что Тень использует его как средство для изменения реальности.'
+  },
+  en:{
+   name:'Small',
+   role:'Host of the Shadow',
+   description:'A seven-year-old boy with a golden arm controlled by the Shadow.',
+   about:'Small is a mysterious child whose right arm transformed into living gold. It is later revealed that the Shadow uses him as a means to alter reality.'
+  }
+ },
+
+ lira:{
+  ru:{
+   name:'Лира',
+   role:'Жена Редпро',
+   description:'Была поглощена Тенью после своего исчезновения.',
+   about:'Лира исчезла без следа. Позже становится известно, что она не погибла — её поглотила Тень.'
+  },
+  en:{
+   name:'Lira',
+   role:'Redpro’s wife',
+   description:'She was consumed by the Shadow after her disappearance.',
+   about:'Lira disappeared without a trace. Later it is revealed that she was consumed by the Shadow.'
+  }
+ },
+
+ peka:{
+  ru:{
+   name:'Пека',
+   role:'Брат Редпро',
+   description:'Получил силу воздуха.',
+   about:'Пека присоединяется к сопротивлению, чтобы найти своего брата и остановить Мелкого. После эксперимента получает способность управлять воздухом.'
+  },
+  en:{
+   name:'Peka',
+   role:'Redpro’s brother',
+   description:'He gained the power of air.',
+   about:'Peka joins the resistance to find his brother and stop Small. After an experiment, he gains the ability to control air.'
+  }
+ },
+
+ vitalik:{
+  ru:{
+   name:'Виталик',
+   role:'Отец Редпро и Пеки',
+   description:'Сильнейший боец и шпион под прикрытием.',
+   about:'Виталик притворяется предателем и вступает к Взломщикам, однако на самом деле работает изнутри и передаёт информацию сопротивлению.'
+  },
+  en:{
+   name:'Vitalik',
+   role:'Father of Redpro and Peka',
+   description:'A powerful fighter and undercover spy.',
+   about:'Vitalik pretends to betray the resistance and joins the Hackers, but secretly works from within and sends information back to the resistance.'
+  }
+ },
+
+ maneken:{
+  ru:{
+   name:'Манекен',
+   role:'Учёный',
+   description:'Лидер гильдии «Меха-Помощник».',
+   about:'Манекен руководит сопротивлением и проводит эксперименты, которые в конечном итоге приводят к появлению Метры.'
+  },
+  en:{
+   name:'Maneken',
+   role:'Scientist',
+   description:'Leader of the Mecha-Helper guild.',
+   about:'Maneken leads the resistance and conducts experiments that eventually result in the creation of Metra.'
+  }
+ },
+
+ testsubject:{
+  ru:{
+   name:'Подопытный',
+   role:'Помощник Манекена',
+   description:'После смерти был воссоздан как киборг.',
+   about:'Подопытный вырос в лаборатории Манекена. После гибели учёный создаёт новую версию него — киборга с той же личностью и характером.'
+  },
+  en:{
+   name:'Test Subject',
+   role:'Maneken’s assistant',
+   description:'Recreated as a cyborg after his death.',
+   about:'Test Subject grew up in Maneken’s laboratory. After his death, the scientist creates a new cyborg version with the same personality and character.'
+  }
+ },
+
+ cheater:{
+  ru:{
+   name:'Читер',
+   role:'Король Бездны',
+   description:'Один из главных Взломщиков Апокалипсиса.',
+   about:'Читер объявляет себя одним из Королей Бездны и устанавливает над городом жёсткие правила. Позже выясняется, что он специально позволил сопротивлению победить его проекцию.'
+  },
+  en:{
+   name:'Cheater',
+   role:'King of the Abyss',
+   description:'One of the main Apocalypse Hackers.',
+   about:'Cheater declares himself one of the Kings of the Abyss and imposes strict rules on the city. Later it is revealed that he deliberately allowed the resistance to defeat his projection.'
+  }
+ },
+
+ delta:{
+  ru:{
+   name:'Дельта',
+   role:'Полу-Титан',
+   description:'Быстрый полу-Титан с лёгким клинком.',
+   about:'Дельта атакует базу сопротивления, но проигрывает Метре и вынужден отступить.'
+  },
+  en:{
+   name:'Delta',
+   role:'Half-Titan',
+   description:'A fast half-Titan with a light blade.',
+   about:'Delta attacks the resistance base but is defeated by Metra and forced to retreat.'
+  }
+ },
+
+ moderator:{
+  ru:{
+   name:'Модератор',
+   role:'Усилитель энергии',
+   description:'Усилитель энергии Взломщиков.',
+   about:'Модератор является частью сил Взломщиков и отвечает за усиление их энергетических систем.'
+  },
+  en:{
+   name:'Moderator',
+   role:'Energy amplifier',
+   description:'An energy amplifier used by the Hackers.',
+   about:'Moderator is part of the Hackers’ forces and is responsible for enhancing their energy systems.'
+  }
+ },
+
+ metra:{
+  ru:{
+   name:'Метра',
+   role:'Носитель Божественного света',
+   description:'Живое существо, созданное Божественным светом и энергией Редпро.',
+   about:'Метра появляется в результате эксперимента Манекена. Он обладает Божественным светом и электричеством и самостоятельно выбирает сторону света.'
+  },
+  en:{
+   name:'Metra',
+   role:'Bearer of Divine Light',
+   description:'A living being created from Divine Light and Redpro’s energy.',
+   about:'Metra is created during Maneken’s experiment. He possesses Divine Light and electricity and chooses the side of light for himself.'
+  }
+ },
+
+ emperor:{
+  ru:{
+   name:'Император Тени',
+   role:'Повелитель Тени',
+   description:'Существует за пределами времени и пространства.',
+   about:'Император Тени руководит силами Тени. Под его властью находятся четыре Столпа: Архитектор, Разрушитель, Шёпот и Часовой.'
+  },
+  en:{
+   name:'Shadow Emperor',
+   role:'Lord of the Shadow',
+   description:'An entity existing beyond time and space.',
+   about:'The Shadow Emperor commands the forces of the Shadow. Four Pillars serve under him: Architect, Destroyer, Whisper and Watcher.'
+  }
+ },
+
+ destroyer:{
+  ru:{
+   name:'Разрушитель',
+   role:'Столп Тени',
+   description:'Один из четырёх Столпов. Получил приказ выйти.',
+   about:'Разрушитель является одним из четырёх Столпов Императора Тени. Его выход знаменует начало нового этапа войны.'
+  },
+  en:{
+   name:'Destroyer',
+   role:'Pillar of the Shadow',
+   description:'One of the four Pillars. Ordered to emerge.',
+   about:'Destroyer is one of the four Pillars serving the Shadow Emperor. His emergence marks the beginning of a new stage of the war.'
+  }
+ }
+
+};
+
+
+/* =========================
+   ОТКРЫТИЕ ПЕРСОНАЖА
+========================= */
+
+function openCharacter(id){
+
+ const character=characters[id];
+
+ if(!character) return;
+
+ const data=character[currentLanguage];
+
+ document.getElementById('character-profile-title').textContent=data.name;
+ document.getElementById('character-profile-name').textContent=data.name;
+ document.getElementById('character-profile-role').textContent=data.role;
+ document.getElementById('character-profile-description').textContent=data.description;
+ document.getElementById('character-profile-about').textContent=data.about;
+
+ document.getElementById('character-profile-about-title').textContent=
+  currentLanguage==='ru'
+  ? 'Информация'
+  : 'Information';
+
+ openView('character-profile');
+
+}
+
+
+/* =========================
+   ПЕРЕВОД
+========================= */
+
+const translations={
+
+ ru:{
+  logo:'THE REDPRO ARCHIVES',
+  status:'СИСТЕМА В СЕТИ',
+  kicker:'ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ // БАЗА АРХИВОВ',
+  heroText:'Файлы истории. Персонажи. События. Некоторые материалы находятся под наблюдением системы.',
+  openArchives:'ОТКРЫТЬ АРХИВЫ',
+  characters:'ПЕРСОНАЖИ',
+  settings:'НАСТРОЙКИ',
+  beginning:'THE BEGINNING',
+  beginningText:'Основная линия истории и доступные материалы.',
+  goldText:'История Золотого ребёнка. От исчезновения Лиры до появления Метры и вызова Разрушителя.',
+  charactersText:'База данных ключевых персонажей истории.',
+  back:'← Назад',
+  archives:'Архивы',
+  goldChild:'Золотой ребёнок',
+  goldShort:'Основная история Мелкого и Тени.',
+  goldTitle:'Золотой ребёнок.',
+  storyFile:'ФАЙЛ ИСТОРИИ',
+  warning:'ВНИМАНИЕ.',
+  warningText:'Материал содержит сведения о Тени, Взломщиках Апокалипсиса и событиях, изменивших Новоград-7.',
+  language:'Язык'
+ },
+
+ en:{
+  logo:'THE REDPRO ARCHIVES',
+  status:'SYSTEM ONLINE',
+  kicker:'CENTRAL TERMINAL // ARCHIVE DATABASE',
+  heroText:'History files. Characters. Events. Some materials are monitored by the system.',
+  openArchives:'OPEN ARCHIVES',
+  characters:'CHARACTERS',
+  settings:'SETTINGS',
+  beginning:'THE BEGINNING',
+  beginningText:'The main story line and available materials.',
+  goldText:'The story of the Gold Child. From Lira’s disappearance to Metra’s arrival and the awakening of Destroyer.',
+  charactersText:'Database of the key characters of the story.',
+  back:'← Back',
+  archives:'Archives',
+  goldChild:'Gold Child',
+  goldShort:'The main story of Small and the Shadow.',
+  goldTitle:'Gold Child.',
+  storyFile:'STORY FILE',
+  warning:'WARNING.',
+  warningText:'This material contains information about the Shadow, the Apocalypse Hackers and the events that changed Novograd-7.',
+  language:'Language'
+ }
+
+};
+
+
+function updateInterface(){
+
+ const t=translations[currentLanguage];
+
+ document.querySelectorAll('[data-i18n]').forEach(element=>{
+
+  const key=element.getAttribute('data-i18n');
+
+  if(t[key]){
+   element.textContent=t[key];
+  }
+
+ });
+
+ updateLanguageButtons();
+
+}
+
+
+/* =========================
+   КНОПКИ ЯЗЫКА
+========================= */
+
+function updateLanguageButtons(){
+
+ const ru=document.getElementById('ruButton');
+ const en=document.getElementById('enButton');
+
+ ru.classList.toggle('active',currentLanguage==='ru');
+ en.classList.toggle('active',currentLanguage==='en');
+
+}
+
+
+/* =========================
+   СМЕНА ЯЗЫКА
+========================= */
 
 function setLanguage(lang){
 
- if(lang==='en'){
+ if(lang!=='ru' && lang!=='en') return;
 
-  alert(
-   'English version is being prepared.\\nThe Russian archive remains available.'
-  );
+ currentLanguage=lang;
 
-  return;
+ localStorage.setItem(
+  'redpro-language',
+  currentLanguage
+ );
+
+ updateInterface();
+
+ /* Если открыт профиль персонажа —
+    обновляем его на новом языке */
+
+ const profile=document.getElementById('character-profile');
+
+ if(profile.classList.contains('active')){
+
+  const name=document.getElementById('character-profile-name').textContent;
+
+  const id=Object.keys(characters).find(id=>{
+
+   return characters[id].ru.name===name ||
+          characters[id].en.name===name;
+
+  });
+
+  if(id){
+   openCharacter(id);
+  }
+
  }
 
 }
 
 
-/* СТАРТОВЫЙ ЭКРАН */
+/* =========================
+   ЗАПУСК
+========================= */
 
 document.addEventListener('DOMContentLoaded',()=>{
+
+ updateInterface();
 
  openView('home');
 
@@ -1213,4 +1613,4 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 
 </body>
- </html>
+                                                                            </html>
