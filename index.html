@@ -335,6 +335,16 @@ button{
 
 .story-section strong{color:#fff}
 
+.character-image{
+ width:100%;
+ max-width:700px;
+ margin:20px auto;
+ display:block;
+ border:1px solid var(--line);
+ border-radius:12px;
+ box-shadow:var(--shadow);
+}
+
 .story-warning{
  border-left:3px solid var(--gold);
  background:#17140c;
@@ -1151,6 +1161,8 @@ DATABASE // CHARACTER FILE
 Описание персонажа.
 </div>
 
+<img id="character-profile-image" class="character-image" src="" alt="Фото персонажа">
+
 <div class="story-section">
 
 <h2 id="character-profile-about-title">
@@ -1716,6 +1728,7 @@ const characters={
  },
 
  cheater:{
+  image:"cheater.png",
   ru:{
    name:'Читер',
    role:'Король Бездны',
@@ -1761,6 +1774,7 @@ const characters={
  },
 
  metra:{
+  image:"metra.png",
   ru:{
    name:'Метра',
    role:'Носитель Божественного света',
@@ -1776,6 +1790,7 @@ const characters={
  },
 
  emperor:{
+  image:"emperor.png",
   ru:{
    name:'Император Тени',
    role:'Повелитель Тени',
@@ -1791,6 +1806,7 @@ const characters={
  },
 
  destroyer:{
+  image:"destroyer.png",
   ru:{
    name:'Разрушитель',
    role:'Столп Тени',
