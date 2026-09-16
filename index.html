@@ -7,7 +7,6 @@
 <title>The Redpro Archives</title>
 
 <style>
-
 :root{
  --bg:#08090c;
  --panel:#101218;
@@ -19,14 +18,10 @@
  --gold:#d6ad42;
  --green:#39b875;
  --shadow:0 18px 55px #0008;
-
- /* Размер шрифта в процентах */
  --font-scale:1;
 }
 
-*{
- box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
  margin:0;
@@ -235,14 +230,8 @@ button{
 }
 
 @keyframes appear{
- from{
-  opacity:0;
-  transform:translateY(5px);
- }
- to{
-  opacity:1;
-  transform:none;
- }
+ from{opacity:0;transform:translateY(5px)}
+ to{opacity:1;transform:none}
 }
 
 .subbar{
@@ -296,9 +285,7 @@ button{
  width:34px;
 }
 
-.rowmain{
- flex:1;
-}
+.rowmain{flex:1}
 
 .row h3{
  margin:0 0 4px;
@@ -311,9 +298,7 @@ button{
  font-size:12px;
 }
 
-.arrow{
- color:#777f8d;
-}
+.arrow{color:#777f8d}
 
 .story{
  border:1px solid var(--line);
@@ -334,9 +319,7 @@ button{
  margin-bottom:22px;
 }
 
-.story-section{
- margin-top:24px;
-}
+.story-section{margin-top:24px}
 
 .story-section h2{
  font-size:20px;
@@ -350,9 +333,7 @@ button{
  margin:0 0 13px;
 }
 
-.story-section strong{
- color:#fff;
-}
+.story-section strong{color:#fff}
 
 .story-warning{
  border-left:3px solid var(--gold);
@@ -385,9 +366,7 @@ button{
  box-shadow:0 8px 25px #0006;
 }
 
-.char h3{
- margin:0 0 4px;
-}
+.char h3{margin:0 0 4px}
 
 .char .role{
  color:#969daa;
@@ -462,13 +441,9 @@ button{
  flex:1;
 }
 
-.setting-content strong{
- font-size:15px;
-}
+.setting-content strong{font-size:15px}
 
-.setting-content small{
- font-size:11px;
-}
+.setting-content small{font-size:11px}
 
 .settings-note{
  color:var(--muted);
@@ -478,54 +453,29 @@ button{
 }
 
 @media(max-width:700px){
-
- .grid,
- .chargrid{
-  grid-template-columns:1fr;
- }
-
- .topbar{
-  padding:0 12px;
- }
-
- .main{
-  padding:18px 12px 50px;
- }
-
- .hero{
-  padding:21px;
- }
-
+ .grid,.chargrid{grid-template-columns:1fr}
+ .topbar{padding:0 12px}
+ .main{padding:18px 12px 50px}
+ .hero{padding:21px}
  .setting{
   align-items:flex-start;
   flex-direction:column;
  }
-
  .select{
   justify-content:flex-start;
   width:100%;
  }
-
- .select button{
-  padding:9px 12px;
- }
-
+ .select button{padding:9px 12px}
  .logo{
   font-size:11px;
   letter-spacing:.11em;
  }
-
  .logo-mark{
   width:29px;
   height:29px;
  }
-
- .story{
-  padding:17px;
- }
-
+ .story{padding:17px}
 }
-
 </style>
 </head>
 
@@ -536,33 +486,17 @@ button{
 <div class="scanlines"></div>
 
 <header class="topbar">
-
 <div class="logo">
-
-<div class="logo-mark">
-RP
+<div class="logo-mark">RP</div>
+<span data-i18n="logo">THE REDPRO ARCHIVES</span>
 </div>
 
-<span data-i18n="logo">
-THE REDPRO ARCHIVES
-</span>
-
-</div>
-
-<div class="status" data-i18n="status">
-СИСТЕМА В СЕТИ
-</div>
-
+<div class="status" data-i18n="status">СИСТЕМА В СЕТИ</div>
 </header>
-
 
 <main class="main">
 
-
-<!-- =========================
-     ГЛАВНАЯ
-========================= -->
-
+<!-- ГЛАВНАЯ -->
 <section id="home" class="view active">
 
 <div class="hero">
@@ -571,9 +505,7 @@ THE REDPRO ARCHIVES
 ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ // БАЗА АРХИВОВ
 </div>
 
-<h1>
-The Redpro Archives
-</h1>
+<h1>The Redpro Archives</h1>
 
 <p data-i18n="heroText">
 Файлы истории. Персонажи. События.
@@ -582,188 +514,116 @@ The Redpro Archives
 
 <div class="actions">
 
-<button
- class="btn primary"
+<button class="btn primary"
  onclick="openView('archives')"
  data-i18n="openArchives">
 ОТКРЫТЬ АРХИВЫ
 </button>
 
-<button
- class="btn"
+<button class="btn"
  onclick="openView('characters')"
  data-i18n="characters">
 ПЕРСОНАЖИ
 </button>
 
-<button
- class="btn"
+<button class="btn"
  onclick="openView('settings')"
  data-i18n="settings">
 НАСТРОЙКИ
 </button>
 
 </div>
-
 </div>
-
 
 <div class="grid">
 
 <div class="card" onclick="openView('archives')">
-
-<div class="code">
-ARCHIVE 001
-</div>
-
-<h2 data-i18n="beginning">
-THE BEGINNING
-</h2>
-
+<div class="code">ARCHIVE 001</div>
+<h2 data-i18n="beginning">THE BEGINNING</h2>
 <p data-i18n="beginningText">
 Основная линия истории и доступные материалы.
 </p>
-
 </div>
-
 
 <div class="card gold" onclick="openView('gold')">
-
-<div class="code">
-ARCHIVE 002
-</div>
-
-<h2>
-GOLD CHILD
-</h2>
-
+<div class="code">ARCHIVE 002</div>
+<h2>GOLD CHILD</h2>
 <p data-i18n="goldText">
 История Золотого ребёнка. От исчезновения Лиры до появления Метры и вызова Разрушителя.
 </p>
-
 </div>
-
 
 <div class="card" onclick="openView('characters')">
-
-<div class="code">
-DATABASE 003
-</div>
-
-<h2 data-i18n="characters">
-ПЕРСОНАЖИ
-</h2>
-
+<div class="code">DATABASE 003</div>
+<h2 data-i18n="characters">ПЕРСОНАЖИ</h2>
 <p data-i18n="charactersText">
 База данных ключевых персонажей истории.
 </p>
-
 </div>
 
 </div>
-
 </section>
 
 
-<!-- =========================
-     АРХИВЫ
-========================= -->
-
+<!-- АРХИВЫ -->
 <section id="archives" class="view">
 
 <div class="subbar">
-
-<button
- class="back"
- onclick="openView('home')"
- data-i18n="back">
+<button class="back" onclick="openView('home')" data-i18n="back">
 ← Назад
 </button>
 
-<div class="title" data-i18n="archives">
-Архивы
+<div class="title" data-i18n="archives">Архивы</div>
+<div class="count">2 FILES</div>
 </div>
-
-<div class="count">
-2 FILES
-</div>
-
-</div>
-
 
 <div class="list">
 
 <div class="row" onclick="openView('gold')">
-
-<div class="num">
-002
-</div>
+<div class="num">002</div>
 
 <div class="rowmain">
-
-<h3 data-i18n="goldChild">
-Золотой ребёнок
-</h3>
-
+<h3 data-i18n="goldChild">Золотой ребёнок</h3>
 <p data-i18n="goldShort">
 Основная история Мелкого и Тени.
 </p>
-
 </div>
 
-<div class="arrow">
-→
-</div>
-
+<div class="arrow">→</div>
 </div>
 
 </div>
-
 </section>
 
 
-<!-- =========================
-     СЮЖЕТ
-========================= -->
-
+<!-- СЮЖЕТ -->
 <section id="gold" class="view">
 
 <div class="subbar">
 
-<button
- class="back"
+<button class="back"
  onclick="openView('home')"
  data-i18n="back">
 ← Назад
 </button>
 
-<div class="title">
-GOLD CHILD
-</div>
+<div class="title">GOLD CHILD</div>
 
 </div>
-
 
 <div class="story">
 
-<div class="kicker">
-ARCHIVE 002 // CLASSIFIED
-</div>
+<div class="kicker">ARCHIVE 002 // CLASSIFIED</div>
 
-<h1 data-i18n="goldTitle">
-Золотой ребёнок.
-</h1>
+<h1 data-i18n="goldTitle">Золотой ребёнок.</h1>
 
 <div class="subtitle" data-i18n="storyFile">
 ФАЙЛ ИСТОРИИ
 </div>
 
-
 <div class="story-warning">
 
-<strong data-i18n="warning">
-ВНИМАНИЕ.
-</strong>
+<strong data-i18n="warning">ВНИМАНИЕ.</strong>
 
 <br>
 
@@ -776,9 +636,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Новоград-7
-</h2>
+<h2>Новоград-7</h2>
 
 <p>
 История начинается в тихом, почти забытом городе
@@ -800,9 +658,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Семь лет спустя
-</h2>
+<h2>Семь лет спустя</h2>
 
 <p>
 Проходит семь лет.
@@ -827,9 +683,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Исчезновение
-</h2>
+<h2>Исчезновение</h2>
 
 <p>
 Мелкий исчезает.
@@ -849,9 +703,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Армия Взломщиков Апокалипсиса
-</h2>
+<h2>Армия Взломщиков Апокалипсиса</h2>
 
 <p>
 Под домом Редпро происходят землетрясения.
@@ -878,9 +730,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Сопротивление
-</h2>
+<h2>Сопротивление</h2>
 
 <p>
 Люди создают гильдии сопротивления.
@@ -907,9 +757,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Тень
-</h2>
+<h2>Тень</h2>
 
 <p>
 Постепенно становится ясно:
@@ -930,9 +778,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Подопытный
-</h2>
+<h2>Подопытный</h2>
 
 <p>
 Во время испытания шредера-разрушителя
@@ -951,9 +797,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Виталик под прикрытием
-</h2>
+<h2>Виталик под прикрытием</h2>
 
 <p>
 Виталик якобы предаёт гильдию и переходит к Взломщикам.
@@ -973,9 +817,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Возвращение Редпро
-</h2>
+<h2>Возвращение Редпро</h2>
 
 <p>
 Редпро появляется снова.
@@ -996,9 +838,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Читер
-</h2>
+<h2>Читер</h2>
 
 <p>
 Над городом появляется Читер —
@@ -1018,9 +858,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Операция «Перезагрузка»
-</h2>
+<h2>Операция «Перезагрузка»</h2>
 
 <p>
 Манекен, Редпро и Пека разрабатывают операцию
@@ -1047,9 +885,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Метра
-</h2>
+<h2>Метра</h2>
 
 <p>
 В новой базе Манекена начинается эксперимент
@@ -1088,9 +924,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Битва с Дельтой
-</h2>
+<h2>Битва с Дельтой</h2>
 
 <p>
 Взломщики отправляют Дельту.
@@ -1114,9 +948,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Тени за гранью
-</h2>
+<h2>Тени за гранью</h2>
 
 <p>
 За пределами времени и пространства находится
@@ -1142,9 +974,7 @@ ARCHIVE 002 // CLASSIFIED
 
 <div class="story-section">
 
-<h2>
-Вызов Разрушителя
-</h2>
+<h2>Вызов Разрушителя</h2>
 
 <p>
 Император Тени понимает,
@@ -1152,9 +982,7 @@ ARCHIVE 002 // CLASSIFIED
 Враги должны собраться в одном месте.
 </p>
 
-<p>
-И тогда появляется следующий приказ.
-</p>
+<p>И тогда появляется следующий приказ.</p>
 
 <div class="story-warning">
 
@@ -1171,20 +999,15 @@ ARCHIVE 002 // CLASSIFIED
 </div>
 
 </div>
-
 </section>
 
 
-<!-- =========================
-     ПЕРСОНАЖИ
-========================= -->
-
+<!-- ПЕРСОНАЖИ -->
 <section id="characters" class="view">
 
 <div class="subbar">
 
-<button
- class="back"
+<button class="back"
  onclick="openView('home')"
  data-i18n="back">
 ← Назад
@@ -1195,7 +1018,6 @@ ARCHIVE 002 // CLASSIFIED
 </div>
 
 </div>
-
 
 <div class="chargrid">
 
@@ -1291,33 +1113,25 @@ ARCHIVE 002 // CLASSIFIED
 </div>
 
 </div>
-
 </section>
 
 
-<!-- =========================
-     ПРОФИЛЬ ПЕРСОНАЖА
-========================= -->
-
+<!-- ПРОФИЛЬ -->
 <section id="character-profile" class="view">
 
 <div class="subbar">
 
-<button
- class="back"
+<button class="back"
  onclick="openView('characters')"
  data-i18n="back">
 ← Назад
 </button>
 
-<div
- class="title"
- id="character-profile-title">
+<div class="title" id="character-profile-title">
 Персонаж
 </div>
 
 </div>
-
 
 <div class="story">
 
@@ -1329,15 +1143,11 @@ DATABASE // CHARACTER FILE
 Персонаж
 </h1>
 
-<div
- class="subtitle"
- id="character-profile-role">
+<div class="subtitle" id="character-profile-role">
 Роль
 </div>
 
-<div
- class="story-warning"
- id="character-profile-description">
+<div class="story-warning" id="character-profile-description">
 Описание персонажа.
 </div>
 
@@ -1354,20 +1164,15 @@ DATABASE // CHARACTER FILE
 </div>
 
 </div>
-
 </section>
 
 
-<!-- =========================
-     НАСТРОЙКИ
-========================= -->
-
+<!-- НАСТРОЙКИ -->
 <section id="settings" class="view">
 
 <div class="subbar">
 
-<button
- class="back"
+<button class="back"
  onclick="openView('home')"
  data-i18n="back">
 ← Назад
@@ -1379,222 +1184,134 @@ DATABASE // CHARACTER FILE
 
 </div>
 
-
 <div class="settings">
-
-
-<!-- ЗВУК -->
 
 <div class="setting">
 
 <div class="setting-content">
 
-<div class="setting-icon">
-🔊
-</div>
+<div class="setting-icon">🔊</div>
 
 <div>
-
-<strong data-i18n="sound">
-Звук
-</strong>
-
+<strong data-i18n="sound">Звук</strong>
 <small data-i18n="soundDescription">
 Звуки интерфейса
 </small>
-
 </div>
 
 </div>
-
 
 <div class="select">
 
-<button
- id="soundOnButton"
+<button id="soundOnButton"
  onclick="setSound(true)"
  data-i18n="on">
 Вкл
 </button>
 
-<button
- id="soundOffButton"
+<button id="soundOffButton"
  onclick="setSound(false)"
  data-i18n="off">
 Выкл
 </button>
 
 </div>
-
 </div>
 
-
-<!-- РАЗМЕР ШРИФТА -->
 
 <div class="setting">
 
 <div class="setting-content">
 
-<div class="setting-icon">
-🔤
-</div>
+<div class="setting-icon">🔤</div>
 
 <div>
-
-<strong data-i18n="fontSize">
-Размер шрифта
-</strong>
-
+<strong data-i18n="fontSize">Размер шрифта</strong>
 <small id="fontDescription" data-i18n="fontDescription">
 Размер текста интерфейса
 </small>
-
 </div>
 
 </div>
-
 
 <div class="select">
 
-<button
- id="font80Button"
- onclick="setFontSize(80)">
-80%
-</button>
-
-<button
- id="font90Button"
- onclick="setFontSize(90)">
-90%
-</button>
-
-<button
- id="font100Button"
- onclick="setFontSize(100)">
-100%
-</button>
-
-<button
- id="font110Button"
- onclick="setFontSize(110)">
-110%
-</button>
-
-<button
- id="font120Button"
- onclick="setFontSize(120)">
-120%
-</button>
-
-<button
- id="font130Button"
- onclick="setFontSize(130)">
-130%
-</button>
-
-<button
- id="font150Button"
- onclick="setFontSize(150)">
-150%
-</button>
+<button id="font80Button" onclick="setFontSize(80)">80%</button>
+<button id="font90Button" onclick="setFontSize(90)">90%</button>
+<button id="font100Button" onclick="setFontSize(100)">100%</button>
+<button id="font110Button" onclick="setFontSize(110)">110%</button>
+<button id="font120Button" onclick="setFontSize(120)">120%</button>
+<button id="font130Button" onclick="setFontSize(130)">130%</button>
+<button id="font150Button" onclick="setFontSize(150)">150%</button>
 
 </div>
-
 </div>
 
-
-<!-- YOUTUBE -->
 
 <div class="setting">
 
 <div class="setting-content">
 
-<div class="setting-icon">
-▶️
-</div>
+<div class="setting-icon">▶️</div>
 
 <div>
-
-<strong data-i18n="youtube">
-YouTube канал
-</strong>
+<strong data-i18n="youtube">YouTube канал</strong>
 
 <small data-i18n="youtubeDescription">
 Официальный канал The Redpro Archives
 </small>
 
 </div>
-
 </div>
-
 
 <div class="select">
 
-<button
- class="youtube-button"
+<button class="youtube-button"
  onclick="openYouTube()"
  data-i18n="open">
 Открыть
 </button>
 
 </div>
-
 </div>
 
-
-<!-- ЯЗЫК -->
 
 <div class="setting">
 
 <div class="setting-content">
 
-<div class="setting-icon">
-🌐
-</div>
+<div class="setting-icon">🌐</div>
 
 <div>
 
-<strong data-i18n="language">
-Язык
-</strong>
+<strong data-i18n="language">Язык</strong>
 
-<small>
-Language
-</small>
+<small>Language</small>
 
 </div>
-
 </div>
-
 
 <div class="select">
 
-<button
- id="ruButton"
+<button id="ruButton"
  onclick="setLanguage('ru')">
 Русский
 </button>
 
-<button
- id="enButton"
+<button id="enButton"
  onclick="setLanguage('en')">
 English
 </button>
 
 </div>
-
 </div>
 
-
-<!-- СБРОС -->
 
 <div class="setting">
 
 <div class="setting-content">
 
-<div class="setting-icon">
-🔄
-</div>
+<div class="setting-icon">🔄</div>
 
 <div>
 
@@ -1607,57 +1324,41 @@ English
 </small>
 
 </div>
-
 </div>
-
 
 <div class="select">
 
-<button
- class="reset-button"
+<button class="reset-button"
  onclick="resetSettings()"
  data-i18n="resetButton">
 Сбросить
 </button>
 
 </div>
-
 </div>
 
-
-<div
- class="settings-note"
- data-i18n="settingsNote">
+<div class="settings-note" data-i18n="settingsNote">
 Настройки сохраняются автоматически на этом устройстве.
 </div>
 
-
 </div>
-
 </section>
 
-
 </main>
-
 </div>
 
 
 <script>
 
-/* =====================================================
+/* ================================
    НАСТРОЙКИ
-===================================================== */
+================================ */
 
 let currentLanguage =
  localStorage.getItem('redpro-language') || 'ru';
 
 let soundEnabled =
  localStorage.getItem('redpro-sound') !== 'false';
-
-/*
-   Размер шрифта хранится именно в процентах.
-   По умолчанию 100%.
-*/
 
 let fontSize =
  parseInt(
@@ -1666,17 +1367,17 @@ let fontSize =
  ) || 100;
 
 
-/* =====================================================
+/* ================================
    YOUTUBE
-===================================================== */
+================================ */
 
 const YOUTUBE_URL =
  'https://www.youtube.com/@Radproex';
 
 
-/* =====================================================
+/* ================================
    ПЕРЕКЛЮЧЕНИЕ ЭКРАНОВ
-===================================================== */
+================================ */
 
 function openView(id){
 
@@ -1698,13 +1399,12 @@ function openView(id){
  }
 
  playClick();
-
 }
 
 
-/* =====================================================
+/* ================================
    ЗВУК
-===================================================== */
+================================ */
 
 let audioContext=null;
 
@@ -1715,18 +1415,21 @@ function playClick(){
  try{
 
   if(!audioContext){
-   audioContext=
-    new (window.AudioContext || window.webkitAudioContext)();
+
+   audioContext =
+    new (window.AudioContext ||
+         window.webkitAudioContext)();
+
   }
 
   if(audioContext.state==='suspended'){
    audioContext.resume();
   }
 
-  const oscillator=
+  const oscillator =
    audioContext.createOscillator();
 
-  const gain=
+  const gain =
    audioContext.createGain();
 
   oscillator.type='square';
@@ -1783,20 +1486,14 @@ function setSound(enabled){
 }
 
 
-/* =====================================================
-   РАЗМЕР ШРИФТА В ПРОЦЕНТАХ
-===================================================== */
+/* ================================
+   РАЗМЕР ШРИФТА
+================================ */
 
 function setFontSize(size){
 
  const allowedSizes=[
-  80,
-  90,
-  100,
-  110,
-  120,
-  130,
-  150
+  80,90,100,110,120,130,150
  ];
 
  if(!allowedSizes.includes(size)){
@@ -1821,13 +1518,12 @@ function setFontSize(size){
 
 function applyFontSize(){
 
- const scale=fontSize / 100;
+ const scale=fontSize/100;
 
- document.documentElement.style
-  .setProperty(
-   '--font-scale',
-   scale
-  );
+ document.documentElement.style.setProperty(
+  '--font-scale',
+  scale
+ );
 
 }
 
@@ -1835,13 +1531,7 @@ function applyFontSize(){
 function updateFontButtons(){
 
  const sizes=[
-  80,
-  90,
-  100,
-  110,
-  120,
-  130,
-  150
+  80,90,100,110,120,130,150
  ];
 
  sizes.forEach(size=>{
@@ -1865,32 +1555,42 @@ function updateFontButtons(){
 }
 
 
-/* =====================================================
+/* ================================
    КНОПКИ ЗВУКА
-===================================================== */
+================================ */
 
 function updateSoundButtons(){
 
- document
-  .getElementById('soundOnButton')
-  .classList.toggle(
+ const on=
+  document.getElementById('soundOnButton');
+
+ const off=
+  document.getElementById('soundOffButton');
+
+ if(on){
+
+  on.classList.toggle(
    'active',
    soundEnabled===true
   );
 
- document
-  .getElementById('soundOffButton')
-  .classList.toggle(
+ }
+
+ if(off){
+
+  off.classList.toggle(
    'active',
    soundEnabled===false
   );
 
+ }
+
 }
 
 
-/* =====================================================
+/* ================================
    YOUTUBE
-===================================================== */
+================================ */
 
 function openYouTube(){
 
@@ -1904,9 +1604,9 @@ function openYouTube(){
 }
 
 
-/* =====================================================
+/* ================================
    ПЕРСОНАЖИ
-===================================================== */
+================================ */
 
 const characters={
 
@@ -2108,16 +1808,8 @@ const characters={
 };
 
 
-/* =====================================================
-   ТЕКУЩИЙ ОТКРЫТЫЙ ПЕРСОНАЖ
-===================================================== */
-
 let currentCharacterId=null;
 
-
-/* =====================================================
-   ОТКРЫТИЕ ПЕРСОНАЖА
-===================================================== */
 
 function openCharacter(id){
 
@@ -2127,7 +1819,9 @@ function openCharacter(id){
 
  currentCharacterId=id;
 
- const data=character[currentLanguage];
+ const data=
+  character[currentLanguage] ||
+  character.ru;
 
  document.getElementById(
   'character-profile-title'
@@ -2157,20 +1851,18 @@ function openCharacter(id){
   : 'Information';
 
  openView('character-profile');
-
 }
 
 
-/* =====================================================
+/* ================================
    ПЕРЕВОД
-===================================================== */
+================================ */
 
 const translations={
 
  ru:{
 
   logo:'THE REDPRO ARCHIVES',
-
   status:'СИСТЕМА В СЕТИ',
 
   kicker:
@@ -2179,17 +1871,11 @@ const translations={
   heroText:
    'Файлы истории. Персонажи. События. Некоторые материалы находятся под наблюдением системы.',
 
-  openArchives:
-   'ОТКРЫТЬ АРХИВЫ',
+  openArchives:'ОТКРЫТЬ АРХИВЫ',
+  characters:'ПЕРСОНАЖИ',
+  settings:'НАСТРОЙКИ',
 
-  characters:
-   'ПЕРСОНАЖИ',
-
-  settings:
-   'НАСТРОЙКИ',
-
-  beginning:
-   'THE BEGINNING',
+  beginning:'THE BEGINNING',
 
   beginningText:
    'Основная линия истории и доступные материалы.',
@@ -2200,68 +1886,48 @@ const translations={
   charactersText:
    'База данных ключевых персонажей истории.',
 
-  back:
-   '← Назад',
+  back:'← Назад',
+  archives:'Архивы',
 
-  archives:
-   'Архивы',
-
-  goldChild:
-   'Золотой ребёнок',
+  goldChild:'Золотой ребёнок',
 
   goldShort:
    'Основная история Мелкого и Тени.',
 
-  goldTitle:
-   'Золотой ребёнок.',
+  goldTitle:'Золотой ребёнок.',
+  storyFile:'ФАЙЛ ИСТОРИИ',
 
-  storyFile:
-   'ФАЙЛ ИСТОРИИ',
-
-  warning:
-   'ВНИМАНИЕ.',
+  warning:'ВНИМАНИЕ.',
 
   warningText:
    'Материал содержит сведения о Тени, Взломщиках Апокалипсиса и событиях, изменивших Новоград-7.',
 
-  language:
-   'Язык',
+  language:'Язык',
 
-  sound:
-   'Звук',
+  sound:'Звук',
+  soundDescription:'Звуки интерфейса',
 
-  soundDescription:
-   'Звуки интерфейса',
+  on:'Вкл',
+  off:'Выкл',
 
-  on:
-   'Вкл',
-
-  off:
-   'Выкл',
-
-  fontSize:
-   'Размер шрифта',
+  fontSize:'Размер шрифта',
 
   fontDescription:
    'Размер текста интерфейса — в процентах',
 
-  youtube:
-   'YouTube канал',
+  youtube:'YouTube канал',
 
   youtubeDescription:
    'Официальный канал The Redpro Archives',
 
-  open:
-   'Открыть',
+  open:'Открыть',
 
-  reset:
-   'Сбросить настройки',
+  reset:'Сбросить настройки',
 
   resetDescription:
    'Вернуть стандартные параметры',
 
-  resetButton:
-   'Сбросить',
+  resetButton:'Сбросить',
 
   settingsNote:
    'Настройки сохраняются автоматически на этом устройстве.'
@@ -2270,11 +1936,8 @@ const translations={
 
  en:{
 
-  logo:
-   'THE REDPRO ARCHIVES',
-
-  status:
-   'SYSTEM ONLINE',
+  logo:'THE REDPRO ARCHIVES',
+  status:'SYSTEM ONLINE',
 
   kicker:
    'CENTRAL TERMINAL // ARCHIVE DATABASE',
@@ -2282,17 +1945,11 @@ const translations={
   heroText:
    'History files. Characters. Events. Some materials are monitored by the system.',
 
-  openArchives:
-   'OPEN ARCHIVES',
+  openArchives:'OPEN ARCHIVES',
+  characters:'CHARACTERS',
+  settings:'SETTINGS',
 
-  characters:
-   'CHARACTERS',
-
-  settings:
-   'SETTINGS',
-
-  beginning:
-   'THE BEGINNING',
+  beginning:'THE BEGINNING',
 
   beginningText:
    'The main story line and available materials.',
@@ -2303,68 +1960,48 @@ const translations={
   charactersText:
    'Database of the key characters of the story.',
 
-  back:
-   '← Back',
+  back:'← Back',
+  archives:'Archives',
 
-  archives:
-   'Archives',
-
-  goldChild:
-   'Gold Child',
+  goldChild:'Gold Child',
 
   goldShort:
    'The main story of Small and the Shadow.',
 
-  goldTitle:
-   'Gold Child.',
+  goldTitle:'Gold Child.',
+  storyFile:'STORY FILE',
 
-  storyFile:
-   'STORY FILE',
-
-  warning:
-   'WARNING.',
+  warning:'WARNING.',
 
   warningText:
    'This material contains information about the Shadow, the Apocalypse Hackers and the events that changed Novograd-7.',
 
-  language:
-   'Language',
+  language:'Language',
 
-  sound:
-   'Sound',
+  sound:'Sound',
+  soundDescription:'Interface sounds',
 
-  soundDescription:
-   'Interface sounds',
+  on:'On',
+  off:'Off',
 
-  on:
-   'On',
-
-  off:
-   'Off',
-
-  fontSize:
-   'Font size',
+  fontSize:'Font size',
 
   fontDescription:
    'Interface text size — in percent',
 
-  youtube:
-   'YouTube channel',
+  youtube:'YouTube channel',
 
   youtubeDescription:
    'Official The Redpro Archives channel',
 
-  open:
-   'Open',
+  open:'Open',
 
-  reset:
-   'Reset settings',
+  reset:'Reset settings',
 
   resetDescription:
    'Restore default parameters',
 
-  resetButton:
-   'Reset',
+  resetButton:'Reset',
 
   settingsNote:
    'Settings are saved automatically on this device.'
@@ -2374,15 +2011,18 @@ const translations={
 };
 
 
-/* =====================================================
+/* ================================
    ОБНОВЛЕНИЕ ИНТЕРФЕЙСА
-===================================================== */
+================================ */
 
 function updateInterface(){
 
- const t=translations[currentLanguage];
+ const t=
+  translations[currentLanguage] ||
+  translations.ru;
 
- document.querySelectorAll('[data-i18n]').forEach(element=>{
+ document.querySelectorAll('[data-i18n]')
+ .forEach(element=>{
 
   const key=
    element.getAttribute('data-i18n');
@@ -2394,9 +2034,7 @@ function updateInterface(){
  });
 
  updateLanguageButtons();
-
  updateSoundButtons();
-
  updateFontButtons();
 
  document.documentElement.lang=
@@ -2407,9 +2045,9 @@ function updateInterface(){
 }
 
 
-/* =====================================================
+/* ================================
    КНОПКИ ЯЗЫКА
-===================================================== */
+================================ */
 
 function updateLanguageButtons(){
 
@@ -2419,29 +2057,34 @@ function updateLanguageButtons(){
  const en=
   document.getElementById('enButton');
 
- ru.classList.toggle(
-  'active',
-  currentLanguage==='ru'
- );
+ if(ru){
 
- en.classList.toggle(
-  'active',
-  currentLanguage==='en'
- );
+  ru.classList.toggle(
+   'active',
+   currentLanguage==='ru'
+  );
+
+ }
+
+ if(en){
+
+  en.classList.toggle(
+   'active',
+   currentLanguage==='en'
+  );
+
+ }
 
 }
 
 
-/* =====================================================
+/* ================================
    СМЕНА ЯЗЫКА
-===================================================== */
+================================ */
 
 function setLanguage(lang){
 
- if(
-  lang!=='ru' &&
-  lang!=='en'
- ){
+ if(lang!=='ru' && lang!=='en'){
   return;
  }
 
@@ -2453,10 +2096,6 @@ function setLanguage(lang){
  );
 
  updateInterface();
-
-
- /* Если открыт профиль персонажа —
-    обновляем его */
 
  if(
   currentCharacterId &&
@@ -2475,9 +2114,9 @@ function setLanguage(lang){
 }
 
 
-/* =====================================================
-   СБРОС НАСТРОЕК
-===================================================== */
+/* ================================
+   СБРОС
+================================ */
 
 function resetSettings(){
 
@@ -2493,9 +2132,7 @@ function resetSettings(){
  }
 
  currentLanguage='ru';
-
  soundEnabled=true;
-
  fontSize=100;
 
  localStorage.removeItem(
@@ -2511,57 +2148,75 @@ function resetSettings(){
  );
 
  applyFontSize();
-
  updateInterface();
-
  playClick();
 
 }
 
 
-/* =====================================================
+/* ================================
    ЗАПУСК
-===================================================== */
+================================ */
 
 document.addEventListener(
  'DOMContentLoaded',
  ()=>{
 
-  /*
-    Защита от старых значений:
-    если раньше сохранялись small/medium/large,
-    автоматически ставим 100%.
-  */
+  const allowedSizes=[
+   80,90,100,110,120,130,150
+  ];
 
-  if(![
-   80,
-   90,
-   100,
-   110,
-   120,
-   130,
-   150
-  ].includes(fontSize)){
-
+  if(!allowedSizes.includes(fontSize)){
    fontSize=100;
+  }
 
+  if(currentLanguage!=='ru' &&
+     currentLanguage!=='en'){
+   currentLanguage='ru';
   }
 
   applyFontSize();
-
   updateInterface();
 
-  openView('home');
+  /*
+   Не вызываем openView здесь,
+   потому что home уже active.
+   Это предотвращает лишний звук
+   при загрузке приложения.
+  */
 
  }
 );
 
+</script>
+
+
+<!-- ВАЖНО:
+     Service Worker находится
+     В ОТДЕЛЬНОМ script-блоке.
+-->
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js");
-  });
+
+if("serviceWorker" in navigator){
+
+ window.addEventListener(
+  "load",
+  ()=>{
+
+   navigator.serviceWorker
+    .register("./sw.js")
+    .catch(error=>{
+     console.log(
+      "Service Worker error:",
+      error
+     );
+    });
+
+  }
+ );
+
 }
+
 </script>
 
 </body>
